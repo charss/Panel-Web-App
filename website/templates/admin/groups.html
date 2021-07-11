@@ -24,47 +24,84 @@
     </li>
 {% endblock %}
 {% block content %}
-    <!-- <button id="sidebarCollapse" type="button" class="btn btn-light bg-white rounded-pill shadow-sm px-4 mb-4">
-        <i class="fa fa-bars mr-2"></i><small class="text-uppercase font-weight-bold">Toggle</small>
-    </button>
+    <div id="overlay" ">
+        <div id="text">
+            
+            <div id='close_button' onclick="off()">
+                <img src="{{ url_for('static', filename='close.png') }}">
+            </div>
 
-    <h2 class="display-4 text-white">Bootstrap vertical nav</h2>
-    <p class="lead text-white mb-0">Build a fixed sidebar using Bootstrap 4 vertical navigation and media objects.</p>
-    <p class="lead text-white">Snippet by <a href="https://bootstrapious.com/snippets" class="text-white">
-            <u>Bootstrapious</u></a>
-    </p>
-    <div class="separator"></div>
-    <div class="row text-white">
-        <div class="col-lg-7">
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor.
-        </p>
-        <div class="bg-white p-5 rounded my-5 shadow-sm">
-            <p class="lead font-italic mb-0 text-muted">"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-            irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."</p>
+            <div>
+                <form>
+                    <label for="groupCode">Group Code:</label>
+                    <input type='text' id='groupCode' name='groupcode'><br>
+                    <label for="groupName">Group Name:</label>
+                    <input type='text' id='groupname' name='groupname'><br>
+                    <label for="projectTitle">Project Title:</label>
+                    <input type='text' id='projectTitle' name='projectTitle'><br>
+                    <label for="program">Program:</label>
+                    <select name="program" id='program'>
+                        <option value='agd'>BSIT - AGD</option>
+                        <option value='da'>BSIT - DA</option>
+                        <option value='smba'>BSIT - SMBA</option>
+                        <option value='wma'>BSIT - WMA</option>
+                        <option value='bscs'>BSCS</option>
+                        <option value='bma'>BMA</option>
+                    </select>
+                    <br>
+                </form>
+                <form name='tablegen'>
+                    <label for="totalProp">Total Proponents:</label>
+                    <input type="number" id="totalProp" name='totalProp' autocomplete='off' pattern='\d*' maxlength="1" onkeydown='return false' min='1' max='9' value="" >
+                    <input type='button' name='generate' value='Create Table' onclick='createTable();'></button>
+                </form>
+                <!-- <form name="tablegen">
+                    <label>Rows: <input type="text" name="rows" id="rows"/></label><br />
+                    <label>Cols: <input type="text" name="cols" id="cols"/></label><br/>
+                    <input name="generate" type="button" value="Create Table!" onclick='createTable();'/>
+                </form> -->
+
+                <div id="wrapper"></div>
+
+
+                
+            </div>
+            
         </div>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor.
-        </p>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor.
-        </p>
-        </div>
-        <div class="col-lg-5">
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor.
-        </p>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-        <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
-            dolor.
-        </p>
-        </div>
-    </div> -->
+    </div>
+    <div style="padding:20px">
+        <h2>Overlay with Text</h2>
+        <button onclick="on()">Create New Group</button>
+    </div>
+    <script>
+        function on() {
+            document.getElementById("overlay").style.display = "block";
+        }
+
+        function off() {
+            document.getElementById("overlay").style.display = "none";
+        }
+
+        function createTable() {
+            var num_props = document.getElementById('totalProp').value;
+            var theader = '<table border="1">\n';
+            var tbody = '';
+
+            for (var i = 0; i < num_props; i++) {
+                tbody += '<tr>';
+                for (var j = 0; j < 2; j++)
+                {
+                    tbody += '<td>';
+                    tbody += "<input type='text'>";
+                    // tbody += 'Cell ' + i + ',' + j;                    
+                    tbody += '</td>'
+                }
+                tbody += '</tr>\n';
+            }
+            var tfooter = '</table>';
+            document.getElementById('wrapper').innerHTML = theader + tbody + tfooter;
+        }
+    </script>
 {% endblock %}
+
+

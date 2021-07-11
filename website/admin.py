@@ -8,7 +8,8 @@ def home():
     # return "<h1>HOME</h1>"
     return render_template("home.html")
 
-@admin.route('/groups/')
+
+@admin.route('/groups/', methods=['GET', 'POST'])
 def group():
     return render_template('groups.html')
 
@@ -19,3 +20,8 @@ def panelist():
 @admin.route('/schedule/')
 def schedule():
     return render_template('schedule.html')
+
+
+# @admin.route('/create_new_group/')
+# def schedule():
+#     return render_template('schedule.html')
