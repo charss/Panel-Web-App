@@ -25,7 +25,7 @@ def group():
         db.session.add(new_group)
         db.session.commit()
         
-    return render_template('groups.html', current_id=obj.id+1)
+    return render_template('groups.html', groups=Group.query.all(), current_id=obj.id+1)
 
 @admin.route('/panelist/')
 def panelist():

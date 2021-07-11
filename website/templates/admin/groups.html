@@ -74,6 +74,12 @@
         <h2>Overlay with Text</h2>
         <button onclick="on()">Create New Group</button>
     </div>
+
+    {% for group in groups %}
+        <p>ID: {{group.id}}, Name: {{group.name}}</p>
+    {% endfor %}
+
+    
     <script>
         function on() {
             document.getElementById("overlay").style.display = "block";
