@@ -13,12 +13,12 @@ def create_app():
     app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
     db.init_app(app) 
 
-    from .admin.admin import admin
+    from .admin import admin
     # from .panelist import panelist
-    from .auth.auth import auth
+    from .auth import auth
 
-    app.register_blueprint(auth, url_prefix='/login')
-    app.register_blueprint(admin, url_prefix='/admin')
+    app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(admin, url_prefix='/')
     # app.register_blueprint(panelist, url_prefix='/panelist')
 
     from .models import User

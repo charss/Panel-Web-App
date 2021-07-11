@@ -1,10 +1,9 @@
 from flask import Blueprint, render_template
 
-admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates')
+admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
 
 
 @admin.route("/home")
-@admin.route("/")
 def home():
     # return "<h1>HOME</h1>"
     return render_template("home.html")
