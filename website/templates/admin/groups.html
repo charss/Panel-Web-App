@@ -32,11 +32,11 @@
             </div>
 
             <div>
-                <form action='#' method='POST'>
+                <form method='POST'>
                     <label for="groupCode">Group Code:</label>
-                    <input type='text' id='groupCode' name='groupcode'><br>
+                    <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
                     <label for="groupName">Group Name:</label>
-                    <input type='text' id='groupname' name='groupname'><br>
+                    <input type='text' id='groupname' name='groupName'><br>
                     <label for="projectTitle">Project Title:</label>
                     <input type='text' id='projectTitle' name='projectTitle'><br>
                     <label for="program">Program:</label>
@@ -49,11 +49,10 @@
                         <option value='bma'>BMA</option>
                     </select>
                     <br>
-                    <form name='tablegen'>
-                        <label for="totalProp">Total Proponents:</label>
-                        <input type="number" id="totalProp" name='totalProp' autocomplete='off' pattern='\d*' maxlength="1" onkeydown='return false' min='1' max='9' value="" >
-                        <input type='button' name='generate' value='Create Table' onclick='createTable();'></button>
-                    </form>
+                    
+                    <label for="totalProp">Total Proponents:</label>
+                    <input type="number" id="totalProp" name='totalProp' autocomplete='off' pattern='\d*' maxlength="1" onkeydown='return false' min='1' max='9' value="" >
+                    <input type='button' name='generate' value='Create Table' onclick='createTable();'></button>
                 <!-- <form name="tablegen">
                     <label>Rows: <input type="text" name="rows" id="rows"/></label><br />
                     <label>Cols: <input type="text" name="cols" id="cols"/></label><br/>

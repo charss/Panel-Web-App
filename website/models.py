@@ -15,14 +15,14 @@ class Group(db.Model):
     name = db.Column(db.String(150), unique=True, nullable=False)
     project_title = db.Column(db.String(150), nullable=False)
     program = db.Column(db.String(150), nullable=False)
-    members = db.relationship('Student', backref='group', lazy=True)
+    members = db.relationship('Student', backref='group')
 
 class Student(db.Model):
     stud_no = db.Column(db.Integer, primary_key=True)
     last_name = db.Column(db.String(150), nullable=False)
     first_name = db.Column(db.String(150), nullable=False)
     middle_in = db.Column(db.String(10))
-    group_id = db.Column(db.Integer, db.ForeignKey('person.id'), nullable=False)
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 
 
 
