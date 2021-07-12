@@ -30,54 +30,11 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div id="overlay" ">
-        <div id="text">
-            
-            <div id='close_button' onclick="off()">
-                <img src="{{ url_for('static', filename='close.png') }}">
-            </div>
-
-            <div onload="createTable()">
-                <form method='POST'>
-                    <label for="groupCode">Group Code:</label>
-                    <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
-                    <label for="groupName">Group Name:</label>
-                    <input type='text' id='groupname' name='groupName'><br>
-                    <label for="projectTitle">Project Title:</label>
-                    <input type='text' id='projectTitle' name='projectTitle'><br>
-                    <label for="program">Program:</label>
-                    <select name="program" id='program'>
-                        <option value='agd'>BSIT - AGD</option>
-                        <option value='da'>BSIT - DA</option>
-                        <option value='smba'>BSIT - SMBA</option>
-                        <option value='wma'>BSIT - WMA</option>
-                        <option value='bscs'>BSCS</option>
-                        <option value='bma'>BMA</option>
-                    </select>
-                    <br>
-                    
-                    <label for="totalProp">Total Proponents:</label>
-                    <input type="text" id="totalProp" name='totalProp' autocomplete='off' min='1' max='9' value=0 disabled>
-                    <input type='button' name='generate' value='Add proponent' onclick='addRow();'></button>
-
-                    <div id="cont"></div>
-                    <button type='submit' name='submit' onclick="submit();">Submit</button>
-                </form>
-                
-
-
-                
-            </div>
-            
-        </div>
-    </div>
     <div style="padding:20px">
         <h2>Overlay with Text</h2>
-        <a href="/groups/">
+        <a href="/new_group/">
             <button onclick="on(); createTable()" >Create New Group</button>
         </a>
-        
-        
     </div>
 
     {% if groups %}
@@ -88,106 +45,6 @@
 
     
     <script>
-        function on() {
-            document.getElementById("overlay").style.display = "block";
-        }
-
-        function off() {
-            document.getElementById("overlay").style.display = "none";
-        }
-
-
-
-
-
-
-        var arrHead = new Array();
-        arrHead = ['', 'Last Name', 'First Name', 'Middle Initial']; // table headers.
-
-        // first create a TABLE structure by adding few headers.
-        function createTable() {
-            var empTable = document.createElement('table');
-            empTable.setAttribute('id', 'empTable');  // table id.
-            var tr = empTable.insertRow(-1);
-
-            for (var h = 0; h < arrHead.length; h++) {
-                var th = document.createElement('th'); // the header object.
-                th.innerHTML = arrHead[h];
-                tr.appendChild(th);
-            }
-
-            var div = document.getElementById('cont');
-            div.appendChild(empTable);    // add table to a container.
-        }
-
-        // function to add new row.
-        function addRow() {
-            var empTab = document.getElementById('empTable');
-            var totalProp = parseInt(document.getElementById('totalProp').value);
-            
-            var rowCnt = empTab.rows.length;    // get the number of rows.
-            var tr = empTab.insertRow(rowCnt); // table row.
-            tr = empTab.insertRow(rowCnt);
-            
-            if (totalProp == 4) {
-                return;
-            } 
-
-            for (var c = 0; c < arrHead.length; c++) {
-                var td = document.createElement('td');          // TABLE DEFINITION.
-                td = tr.insertCell(c);
-
-                if (c == 0) {   // if its the first column of the table.
-                    // add a button control.
-                    var button = document.createElement('input');
-
-                    // set the attributes.
-                    button.setAttribute('type', 'button');
-                    button.setAttribute('value', 'Remove');
-
-                    // add button's "onclick" event.
-                    button.setAttribute('onclick', 'removeRow(this)');
-
-                    td.appendChild(button);
-                }
-                else {
-                    // the 2nd, 3rd and 4th column, will have textbox.
-                    var ele = document.createElement('input');
-                    ele.setAttribute('type', 'text');
-                    ele.setAttribute('value', '');
-
-                    td.appendChild(ele);
-                }
-            }
-            document.getElementById('totalProp').value = totalProp + 1;
-        }
-
-        // function to delete a row.
-        function removeRow(oButton) {
-            var empTab = document.getElementById('empTable');
-            empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
-            document.getElementById('totalProp').value = parseInt(document.getElementById('totalProp').value) - 1
-        }
-
-        // function to extract and submit table data.
-        function submit() {
-            var myTab = document.getElementById('empTable');
-            var arrValues = new Array();
-
-            // loop through each row of the table.
-            for (row = 1; row < myTab.rows.length - 1; row++) {
-                // loop through each cell in a row.
-                for (c = 0; c < myTab.rows[row].cells.length; c++) {
-                    var element = myTab.rows.item(row).cells[c];
-                    if (element.childNodes[0].getAttribute('type') == 'text') {
-                        arrValues.push("'" + element.childNodes[0].value + "'");
-                    }
-                }
-            }
-            
-            // finally, show the result in the console.
-            console.log(arrValues);
-        }
     </script>
 {% endblock %}
 
