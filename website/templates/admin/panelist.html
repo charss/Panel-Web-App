@@ -36,12 +36,11 @@
         </a>
     </div>
 
-    {% if groups %}
-        {% for group in groups %}
-            <p>ID: {{group.id}}</p>
-            <p>Group Name: {{group.name}}</p>
-            <p>Project Title: {{group.project_title}}</p>
-            <p>Program: {{group.program}}</p>
+    {% if panels %}
+        {% for panel in panels %}
+            <p>ID: {{ panel.id }}</p>
+            <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+            <p>School: {{ panel.school }}</p>
             <br>
         {% endfor %}
     {% endif %}

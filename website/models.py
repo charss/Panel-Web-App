@@ -3,12 +3,17 @@ from . import db
 # from flask_login import UserMixin
 from sqlalchemy.sql import func
 
+
+panels = db.Table('panels',
+         db.Column('panel_id', db.Integer, db.ForeignKey('panelist.id')),
+         db.Column('movie_id', db.Integer, db.ForeignKey('defense.id'))
+)
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
-    # notes = db.relationship('Note')
 
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -26,16 +31,17 @@ class Student(db.Model):
 
 
 class Panelist(db.Model):
-    panel_no = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     last_name = db.Column(db.String(150), nullable=False)
     first_name = db.Column(db.String(150), nullable=False)
     middle_in = db.Column(db.String(10))
     school = db.Column(db.String(150))
-    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
+    
 
-# class Defense(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-# Foreign Key setup
-# user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-
-# notes = db.relationship('Note')
+class Defense(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    panelists = db.relationship(
+        'Panelist',
+        secondary=panels,
+        backref=db.backref('panels')
+    )

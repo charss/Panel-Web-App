@@ -80,7 +80,11 @@
 
     {% if groups %}
         {% for group in groups %}
-            <p>ID: {{group.id}}, Name: {{group.name}}</p>
+            <p>ID: {{group.id}}</p>
+            <p>Group Name: {{group.name}}</p>
+            <p>Project Title: {{group.project_title}}</p>
+            <p>Program: {{group.program}}</p>
+            <br>
         {% endfor %}
     {% endif %}
 
