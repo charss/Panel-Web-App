@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, url_for,request
 from werkzeug.utils import redirect
 from .models import Group
 from . import db
@@ -14,7 +14,8 @@ def home():
 
 @admin.route('/groups/', methods=['GET', 'POST'])
 def group():
-    obj = db.session.query(Group).order_by(Group.id.desc()).first()
+    if db.session.query(Group).first():
+        obj = db.session.query(Group).order_by(Group.id.desc()).first()
     if request.method == 'POST':
         groupName = request.form.get('groupName')
         projectTitle = request.form.get('projectTitle')
@@ -24,8 +25,20 @@ def group():
         new_group = Group(name=groupName, project_title=projectTitle, program=program)
         db.session.add(new_group)
         db.session.commit()
-        
-    return render_template('groups.html', groups=Group.query.all(), current_id=obj.id+1)
+
+    if db.session.query(Group).first(): 
+        return render_template('groups.html', groups=Group.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('groups.html', groups=None, current_id=1)
+
+@admin.route('/new_group/', methods=['GET', 'POST'])
+def new_group():
+    if db.session.query(Group).first():
+        obj = db.session.query(Group).order_by(Group.id.desc()).first()
+    if db.session.query(Group).first(): 
+        return render_template('groups.html', groups=Group.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('groups.html', groups=None, current_id=1)
 
 @admin.route('/panelist/')
 def panelist():
