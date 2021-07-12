@@ -25,7 +25,16 @@ class Student(db.Model):
     group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 
 
+class Panelist(db.Model):
+    panel_no = db.Column(db.Integer, primary_key=True)
+    last_name = db.Column(db.String(150), nullable=False)
+    first_name = db.Column(db.String(150), nullable=False)
+    middle_in = db.Column(db.String(10))
+    school = db.Column(db.String(150))
+    group_id = db.Column(db.Integer, db.ForeignKey('group.id'))
 
+# class Defense(db.Model):
+#     id = db.Column(db.Integer, primary_key=True)
 # Foreign Key setup
 # user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 

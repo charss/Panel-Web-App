@@ -8,7 +8,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="/groups/" class="nav-link text-dark font-italic bg-light">
+        <a href="/groups/" class="nav-link text-dark font-italic">
             <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>Groups
         </a>
     </li>
@@ -18,7 +18,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="/student/" class="nav-link text-dark font-italic">
+        <a href="/student/" class="nav-link text-dark font-italic bg-light">
             <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Students
         </a>
     </li>
@@ -27,27 +27,14 @@
             <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Schedules
         </a>
     </li>
-    <style>
-        table { width: 100%; }
-        table, th, td { border: solid 1px #DDD;
-            border-collapse: collapse; padding: 2px 3px; text-align: center;
-        }
-    </style>
 {% endblock %}
 {% block content %}
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
-        <a href="/new_group/">
-            <button onclick="on(); createTable()" >Create New Group</button>
-        </a>
-    </div>
-
-    {% if groups %}
-        {% for group in groups %}
-            <p>ID: {{group.id}}</p>
-            <p>Group Name: {{group.name}}</p>
-            <p>Project Title: {{group.project_title}}</p>
-            <p>Program: {{group.program}}</p>
+    {% if students %}
+        {% for student in students %}
+            <p>ID: {{student.stud_no}}</p>
+            <p>Name: {{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</p>
+            <p>Group: {{ student.group_id }}</p>
+            <p>Group Name: {{ student.group.group_name }}</p>
             <br>
         {% endfor %}
     {% endif %}
@@ -56,5 +43,3 @@
     <script>
     </script>
 {% endblock %}
-
-

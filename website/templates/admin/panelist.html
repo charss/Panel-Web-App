@@ -18,7 +18,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="#" class="nav-link text-dark font-italic">
+        <a href="/student/" class="nav-link text-dark font-italic">
             <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Students
         </a>
     </li>
@@ -29,5 +29,24 @@
     </li>
 {% endblock %}
 {% block content %}
-    <a href='#'>Create New Group</a>
+    <div style="padding:20px">
+        <h2>Overlay with Text</h2>
+        <a href="/new_panel/">
+            <button onclick="on(); createTable()" >Create New Panelist</button>
+        </a>
+    </div>
+
+    {% if groups %}
+        {% for group in groups %}
+            <p>ID: {{group.id}}</p>
+            <p>Group Name: {{group.name}}</p>
+            <p>Project Title: {{group.project_title}}</p>
+            <p>Program: {{group.program}}</p>
+            <br>
+        {% endfor %}
+    {% endif %}
+
+    
+    <script>
+    </script>
 {% endblock %}

@@ -76,6 +76,14 @@ def panelist():
 def schedule():
     return render_template('schedule.html')
 
+@admin.route('/student/')
+def student():
+    if db.session.query(Student).first(): 
+        return render_template('student.html', students=Student.query.all())
+    else:
+        return render_template('student.html', students=None)
+    return render_template('student.html')
+
 # @admin.route('/create_new_group/')
 # def schedule():
 #     return render_template('schedule.html')
