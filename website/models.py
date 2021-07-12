@@ -4,9 +4,9 @@ from . import db
 from sqlalchemy.sql import func
 
 
-panels = db.Table('panels',
+defense_panel = db.Table('defense_panel',
          db.Column('panel_id', db.Integer, db.ForeignKey('panelist.id')),
-         db.Column('movie_id', db.Integer, db.ForeignKey('defense.id'))
+         db.Column('defense_id', db.Integer, db.ForeignKey('defense.id'))
 )
 
 class User(db.Model):
@@ -36,12 +36,13 @@ class Panelist(db.Model):
     first_name = db.Column(db.String(150), nullable=False)
     middle_in = db.Column(db.String(10))
     school = db.Column(db.String(150))
+    paneling = db.relationship(
+        'Defense',
+        secondary=defense_panel,
+        backref=db.backref('panels')
+    )
     
 
 class Defense(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    panelists = db.relationship(
-        'Panelist',
-        secondary=panels,
-        backref=db.backref('panels')
-    )
+    
