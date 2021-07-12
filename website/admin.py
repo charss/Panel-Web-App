@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, request, jsonify
 import json
 from werkzeug.utils import redirect
-from .models import Group
+from .models import Group, Student
 from . import db
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
@@ -30,29 +30,33 @@ def new_group():
 
     if request.method == 'POST':
         data = request.json
-        # print(data['group_name'])
         groupName = data['group_name']
         projectTitle = data['project_title']
         program = data['program']
         i = 0
-        prop_name = ""
         for prop in data['proponents']:
-            # print(prop)
             if i == 0:
-                lastName = prop
+                studNo = prop
             elif i == 1:
-                firstName = prop
+                lastName = prop
             elif i == 2:
+                firstName = prop
+            elif i == 3:
                 middleI = prop
-            prop_name += prop
-            if i == 2:
-                print(prop_name)
-                prop_name = ''
+                new_student = Student(stud_no=studNo, 
+                                      last_name=lastName, 
+                                      first_name=firstName,
+                                      middle_in=middleI,
+                                      group_id=obj.id+1)
+                db.session.add(new_student)
+                db.session.commit()
                 i = -1
             i += 1
 
 
-        new_group = Group(name=groupName, project_title=projectTitle, program=program)
+        new_group = Group(name=groupName, 
+                          project_title=projectTitle, 
+                          program=program)
         db.session.add(new_group)
         db.session.commit()
         return jsonify(data)
