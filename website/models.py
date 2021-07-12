@@ -12,7 +12,7 @@ class User(db.Model):
 
 class Group(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150), unique=True, nullable=False)
+    name = db.Column(db.String(150), nullable=False)
     project_title = db.Column(db.String(150), nullable=False)
     program = db.Column(db.String(150), nullable=False)
     members = db.relationship('Student', backref='group')

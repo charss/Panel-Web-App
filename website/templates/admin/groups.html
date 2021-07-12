@@ -4,7 +4,7 @@
     <li class="nav-item">
         <!-- bg-light shows the selected -->
         <a href="/home" class="nav-link text-dark font-italic">
-            <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>Home
+            <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>Dashboard
         </a>
     </li>
     <li class="nav-item">
@@ -14,106 +14,42 @@
     </li>
     <li class="nav-item">
         <a href="/panelist/" class="nav-link text-dark font-italic">
-            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Panelist
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Panelists
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link text-dark font-italic">
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Students
         </a>
     </li>
     <li class="nav-item">
         <a href="/schedule/" class="nav-link text-dark font-italic">
-            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Schedule
+            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Schedules
         </a>
     </li>
+    <style>
+        table { width: 100%; }
+        table, th, td { border: solid 1px #DDD;
+            border-collapse: collapse; padding: 2px 3px; text-align: center;
+        }
+    </style>
 {% endblock %}
 {% block content %}
-    <div id="overlay" ">
-        <div id="text">
-            
-            <div id='close_button' onclick="off()">
-                <img src="{{ url_for('static', filename='close.png') }}">
-            </div>
-
-            <div>
-                <form method='POST'>
-                    <label for="groupCode">Group Code:</label>
-                    <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
-                    <label for="groupName">Group Name:</label>
-                    <input type='text' id='groupname' name='groupName'><br>
-                    <label for="projectTitle">Project Title:</label>
-                    <input type='text' id='projectTitle' name='projectTitle'><br>
-                    <label for="program">Program:</label>
-                    <select name="program" id='program'>
-                        <option value='agd'>BSIT - AGD</option>
-                        <option value='da'>BSIT - DA</option>
-                        <option value='smba'>BSIT - SMBA</option>
-                        <option value='wma'>BSIT - WMA</option>
-                        <option value='bscs'>BSCS</option>
-                        <option value='bma'>BMA</option>
-                    </select>
-                    <br>
-                    
-                    <label for="totalProp">Total Proponents:</label>
-                    <input type="number" id="totalProp" name='totalProp' autocomplete='off' pattern='\d*' maxlength="1" onkeydown='return false' min='1' max='9' value="" >
-                    <input type='button' name='generate' value='Create Table' onclick='createTable();'></button>
-                <!-- <form name="tablegen">
-                    <label>Rows: <input type="text" name="rows" id="rows"/></label><br />
-                    <label>Cols: <input type="text" name="cols" id="cols"/></label><br/>
-                    <input name="generate" type="button" value="Create Table!" onclick='createTable();'/>
-                </form> -->
-
-                    <div id="wrapper"></div>
-                    <button type='submit' name='submit'>Submit</button>
-                </form>
-                
-
-
-                
-            </div>
-            
-        </div>
-    </div>
     <div style="padding:20px">
         <h2>Overlay with Text</h2>
-        <button onclick="on()">Create New Group</button>
+        <a href="/new_group/">
+            <button onclick="on(); createTable()" >Create New Group</button>
+        </a>
     </div>
 
-    {% for group in groups %}
-        <p>ID: {{group.id}}, Name: {{group.name}}</p>
-    {% endfor %}
+    {% if groups %}
+        {% for group in groups %}
+            <p>ID: {{group.id}}, Name: {{group.name}}</p>
+        {% endfor %}
+    {% endif %}
 
     
     <script>
-        function on() {
-            document.getElementById("overlay").style.display = "block";
-        }
-
-        function off() {
-            document.getElementById("overlay").style.display = "none";
-        }
-
-        function createTable() {
-            var num_props = document.getElementById('totalProp').value;
-            var theader = '<table border="1">\n';
-            
-            var tbody = '';
-            tbody += '<tr>';
-            tbody += '<th>Last Name</th>';
-            tbody += '<th>First Name</th>';
-            tbody += '<th>Middle Initial</th>';
-            tbody += '</tr>';
-            
-            for (var i = 0; i < num_props; i++) {
-                tbody += '<tr>';
-                for (var j = 0; j < 3; j++)
-                {
-                    tbody += '<td>';
-                    tbody += "<input type='text'>";
-                    // tbody += 'Cell ' + i + ',' + j;                    
-                    tbody += '</td>'
-                }
-                tbody += '</tr>\n';
-            }
-            var tfooter = '</table>';
-            document.getElementById('wrapper').innerHTML = theader + tbody + tfooter;
-        }
     </script>
 {% endblock %}
 

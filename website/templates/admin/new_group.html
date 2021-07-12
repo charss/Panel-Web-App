@@ -1,0 +1,203 @@
+{% extends "admin.html" %}
+{% block title %}Home Page{% endblock %}
+{% block navigation %}
+    <li class="nav-item">
+        <!-- bg-light shows the selected -->
+        <a href="/home" class="nav-link text-dark font-italic">
+            <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/groups/" class="nav-link text-dark font-italic bg-light">
+            <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>Groups
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/panelist/" class="nav-link text-dark font-italic">
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Panelist
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="#" class="nav-link text-dark font-italic">
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Students
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/schedule/" class="nav-link text-dark font-italic">
+            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Schedule
+        </a>
+    </li>
+    <style>
+        table { width: 100%; }
+        table, th, td { border: solid 1px #DDD;
+            border-collapse: collapse; padding: 2px 3px; text-align: center;
+        }
+    </style>
+    
+{% endblock %}
+{% block content %}
+    <div id="overlay">
+        <div id="text">
+            
+            <div id='close_button' onclick="off()">
+                <a href='/groups'>
+                    <img src="{{ url_for('static', filename='close.png') }}">
+                </a>
+                
+            </div>
+
+            <div>
+                <label for="groupCode">Group Code:</label>
+                <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
+                <label for="groupName">Group Name:</label>
+                <input type='text' id='groupName' name='groupName'><br>
+                <label for="projectTitle">Project Title:</label>
+                <input type='text' id='projectTitle' name='projectTitle'><br>
+                <label for="program">Program:</label>
+                <select name="program" id='program'>
+                    <option value='agd'>BSIT - AGD</option>
+                    <option value='da'>BSIT - DA</option>
+                    <option value='smba'>BSIT - SMBA</option>
+                    <option value='wma'>BSIT - WMA</option>
+                    <option value='bscs'>BSCS</option>
+                    <option value='bma'>BMA</option>
+                </select>
+                <br>
+                
+                <label for="totalProp">Total Proponents:</label>
+                <input type="text" id="totalProp" name='totalProp' autocomplete='off' min='1' max='9' value=0 disabled>
+                <input type='button' name='generate' value='Add proponent' onclick='addRow();'></button>
+                
+                <div id="cont"></div>
+                <button id='submit' name='submit'>Submit</button>
+            </div>
+        </div>
+    </div>
+    <div style="padding:20px">
+        <h2>Overlay with Text</h2>
+        <button>Create New Group</button>
+    </div>
+
+    {% if groups %}
+        {% for group in groups %}
+            <p>ID: {{group.id}}, Name: {{group.name}}</p>
+        {% endfor %}
+    {% endif %}
+
+    
+    <script>
+        var arrValues = new Array();
+        var arrHead = new Array();
+        var dict = {}
+        arrHead = ['', 'Student Number', 'Last Name', 'First Name', 'Middle Initial']; // table headers.
+        var empTable = document.createElement('table');
+        empTable.setAttribute('id', 'empTable');  // table id.
+        var tr = empTable.insertRow(-1);
+
+
+        console.log(dict);
+        for (var h = 0; h < arrHead.length; h++) {
+            var th = document.createElement('th'); // the header object.
+            th.innerHTML = arrHead[h];
+            tr.appendChild(th);
+        }
+
+        var div = document.getElementById('cont');
+        div.appendChild(empTable);    // add table to a container.
+        // first create a TABLE structure by adding few headers.
+
+        // function to add new row.
+        function addRow() {
+            var empTab = document.getElementById('empTable');
+            var totalProp = parseInt(document.getElementById('totalProp').value);
+            
+            var rowCnt = empTab.rows.length;    // get the number of rows.
+            var tr = empTab.insertRow(rowCnt); // table row.
+            tr = empTab.insertRow(rowCnt);
+            
+            if (totalProp == 4) {
+                return;
+            } 
+
+            for (var c = 0; c < arrHead.length; c++) {
+                var td = document.createElement('td');          // TABLE DEFINITION.
+                td = tr.insertCell(c);
+
+                if (c == 0) {   // if its the first column of the table.
+                    // add a button control.
+                    var button = document.createElement('input');
+
+                    // set the attributes.
+                    button.setAttribute('type', 'button');
+                    button.setAttribute('value', 'Remove');
+
+                    // add button's "onclick" event.
+                    button.setAttribute('onclick', 'removeRow(this)');
+
+                    td.appendChild(button);
+                }
+                else {
+                    // the 2nd, 3rd and 4th column, will have textbox.
+                    var ele = document.createElement('input');
+                    ele.setAttribute('type', 'text');
+                    ele.setAttribute('value', '');
+
+                    td.appendChild(ele);
+                }
+            }
+            document.getElementById('totalProp').value = totalProp + 1;
+        }
+
+        // function to delete a row.
+        function removeRow(oButton) {
+            var empTab = document.getElementById('empTable');
+            empTab.deleteRow(oButton.parentNode.parentNode.rowIndex); // buttton -> td -> tr
+            document.getElementById('totalProp').value = parseInt(document.getElementById('totalProp').value) - 1
+        }
+
+        // function to extract and submit table data.
+        function submit() {
+            var myTab = document.getElementById('empTable');
+            dict['group_name'] = document.getElementById('groupName').value;
+            dict['project_title'] = document.getElementById('projectTitle').value;
+            dict['program'] = document.getElementById('program').value;
+            
+
+            // loop through each row of the table.
+            for (row = 1; row < myTab.rows.length - 1; row++) {
+                // loop through each cell in a row.
+                for (c = 0; c < myTab.rows[row].cells.length; c++) {
+                    var element = myTab.rows.item(row).cells[c];
+                    if (element.childNodes[0].getAttribute('type') == 'text') {
+                        arrValues.push(element.childNodes[0].value);
+                    }
+                }
+            }
+            dict['proponents'] = arrValues;
+            // finally, show the result in the console.
+            return dict;
+            
+            console.log(dict);
+        }
+
+        $(document).ready(function () {
+            $("#submit").on("click", function() {
+                var js_data = JSON.stringify(submit());
+                $.ajax({
+                    url: "/new_group/",
+                    type : 'POST',
+                    contentType: 'application/json',
+                    dataType : 'json',
+                    data : js_data
+                }).done(function(result) {
+                    console.log(result);
+                    $("#data").html(result);
+                    console.log('SUCCESS')
+                    window.location.href = "/groups";
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log("fail: ",textStatus, errorThrown);
+                });
+            });
+        });
+    </script>
+{% endblock %}
