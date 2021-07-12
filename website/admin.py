@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, request, jsonify
 import json
 from werkzeug.utils import redirect
-from .models import Group, Student
+from .models import Group, Student, Panelist
 from . import db
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
@@ -13,6 +13,7 @@ def home():
 
 @admin.route('/groups/', methods=['GET', 'POST'])
 def group():
+    obj = 0
     if db.session.query(Group).first():
         obj = db.session.query(Group).order_by(Group.id.desc()).first()
     
@@ -24,8 +25,9 @@ def group():
 
 @admin.route('/new_group/', methods=['GET', 'POST'])
 def new_group():
+    obj = 0
     if db.session.query(Group).first():
-        obj = db.session.query(Group).order_by(Group.id.desc()).first()
+        obj = db.session.query(Group).order_by(Group.id.desc()).first().id
 
 
     if request.method == 'POST':
@@ -47,7 +49,7 @@ def new_group():
                                       last_name=lastName, 
                                       first_name=firstName,
                                       middle_in=middleI,
-                                      group_id=obj.id+1)
+                                      group_id=obj+1)
                 db.session.add(new_student)
                 db.session.commit()
                 i = -1
@@ -62,7 +64,7 @@ def new_group():
         return jsonify(data)
 
     if db.session.query(Group).first(): 
-        return render_template('new_group.html', groups=Group.query.all(), current_id=obj.id+1)
+        return render_template('new_group.html', groups=Group.query.all(), current_id=obj+1)
     else:
         return render_template('new_group.html', groups=None, current_id=1)
 
@@ -70,7 +72,40 @@ def new_group():
 
 @admin.route('/panelist/')
 def panelist():
-    return render_template('panelist.html')
+    obj = 0
+    if db.session.query(Panelist).first():
+        obj = db.session.query(Panelist).order_by(Panelist.id.desc()).first()
+    
+    
+    if db.session.query(Panelist).first(): 
+        return render_template('panelist.html', panels=Panelist.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('panelist.html', panels=None, current_id=1)
+
+@admin.route('/new_panel/', methods=['GET', 'POST'])
+def new_panel():
+    obj = 0
+    if db.session.query(Panelist).first():
+        obj = db.session.query(Panelist).order_by(Panelist.id.desc()).first()
+    
+    if request.method == 'POST':
+        lastName = request.form['lastName']
+        firstName = request.form['firstName']
+        middleIn = request.form['middleIn']
+        school = request.form['school']
+
+        new_panel = Panelist(last_name=lastName,
+                         first_name=firstName,
+                         middle_in=middleIn,
+                         school=school)
+        db.session.add(new_panel)
+        db.session.commit()
+        return redirect(url_for('admin.panelist'))
+
+    if db.session.query(Panelist).first(): 
+        return render_template('new_panel.html', panels=Panelist.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('new_panel.html', panels=None, current_id=1)
 
 @admin.route('/schedule/')
 def schedule():
@@ -82,7 +117,6 @@ def student():
         return render_template('student.html', students=Student.query.all())
     else:
         return render_template('student.html', students=None)
-    return render_template('student.html')
 
 # @admin.route('/create_new_group/')
 # def schedule():
