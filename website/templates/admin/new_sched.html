@@ -1,0 +1,99 @@
+{% extends "admin.html" %}
+{% block title %}Home Page{% endblock %}
+{% block navigation %}
+    <li class="nav-item">
+        <!-- bg-light shows the selected -->
+        <a href="/home" class="nav-link text-dark font-italic">
+            <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>Dashboard
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/groups/" class="nav-link text-dark font-italic">
+            <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>Groups
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/panelist/" class="nav-link text-dark font-italic">
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Panelists
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/student/" class="nav-link text-dark font-italic">
+            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Students
+        </a>
+    </li>
+    <li class="nav-item">
+        <a href="/schedule/" class="nav-link text-dark font-italic bg-light">
+            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Schedules
+        </a>
+    </li>
+    <style>
+        table { width: 100%; }
+        table, th, td { border: solid 1px #DDD;
+            border-collapse: collapse; padding: 2px 3px; text-align: center;
+        }
+    </style>
+    
+{% endblock %}
+{% block content %}
+    <div id="overlay">
+        <div id="text">
+            
+            <div id='close_button' onclick="off()">
+                <a href='/schedule'>
+                    <img src="{{ url_for('static', filename='close.png') }}">
+                </a>
+                
+            </div>
+
+            <div>
+                <form method='POST'>
+                    <label for="userCode">User Code:</label>
+                    <input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
+
+                    <label for="lastName">Last Name</label>
+                    <input type='text' id='lastName' name='lastName'><br>
+
+                    <label for="firstName">First Name</label>
+                    <input type='text' id='firstName' name='firstName'><br>
+
+                    <label for="middleIn">Middle Initial</label>
+                    <input type='text' id='middleIn' name='middleIn'><br>
+
+                    <label for="school">School:</label>
+                    <select name="school" id='school'>
+                        <option value='alabang'>FEU Alabang</option>
+                        <option value='tech'>FEU Tech</option>
+                        <option value='diliman'>FEU Diliman</option>
+                    </select>
+                    <br>
+
+                    <button type='submit' id='submit' name='submit'>Submit</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div style="padding:20px">
+        <h2>Overlay with Text</h2>
+        <button>Create New Panelist</button>
+    </div>
+
+    {% if panels %}
+        {% for panel in panels %}
+            <p>ID: {{ panel.id }}</p>
+            <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+            <p>School: {{ panel.school }}</p>
+            <br>
+        {% endfor %}
+    {% endif %}
+
+    
+    <script>
+        var arrValues = new Array();
+        var arrHead = new Array();
+        var dict = {}
+    </script>
+{% endblock %}

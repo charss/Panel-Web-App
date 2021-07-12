@@ -111,6 +111,10 @@ def new_panel():
 def schedule():
     return render_template('schedule.html')
 
+@admin.route('/new_sched/')
+def new_sched():
+    return render_template('new_sched.html')
+
 @admin.route('/student/')
 def student():
     if db.session.query(Student).first(): 
