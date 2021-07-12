@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, request, jsonify
 import json
 from werkzeug.utils import redirect
-from .models import Group, Student, Panelist
+from .models import Group, Student, Panelist, Defense
 from . import db
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
@@ -27,7 +27,7 @@ def group():
 def new_group():
     obj = 0
     if db.session.query(Group).first():
-        obj = db.session.query(Group).order_by(Group.id.desc()).first().id
+        obj = db.session.query(Group).order_by(Group.id.desc()).first()
 
 
     if request.method == 'POST':
@@ -49,7 +49,7 @@ def new_group():
                                       last_name=lastName, 
                                       first_name=firstName,
                                       middle_in=middleI,
-                                      group_id=obj+1)
+                                      group_id=obj.id+1)
                 db.session.add(new_student)
                 db.session.commit()
                 i = -1
@@ -64,7 +64,7 @@ def new_group():
         return jsonify(data)
 
     if db.session.query(Group).first(): 
-        return render_template('new_group.html', groups=Group.query.all(), current_id=obj+1)
+        return render_template('new_group.html', groups=Group.query.all(), current_id=obj.id+1)
     else:
         return render_template('new_group.html', groups=None, current_id=1)
 
@@ -109,11 +109,27 @@ def new_panel():
 
 @admin.route('/schedule/')
 def schedule():
-    return render_template('schedule.html')
+    obj = 0
+    if db.session.query(Defense).first():
+        obj = db.session.query(Defense).order_by(Defense.id.desc()).first()
+    
+    
+    if db.session.query(Defense).first(): 
+        return render_template('schedule.html', defenses=Defense.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('schedule.html', defenses=None, current_id=1)
 
 @admin.route('/new_sched/')
 def new_sched():
-    return render_template('new_sched.html')
+    obj = 0
+    if db.session.query(Defense).first():
+        obj = db.session.query(Defense).order_by(Defense.id.desc()).first()
+    
+    
+    if db.session.query(Defense).first(): 
+        return render_template('new_sched.html', defenses=Defense.query.all(), current_id=obj.id+1, groups=Group.query.all(), panels=Panelist.query.all())
+    else:
+        return render_template('new_sched.html', defenses=None, current_id=1, groups=Group.query.all(), panels=Panelist.query.all())
 
 @admin.route('/student/')
 def student():

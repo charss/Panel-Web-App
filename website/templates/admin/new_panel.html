@@ -67,7 +67,7 @@
                         <option value='diliman'>FEU Diliman</option>
                     </select>
                     <br>
-                    
+
                     <button type='submit' id='submit' name='submit'>Submit</button>
                 </form>
                 
@@ -95,49 +95,5 @@
         var arrValues = new Array();
         var arrHead = new Array();
         var dict = {}
-        // function to extract and submit table data.
-        // function submit() {
-        //     var myTab = document.getElementById('empTable');
-        //     dict['group_name'] = document.getElementById('groupName').value;
-        //     dict['project_title'] = document.getElementById('projectTitle').value;
-        //     dict['program'] = document.getElementById('program').value;
-            
-
-        //     // loop through each row of the table.
-        //     for (row = 1; row < myTab.rows.length - 1; row++) {
-        //         // loop through each cell in a row.
-        //         for (c = 0; c < myTab.rows[row].cells.length; c++) {
-        //             var element = myTab.rows.item(row).cells[c];
-        //             if (element.childNodes[0].getAttribute('type') == 'text') {
-        //                 arrValues.push(element.childNodes[0].value);
-        //             }
-        //         }
-        //     }
-        //     dict['proponents'] = arrValues;
-        //     // finally, show the result in the console.
-        //     return dict;
-            
-        //     console.log(dict);
-        // }
-
-        // $(document).ready(function () {
-        //     $("#submit").on("click", function() {
-        //         var js_data = JSON.stringify(submit());
-        //         $.ajax({
-        //             url: "/new_group/",
-        //             type : 'POST',
-        //             contentType: 'application/json',
-        //             dataType : 'json',
-        //             data : js_data
-        //         }).done(function(result) {
-        //             console.log(result);
-        //             $("#data").html(result);
-        //             console.log('SUCCESS')
-        //             window.location.href = "/groups";
-        //         }).fail(function(jqXHR, textStatus, errorThrown) {
-        //             console.log("fail: ",textStatus, errorThrown);
-        //         });
-        //     });
-        // });
     </script>
 {% endblock %}
