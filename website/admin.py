@@ -8,9 +8,9 @@ from datetime import datetime, date, time, timedelta
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
 
-@admin.route("/home")
+@admin.route("/home/")
 @login_required
-def home():
+def admin_home():
     if not db.session.query(Group).first():
         populate_group()
 

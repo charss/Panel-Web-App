@@ -3,8 +3,6 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import event
 from os import path
 from flask_login import LoginManager
-from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -29,9 +27,6 @@ def create_app():
     from .models import Panelist
 
     create_database(app)
-
-    admin = Admin(app)
-    admin.add_view(ModelView(Panelist, db.session, endpoint='users_'))
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'

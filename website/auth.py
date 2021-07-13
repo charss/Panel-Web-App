@@ -2,14 +2,14 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for
 from .models import Panelist
 from werkzeug.security import generate_password_hash, check_password_hash
 from . import db
-from flask_login import login_user, login_required, logout_user, current_user
-from flask_admin import Admin
+from flask_login import login_user, login_required, logout_user, current_user, UserMixin
 
 
 auth = Blueprint('auth', __name__, static_folder='static', template_folder='templates/auth')
 
 
-
+class Admin(UserMixin):
+    id = 1
 
 
 @auth.route('/login/', methods=['GET', 'POST'])
@@ -23,7 +23,7 @@ def login():
         if username == 'admin' and password == 'admin':
             admin = Admin()
             login_user(admin, remember=True)
-            return redirect(url_for('admin.home'))
+            return redirect(url_for('admin.admin_home'))
         
         if user := Panelist.query.filter_by(username=username).first():
             if user.password == password:
@@ -44,6 +44,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash('Successfully logged out.', category='success')
     return redirect(url_for('auth.login'))
 
 
