@@ -3,11 +3,21 @@ import json
 from werkzeug.utils import redirect
 from .models import Group, Student, Panelist, Defense
 from . import db
+from .populate import *
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
+
+
+
 @admin.route("/home")
 def home():
-    # return "<h1>HOME</h1>"
+    if not db.session.query(Group).first():
+        populate_group()
+
+    if not db.session.query(Student).first():
+        populate_students()
+    
+
     return render_template("home.html")
 
 
