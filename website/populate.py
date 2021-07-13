@@ -267,4 +267,34 @@ def populate_students():
     x += 1
 
 def populate_panelist():
-    pass
+    new_panel = Panelist(last_name='Abacan',
+                         first_name='Ray Carlo',
+                         middle_in='',
+                         school='alabang')
+    db.session.add(new_panel)
+
+    new_panel = Panelist(last_name='Aldana',
+                         first_name='Resty',
+                         middle_in='',
+                         school='alabang')
+    db.session.add(new_panel)
+
+    new_panel = Panelist(last_name='Ortega',
+                         first_name='Miles',
+                         middle_in='',
+                         school='alabang')
+    db.session.add(new_panel)
+
+    new_panel = Panelist(last_name='Almeniana',
+                         first_name='Fanny',
+                         middle_in='',
+                         school='alabang')
+    db.session.add(new_panel)
+
+    new_panel = Panelist(last_name='Carpio',
+                         first_name='Ailene',
+                         middle_in='',
+                         school='alabang')
+    db.session.add(new_panel)
+
+    db.session.commit()

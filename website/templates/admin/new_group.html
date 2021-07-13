@@ -73,18 +73,21 @@
             </div>
         </div>
     </div>
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
+
+
+    <div class='create_button'>
         <button>Create New Group</button>
     </div>
 
     {% if groups %}
         {% for group in groups %}
-            <p>ID: {{group.id}}</p>
-            <p>Group Name: {{group.name}}</p>
-            <p>Project Title: {{group.project_title}}</p>
-            <p>Program: {{group.program}}</p>
-            <br>
+            <div class='box'
+                <p>ID: {{group.id}}</p>
+                <p>Group Name: {{group.name}}</p>
+                <p>Project Title: {{group.project_title}}</p>
+                <p>Program: {{group.program}}</p>
+                <br>
+            </div>
         {% endfor %}
     {% endif %}
 

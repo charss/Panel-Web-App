@@ -94,17 +94,22 @@
                     </select>
                     <br>
 
-                    <!-- <label for="defense_date">Defense Date:</label>
+                    <label for="defense_date">Defense Date:</label>
                     <input type="date" id="defense_date" name="defense_date" required>
                     <br>
 
                     <label for="start_time">Start Time:</label>
-                    <input type="time" id="start_time" name="start_time" min="09:00" max="18:00" required>
+                    <input type="time" id="start_time" name="start_time" min="09:00" max='' required>
                     <br>
-
-                    <label for="end_time">Start Time:</label>
-                    <input type="time" id="end_time" name="end_time" min="09:00" max="18:00" required>
-                    <br> -->
+                    
+                    <label for="duration">Duration</label>
+                    <select name='duration' id='duration'>
+                        <option value='hour1'>1</option>
+                        <option value='hour2'>2</option>
+                        <option value='hour3'>3</option>
+                    </select>
+                    <br>
+                    
                     <button type='submit' id='submit' name='submit'>Submit</button>
                 </form>
                 
@@ -113,17 +118,19 @@
     </div>
 
 
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
-        <button>Create New Panelist</button>
+    <div class='create_button'>
+        <button>Create New Defense Schedule</button>
     </div>
 
     {% if defenses %}
         {% for defense in defenses %}
             <p>ID: {{ defense.id }}</p>
+            <p>Group Name: {{ defense.group.name }} </p>
+            <p>Panels:</p>
             {% for panel in defense.panels %}
-                <p>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
             {% endfor %}
+            <p>Defense Date: {{ defense.start_date}}</p>
             <br>
         {% endfor %}
     {% endif %}

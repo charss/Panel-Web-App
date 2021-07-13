@@ -35,26 +35,29 @@
     </style>
 {% endblock %}
 {% block content %}
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
+    <div class='create_button'>
         <a href="/new_group/">
-            <button onclick="on(); createTable()" >Create New Group</button>
+            <button>Create New Group</button>
         </a>
     </div>
 
-    {% if groups %}
-        {% for group in groups %}
-            <p>ID: {{group.id}}</p>
-            <p>Group Name: {{group.name}}</p>
-            <p>Project Title: {{group.project_title}}</p>
-            <p>Program: {{group.program}}</p>
-            <br>
-        {% endfor %}
-    {% endif %}
+    <div class='display_grid'>
+        {% if groups %}
+            {% for group in groups %}
+                <div class='box'
+                    <p>ID: {{group.id}}</p>
+                    <p>Group Name: {{group.name}}</p>
+                    <p>Project Title: {{group.project_title}}</p>
+                    <p>Program: {{group.program}}</p>
+                    <a href="#">
+                        <button>Edit</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
 
-    
-    <script>
-    </script>
+        
+    </div>
 {% endblock %}
 
 

@@ -76,17 +76,19 @@
     </div>
 
 
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
+    <div class='create_button'>
         <button>Create New Panelist</button>
     </div>
 
     {% if panels %}
         {% for panel in panels %}
-            <p>ID: {{ panel.id }}</p>
-            <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-            <p>School: {{ panel.school }}</p>
-            <br>
+            <div class='box'>
+                <p>ID: {{ panel.id }}</p>
+                <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                <p>School: {{ panel.school }}</p>
+                <br>
+            </div>
+            
         {% endfor %}
     {% endif %}
 

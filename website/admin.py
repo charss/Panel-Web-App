@@ -1,9 +1,9 @@
 from flask import Blueprint, render_template, url_for, request, jsonify
-import json
 from werkzeug.utils import redirect
 from .models import Group, Student, Panelist, Defense
 from . import db
 from .populate import *
+from datetime import datetime, date, time, timedelta
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
 
@@ -16,7 +16,9 @@ def home():
 
     if not db.session.query(Student).first():
         populate_students()
-    
+
+    if not db.session.query(Panelist).first():
+        populate_panelist()
 
     return render_template("home.html")
 
@@ -90,9 +92,6 @@ def panelist():
     if db.session.query(Panelist).first():
         obj = db.session.query(Panelist).order_by(Panelist.id.desc()).first()
     
-    for panel in Panelist.query.all():
-        print(panel)
-
     if db.session.query(Panelist).first(): 
         return render_template('panelist.html', panels=Panelist.query.all(), current_id=obj.id+1)
     else:
@@ -111,9 +110,9 @@ def new_panel():
         school = request.form['school']
 
         new_panel = Panelist(last_name=lastName,
-                         first_name=firstName,
-                         middle_in=middleIn,
-                         school=school)
+                             first_name=firstName,
+                             middle_in=middleIn,
+                             school=school)
         db.session.add(new_panel)
         db.session.commit()
         return redirect(url_for('admin.panelist'))
@@ -143,29 +142,28 @@ def new_sched():
         obj = db.session.query(Defense).order_by(Defense.id.desc()).first()
     
     if request.method == 'POST':
-        # group = db.session.query(Group).filter_by(id=request.form['group']).first()
-        print(request.form['group'][5:])
+        group = db.session.query(Group).filter_by(id=request.form['group'][5:]).first()
         panel1 = db.session.query(Panelist).filter_by(id=request.form['selectBox1']).first()
         panel2 = db.session.query(Panelist).filter_by(id=request.form['selectBox2']).first()
         panel3 = db.session.query(Panelist).filter_by(id=request.form['selectBox3']).first()
-        new_defense = Defense()
+        
+        date_temp  = date.fromisoformat(request.form['defense_date'])
+        time_temp  = time.fromisoformat(request.form['start_time'])
+        start_date = datetime.combine(date_temp, time_temp)
+
+        duration = request.form['duration'][4:]
+        end_date = start_date + timedelta(hours=int(duration))
+
+        new_defense = Defense(group_id=group.id, start_date=start_date, end_date=end_date)
         db.session.add(new_defense)
         db.session.commit()
+
         new_defense.panels.append(panel1)
         new_defense.panels.append(panel2)
         new_defense.panels.append(panel3)
-        db.session.commit()
-        # panel1 = request.form['selectBox1']
-        # panel2 = request.form['selectBox2']
-        # panel3 = request.form['selectBox3']
-        # print(group, panel1, panel2, panel3)
 
-        # new_panel = Panelist(last_name=lastName,
-        #                  first_name=firstName,
-        #                  middle_in=middleIn,
-        #                  school=school)
-        # db.session.add(new_panel)
-        # db.session.commit()
+        db.session.commit()
+       
         return redirect(url_for('admin.schedule'))
     
     if db.session.query(Defense).first(): 

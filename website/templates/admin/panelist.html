@@ -29,8 +29,7 @@
     </li>
 {% endblock %}
 {% block content %}
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
+    <div class='create_button'>
         <a href="/new_panel/">
             <button onclick="on(); createTable()" >Create New Panelist</button>
         </a>
@@ -38,10 +37,20 @@
 
     {% if panels %}
         {% for panel in panels %}
-            <p>ID: {{ panel.id }}</p>
-            <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-            <p>School: {{ panel.school }}</p>
-            <br>
+            <div class='box'>
+                <p>ID: {{ panel.id }}</p>
+                <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                <p>School: {{ panel.school }}</p>
+                <p>Defenses:</p>
+                {% if panel.defenses %} 
+                    {% for defense in panel.defenses %}
+                        <p>    - {{ defense.group.name }} - {{ defense.start_date }}</p>
+                    {% endfor %}
+                {% else %}
+                    <p>NOTHING SCHEDULED</p>
+                {% endif %}
+                <br>
+            </div>
         {% endfor %}
     {% endif %}
 
