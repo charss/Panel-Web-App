@@ -47,24 +47,25 @@
             </div>
 
             <div>
+                <p>Edit Panel</p>
                 <form method='POST'>
                     <label for="userCode">User Code:</label>
-                    <input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
+                    <input type='text' id='userCode' name='userCode' value ="{{ to_edit.id }}" disabled><br>
 
                     <label for="lastName">Last Name</label>
-                    <input type='text' id='lastName' name='lastName'><br>
+                    <input type='text' id='lastName' name='lastName' value="{{ to_edit.last_name }}"><br>
 
                     <label for="firstName">First Name</label>
-                    <input type='text' id='firstName' name='firstName'><br>
+                    <input type='text' id='firstName' name='firstName' value="{{ to_edit.first_name }}"><br>
 
                     <label for="middleIn">Middle Initial</label>
-                    <input type='text' id='middleIn' name='middleIn'><br>
+                    <input type='text' id='middleIn' name='middleIn' value="{{ to_edit.middle_in }}"><br>
 
                     <label for="school">School:</label>
                     <select name="school" id='school'>
-                        <option value='FEU Alabang'>FEU Alabang</option>
-                        <option value='FEU Tech'>FEU Tech</option>
-                        <option value='FEU Diliman'>FEU Diliman</option>
+                        <option value='FEU Alabang' {% if to_edit.school == 'FEU Alabang' %}selected {% endif %}>FEU Alabang</option>
+                        <option value='FEU Tech' {% if to_edit.school == 'FEU Tech' %}selected {% endif %}>FEU Tech</option>
+                        <option value='FEU Diliman' {% if to_edit.school == 'FEU Diliman' %}selected {% endif %}>FEU Diliman</option>
                     </select>
                     <br>
 
@@ -93,9 +94,7 @@
             {% endfor %}
         {% endif %}
     </div>
-    
 
-    
     <script>
         var arrValues = new Array();
         var arrHead = new Array();

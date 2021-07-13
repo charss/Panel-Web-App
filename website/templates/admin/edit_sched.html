@@ -47,16 +47,16 @@
             </div>
 
             <div>
-                <p>Create New Schedule</p>
+                <p>Editing Schedule</p> 
                 <form method='POST'>
                     <label for="userCode">Defense Code:</label>
-                    <input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
+                    <input type='text' id='userCode' name='userCode' value ="{{ to_edit.id }}" disabled><br>
 
                     <label for="group">Group</label>
                     <select name='group' id='group'>
                         {% if groups %}
                             {% for group in groups %}
-                                <option value="group{{ group.id }}">{{ group.id }} - {{ group.name}}</option>
+                                <option value="group{{ group.id }}" {% if to_edit.group_id == group.id %}selected {% endif %}>{{ group.id }} - {{ group.name}}</option>
                             {% endfor %}
                         {% endif %}
                     </select>
@@ -67,7 +67,7 @@
                         <option value='no_value'>-----------</option>
                         {% if panels %}
                             {% for panel in panels %}
-                                <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                                <option value="{{ panel.id }}" {% if to_edit.panels[0].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
                             {% endfor %}
                         {% endif %}
                     </select>
@@ -78,7 +78,7 @@
                         <option value='no_value'>-----------</option>
                         {% if panels %}
                             {% for panel in panels %}
-                                <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                                <option value="{{ panel.id }}" {% if to_edit.panels[1].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
                             {% endfor %}
                         {% endif %}
                     </select>
@@ -89,18 +89,18 @@
                         <option value='no_value'>-----------</option>
                         {% if panels %}
                             {% for panel in panels %}
-                                <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                                <option value="{{ panel.id }}" {% if to_edit.panels[2].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
                             {% endfor %}
                         {% endif %}
                     </select>
                     <br>
-
+                    
                     <label for="defense_date">Defense Date:</label>
-                    <input type="date" id="defense_date" name="defense_date" required>
+                    <input type="date" id="defense_date" name="defense_date" value='{{ to_edit.start_date.date() }}' required>
                     <br>
-
+                    
                     <label for="start_time">Start Time:</label>
-                    <input type="time" id="start_time" name="start_time" min="09:00" max='' required>
+                    <input type="time" id="start_time" name="start_time" min="09:00" max='' value='{{ to_edit.start_date.strftime("%H:%M") }}' required>
                     <br>
                     
                     <label for="duration">Duration</label>
@@ -131,10 +131,21 @@
                     <p>Group Name: {{ defense.group.name }} </p>
                     <p>Panels:</p>
                     {% for panel in defense.panels %}
-                        <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                        {% if panel.id == defense.head_panel_id: %}
+                            <p>    HP - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                        {% else: %}
+                            <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                        {% endif %}
+
                     {% endfor %}
                     <p>Defense Date: {{ defense.start_date}}</p>
                     <br>
+                    <a href="/edit_sched/{{ defense.id }}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="/delete_sched/{{ defense.id }}">
+                        <button>Delete</button>
+                    </a>
                 </div>
                 
             {% endfor %}
@@ -149,6 +160,15 @@
         var dict = {}
 
         $(document).ready(function(){
+            $('select').on('click', function(event ) {
+                var prevValue = $(this).data('previous');
+            $('select').not(this).find('option[value="'+prevValue+'"]').show();
+                var value = $(this).val();
+            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+            });
+        });
+        
+        $(document).ready(function(){
             $('select').on('change', function(event ) {
                 var prevValue = $(this).data('previous');
             $('select').not(this).find('option[value="'+prevValue+'"]').show();    
@@ -156,5 +176,7 @@
             $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
             });
         });
+
+        
     </script>
 {% endblock %}

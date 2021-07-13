@@ -4,43 +4,43 @@ from . import db
 def populate_group():
     new_group = Group(name='OHRCa', 
                       project_title='Maria', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='Sagip', 
                       project_title='Sagip', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='Game Balancing', 
                       project_title='Game Balancing', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='Sign Language', 
                       project_title='Sign Language', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='Pose Estimation', 
                       project_title='Post Estimation', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='KYON', 
                       project_title='KYON', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='BISKWIT', 
                       project_title='BISKWIT', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='CryptoBank', 
                       project_title='CryptoBank', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='Data Analysis', 
                       project_title='Data Analysis', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     new_group = Group(name='TV Commercials', 
                       project_title='TV Commercials', 
-                      program='bscs')
+                      program='BSCS')
     db.session.add(new_group)
     db.session.commit()
 
@@ -268,33 +268,38 @@ def populate_students():
 
 def populate_panelist():
     new_panel = Panelist(last_name='Abacan',
+                         password='alabang1',
                          first_name='Ray Carlo',
                          middle_in='',
-                         school='alabang')
+                         school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Aldana',
+                         password='alabang2',
                          first_name='Resty',
                          middle_in='',
-                         school='alabang')
+                         school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Ortega',
+                         password='alabang3',
                          first_name='Miles',
                          middle_in='',
-                         school='alabang')
+                         school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Almeniana',
+                         password='alabang4',
                          first_name='Fanny',
                          middle_in='',
-                         school='alabang')
+                         school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Carpio',
+                         password='alabang5',
                          first_name='Ailene',
                          middle_in='',
-                         school='alabang')
+                         school='FEU Alabang')
     db.session.add(new_panel)
 
     db.session.commit()

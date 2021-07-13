@@ -47,6 +47,7 @@
             </div>
 
             <div>
+                <p>Adding New Group</p>
                 <label for="groupCode">Group Code:</label>
                 <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
                 <label for="groupName">Group Name:</label>
@@ -55,12 +56,12 @@
                 <input type='text' id='projectTitle' name='projectTitle'><br>
                 <label for="program">Program:</label>
                 <select name="program" id='program'>
-                    <option value='agd'>BSIT - AGD</option>
-                    <option value='da'>BSIT - DA</option>
-                    <option value='smba'>BSIT - SMBA</option>
-                    <option value='wma'>BSIT - WMA</option>
-                    <option value='bscs'>BSCS</option>
-                    <option value='bma'>BMA</option>
+                    <option value='BSIT-AGD'>BSIT-AGD</option>
+                    <option value='BSIT-DA'>BSIT-DA</option>
+                    <option value='BSIT-SMBA'>BSIT-SMBA</option>
+                    <option value='BSIT-WMA'>BSIT-WMA</option>
+                    <option value='BSCS'>BSCS</option>
+                    <option value='BMA'>BMA</option>
                 </select>
                 <br>
                 
@@ -79,17 +80,20 @@
         <button>Create New Group</button>
     </div>
 
-    {% if groups %}
-        {% for group in groups %}
-            <div class='box'
-                <p>ID: {{group.id}}</p>
-                <p>Group Name: {{group.name}}</p>
-                <p>Project Title: {{group.project_title}}</p>
-                <p>Program: {{group.program}}</p>
-                <br>
-            </div>
-        {% endfor %}
-    {% endif %}
+    <div class='display_grid'>
+        {% if groups %}
+            {% for group in groups %}
+                <div class='box'
+                    <p>ID: {{group.id}}</p>
+                    <p>Group Name: {{group.name}}</p>
+                    <p>Project Title: {{group.project_title}}</p>
+                    <p>Program: {{group.program}}</p>
+                    <br>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
 
     
     <script>

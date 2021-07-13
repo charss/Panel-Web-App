@@ -20,8 +20,9 @@ class Group(db.Model):
     name          = db.Column(db.String(150), nullable=False)
     project_title = db.Column(db.String(150), nullable=False)
     program       = db.Column(db.String(150), nullable=False)
-    members       = db.relationship('Student', backref='group')
+    members       = db.relationship('Student', backref='group', uselist=True)
     defenses      = db.relationship('Defense', backref='group')
+    
 
 class Student(db.Model):
     stud_no    = db.Column(db.Integer, primary_key=True)
@@ -29,14 +30,17 @@ class Student(db.Model):
     first_name = db.Column(db.String(150), nullable=False)
     middle_in  = db.Column(db.String(10))
     group_id   = db.Column(db.Integer, db.ForeignKey('group.id'))
+    
 
 
 class Panelist(db.Model):
     id         = db.Column(db.Integer, primary_key=True)
+    password   = db.Column(db.Integer, nullable=False)
     last_name  = db.Column(db.String(150), nullable=False)
     first_name = db.Column(db.String(150), nullable=False)
     middle_in  = db.Column(db.String(10))
     school     = db.Column(db.String(150))
+    header     = db.relationship('Defense', backref='head')
     paneling   = db.relationship(
         'Defense',
         secondary=defense_panel,
@@ -45,11 +49,12 @@ class Panelist(db.Model):
     
 
 class Defense(db.Model):
-    id         = db.Column(db.Integer, primary_key=True)
-    group_id   = db.Column(db.Integer, db.ForeignKey('group.id'))
-    start_date = db.Column(db.DateTime)
-    end_date   = db.Column(db.DateTime)
-    paneling   = db.relationship(
+    id            = db.Column(db.Integer, primary_key=True)
+    group_id      = db.Column(db.Integer, db.ForeignKey('group.id'))
+    head_panel_id = db.Column(db.Integer, db.ForeignKey('panelist.id'))
+    start_date    = db.Column(db.DateTime)
+    end_date      = db.Column(db.DateTime)
+    paneling      = db.relationship(
         'Panelist',
         secondary=defense_panel,
         backref=db.backref('defenses')
