@@ -1,6 +1,6 @@
 from sqlalchemy.sql.expression import nullslast
 from . import db
-# from flask_login import UserMixin
+from flask_login import UserMixin
 from sqlalchemy.sql import func
 
 
@@ -33,7 +33,7 @@ class Student(db.Model):
     
 
 
-class Panelist(db.Model):
+class Panelist(db.Model, UserMixin):
     id         = db.Column(db.Integer, primary_key=True)
     username   = db.Column(db.String(150), nullable=False)
     password   = db.Column(db.String(150), nullable=False)
