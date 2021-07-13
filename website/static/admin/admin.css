@@ -12,6 +12,7 @@ body {
 * {
   color: red;
 }
+
 .vertical-nav {
   min-width: 17rem;
   width: 17rem;
@@ -127,8 +128,26 @@ body {
   text-align: right;
 }
 
-
-
 input { 
   text-align: right; 
+}
+
+.box {
+  border: 1px;
+  border-color: black; 
+  border-style: solid; 
+}
+
+
+.create_button {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  background-color: blue;
+}
+
+
+.display_grid {
+  position: relative;
+  margin-top: 100px;
 }

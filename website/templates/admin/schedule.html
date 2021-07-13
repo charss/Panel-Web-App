@@ -30,10 +30,24 @@
 {% endblock %}
 {% block content %}
 
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
+    
+
+    <div class='create_button'>
         <a href="/new_sched/">
             <button>Create New Defense Schedule</button>
         </a>
     </div>
+
+    {% if defenses %}
+        {% for defense in defenses %}
+            <p>ID: {{ defense.id }}</p>
+            <p>Group Name: {{ defense.group.name }} </p>
+            <p>Panels:</p>
+            {% for panel in defense.panels %}
+                <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+            {% endfor %}
+            <p>Defense Date: {{ defense.start_date}}</p>
+            <br>
+        {% endfor %}
+    {% endif %}
 {% endblock %}

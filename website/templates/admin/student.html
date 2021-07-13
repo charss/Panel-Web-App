@@ -31,11 +31,14 @@
 {% block content %}
     {% if students %}
         {% for student in students %}
-            <p>ID: {{student.stud_no}}</p>
-            <p>Name: {{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</p>
-            <p>Group: {{ student.group_id }}</p>
-            <p>Group Name: {{ student.group.name}}</p>
-            <br>
+            <div class='box'>
+                <p>ID: {{student.stud_no}}</p>
+                <p>Name: {{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</p>
+                <p>Group: {{ student.group_id }}</p>
+                <p>Group Name: {{ student.group.name }}</p>
+                <br>
+            </div>
+            
         {% endfor %}
     {% endif %}
 

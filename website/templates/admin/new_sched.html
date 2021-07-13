@@ -48,26 +48,68 @@
 
             <div>
                 <form method='POST'>
-                    <label for="userCode">User Code:</label>
+                    <label for="userCode">Defense Code:</label>
                     <input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
 
-                    <label for="lastName">Last Name</label>
-                    <input type='text' id='lastName' name='lastName'><br>
-
-                    <label for="firstName">First Name</label>
-                    <input type='text' id='firstName' name='firstName'><br>
-
-                    <label for="middleIn">Middle Initial</label>
-                    <input type='text' id='middleIn' name='middleIn'><br>
-
-                    <label for="school">School:</label>
-                    <select name="school" id='school'>
-                        <option value='alabang'>FEU Alabang</option>
-                        <option value='tech'>FEU Tech</option>
-                        <option value='diliman'>FEU Diliman</option>
+                    <label for="group">Group</label>
+                    <select name='group' id='group'>
+                        {% if groups %}
+                            {% for group in groups %}
+                                <option value="group{{ group.id }}">{{ group.id }} - {{ group.name}}</option>
+                            {% endfor %}
+                        {% endif %}
                     </select>
                     <br>
 
+                    <label for="selectBox1">Head Panelist</label>
+                    <select name='selectBox1' id='selectBox1'>
+                        <option value='no_value'>-----------</option>
+                        {% if panels %}
+                            {% for panel in panels %}
+                                <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <br>
+
+                    <label for="selectBox2">Co-Panelist</label>
+                    <select name='selectBox2' id='selectBox2'>
+                        <option value='no_value'>-----------</option>
+                        {% if panels %}
+                            {% for panel in panels %}
+                                <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <br>
+
+                    <label for="selectBox3">Co-Panelist</label>
+                    <select name='selectBox3' id='selectBox3'>
+                        <option value='no_value'>-----------</option>
+                        {% if panels %}
+                            {% for panel in panels %}
+                                <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                    <br>
+
+                    <label for="defense_date">Defense Date:</label>
+                    <input type="date" id="defense_date" name="defense_date" required>
+                    <br>
+
+                    <label for="start_time">Start Time:</label>
+                    <input type="time" id="start_time" name="start_time" min="09:00" max='' required>
+                    <br>
+                    
+                    <label for="duration">Duration</label>
+                    <select name='duration' id='duration'>
+                        <option value='hour1'>1</option>
+                        <option value='hour2'>2</option>
+                        <option value='hour3'>3</option>
+                    </select>
+                    <br>
+                    
                     <button type='submit' id='submit' name='submit'>Submit</button>
                 </form>
                 
@@ -76,16 +118,19 @@
     </div>
 
 
-    <div style="padding:20px">
-        <h2>Overlay with Text</h2>
-        <button>Create New Panelist</button>
+    <div class='create_button'>
+        <button>Create New Defense Schedule</button>
     </div>
 
-    {% if panels %}
-        {% for panel in panels %}
-            <p>ID: {{ panel.id }}</p>
-            <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-            <p>School: {{ panel.school }}</p>
+    {% if defenses %}
+        {% for defense in defenses %}
+            <p>ID: {{ defense.id }}</p>
+            <p>Group Name: {{ defense.group.name }} </p>
+            <p>Panels:</p>
+            {% for panel in defense.panels %}
+                <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+            {% endfor %}
+            <p>Defense Date: {{ defense.start_date}}</p>
             <br>
         {% endfor %}
     {% endif %}
@@ -95,5 +140,14 @@
         var arrValues = new Array();
         var arrHead = new Array();
         var dict = {}
+
+        $(document).ready(function(){
+            $('select').on('change', function(event ) {
+                var prevValue = $(this).data('previous');
+            $('select').not(this).find('option[value="'+prevValue+'"]').show();    
+                var value = $(this).val();
+            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+            });
+        });
     </script>
 {% endblock %}
