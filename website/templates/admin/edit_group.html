@@ -55,21 +55,15 @@
                 <label for="projectTitle">Project Title:</label>
                 <input type='text' id='projectTitle' name='projectTitle' value='{{ to_edit.project_title }}'><br>
                 <label for="program">Program:</label>
-                <select name="program" id='program' value='asd'>
-                    <option value='agd' {% if to_edit.program == 'agd' %}selected {% endif %}>BSIT - AGD</option>
-                    <option value='da' {% if to_edit.program == 'da' %}selected {% endif %}>BSIT - DA</option>
-                    <option value='smba' {% if to_edit.program == 'smba' %}selected {% endif %}>BSIT - SMBA</option>
-                    <option value='wma' {% if to_edit.program == 'wma' %}selected {% endif %}>BSIT - WMA</option>
-                    <option value='bscs' {% if to_edit.program == 'bscs' %}selected {% endif %}>BSCS</option>
-                    <option value='bma' {% if to_edit.program == 'bma' %}selected {% endif %}>BMA</option>
+                <select name="program" id='program'>
+                    <option value='BSIT-AGD' {% if to_edit.program == 'BSIT-AGD' %}selected {% endif %}>BSIT-AGD</option>
+                    <option value='BSIT-DA' {% if to_edit.program == 'BSIT-DA' %}selected {% endif %}>BSIT-DA</option>
+                    <option value='BSIT-SMBA' {% if to_edit.program == 'BSIT-SMBA' %}selected {% endif %}>BSIT-SMBA</option>
+                    <option value='BSIT-WMA' {% if to_edit.program == 'BSIT-WMA' %}selected {% endif %}>BSIT-WMA</option>
+                    <option value='BSCS' {% if to_edit.program == 'BSCS' %}selected {% endif %}>BSCS</option>
+                    <option value='BMA' {% if to_edit.program == 'BMA' %}selected {% endif %}>BMA</option>
                 </select>
                 <br>
-                
-                <label for="totalProp">Total Proponents:</label>
-                <input type="text" id="totalProp" name='totalProp' autocomplete='off' min='1' max='9' value=0 disabled>
-                <input type='button' name='generate' value='Add proponent' onclick='addRow();'></button>
-                
-                <div id="cont"></div>
                 <button id='submit' name='submit'>Submit</button>
             </div>
         </div>

@@ -50,11 +50,16 @@
                     <p>NOTHING SCHEDULED</p>
                 {% endif %}
                 <br>
+                <a href="/edit_panel/{{panel.id}}">
+                    <button>Edit</button>
+                </a>
+                <a href="/delete_panel/{{panel.id}}">
+                    <button>Delete</button>
+                </a>
             </div>
         {% endfor %}
     {% endif %}
 
-    
     <script>
     </script>
 {% endblock %}

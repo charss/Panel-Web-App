@@ -185,6 +185,52 @@ def new_panel():
     else:
         return render_template('new_panel.html', panels=None, current_id=1)
 
+@admin.route('/edit_panel/<content>', methods=['GET', 'POST'])
+def edit_panel(content):
+    obj = 0
+    if db.session.query(Group).first():
+        obj = db.session.query(Panelist).order_by(Panelist.id.desc()).first()
+
+    panel = db.session.query(Panelist).filter_by(id=content).first()
+    
+    if request.method == 'POST':
+
+        panel.last_name = request.form['lastName']
+        panel.first_name = request.form['firstName']
+        panel.middle_in = request.form['middleIn']
+        panel.school = request.form['school']
+        # i = 0
+        # for prop in data['proponents']:
+        #     if i == 0:
+        #         studNo = prop
+        #     elif i == 1:
+        #         lastName = prop
+        #     elif i == 2:
+        #         firstName = prop
+        #     elif i == 3:
+        #         middleI = prop
+        #         new_student = Student(stud_no=studNo, 
+        #                               last_name=lastName, 
+        #                               first_name=firstName,
+        #                               middle_in=middleI,
+        #                               group_id=temp)
+        #         db.session.add(new_student)
+        #         db.session.commit()
+        #         i = -1
+        #     i += 1
+
+
+        db.session.commit()
+        return redirect(url_for('admin.panelist'))
+
+    if db.session.query(Panelist).first(): 
+        return render_template('edit_panel.html', panels=Panelist.query.all(), current_id=obj.id+1, to_edit=panel)
+    else:
+        return render_template('edit_panel.html', panels=None, current_id=1)
+
+
+
+
 @admin.route('/schedule/')
 def schedule():
     obj = 0
@@ -240,7 +286,3 @@ def student():
         return render_template('student.html', students=Student.query.all())
     else:
         return render_template('student.html', students=None)
-
-# @admin.route('/create_new_group/')
-# def schedule():
-#     return render_template('schedule.html')
