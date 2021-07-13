@@ -268,6 +268,7 @@ def populate_students():
 
 def populate_panelist():
     new_panel = Panelist(last_name='Abacan',
+                         username='abacan_a',
                          password='alabang1',
                          first_name='Ray Carlo',
                          middle_in='',
@@ -275,6 +276,7 @@ def populate_panelist():
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Aldana',
+                         username='aldana_a',
                          password='alabang2',
                          first_name='Resty',
                          middle_in='',
@@ -282,6 +284,7 @@ def populate_panelist():
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Ortega',
+                         username='ortega_a',
                          password='alabang3',
                          first_name='Miles',
                          middle_in='',
@@ -289,6 +292,7 @@ def populate_panelist():
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Almeniana',
+                         username='almeniana_a',
                          password='alabang4',
                          first_name='Fanny',
                          middle_in='',
@@ -296,6 +300,7 @@ def populate_panelist():
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Carpio',
+                         username='carpio_a',
                          password='alabang5',
                          first_name='Ailene',
                          middle_in='',
