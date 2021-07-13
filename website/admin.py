@@ -90,47 +90,64 @@ def edit_group(content):
 
     group = db.session.query(Group).filter_by(id=content).first()
     
-    # if request.method == 'POST':
-    #     if type(obj) == int:
-    #         temp = 0
-    #     else:
-    #         temp = obj.id
-    #     data = request.json
-    #     groupName = data['group_name']
-    #     projectTitle = data['project_title']
-    #     program = data['program']
-    #     i = 0
-    #     for prop in data['proponents']:
-    #         if i == 0:
-    #             studNo = prop
-    #         elif i == 1:
-    #             lastName = prop
-    #         elif i == 2:
-    #             firstName = prop
-    #         elif i == 3:
-    #             middleI = prop
-    #             new_student = Student(stud_no=studNo, 
-    #                                   last_name=lastName, 
-    #                                   first_name=firstName,
-    #                                   middle_in=middleI,
-    #                                   group_id=temp)
-    #             db.session.add(new_student)
-    #             db.session.commit()
-    #             i = -1
-    #         i += 1
+    if request.method == 'POST':
+        if type(obj) == int:
+            temp = 0
+        else:
+            temp = obj.id
+
+        data = request.json
+        group.name = data['group_name']
+        group.project_title = data['project_title']
+        group.program = data['program']
+        # i = 0
+        # for prop in data['proponents']:
+        #     if i == 0:
+        #         studNo = prop
+        #     elif i == 1:
+        #         lastName = prop
+        #     elif i == 2:
+        #         firstName = prop
+        #     elif i == 3:
+        #         middleI = prop
+        #         new_student = Student(stud_no=studNo, 
+        #                               last_name=lastName, 
+        #                               first_name=firstName,
+        #                               middle_in=middleI,
+        #                               group_id=temp)
+        #         db.session.add(new_student)
+        #         db.session.commit()
+        #         i = -1
+        #     i += 1
 
 
-    #     new_group = Group(name=groupName, 
-    #                       project_title=projectTitle, 
-    #                       program=program)
-    #     db.session.add(new_group)
-    #     db.session.commit()
-    #     return jsonify(data)
+        db.session.commit()
+        return jsonify(data)
 
     if db.session.query(Group).first(): 
         return render_template('edit_group.html', groups=Group.query.all(), current_id=obj.id+1, to_edit=group)
     else:
         return render_template('edit_group.html', groups=None, current_id=1, to_edit=None)
+
+@admin.route('/delete_group/<content>', methods=['GET', 'POST'])
+def delete_group(content):
+    obj = 0
+    if db.session.query(Group).first():
+        obj = db.session.query(Group).order_by(Group.id.desc()).first()
+
+    if request.method == 'POST':
+        if request.form['submit'] == 'yes':
+            db.session.query(Group).filter_by(id=content).delete()
+            db.session.commit()
+            return redirect(url_for('admin.group'))
+
+        else:
+            return redirect(url_for('admin.group'))
+
+    if db.session.query(Group).first(): 
+        return render_template('delete_group.html', groups=Group.query.all(), current_id=obj.id+1, to_edit=group)
+    else:
+        return render_template('delete_group.html', groups=None, current_id=1, to_edit=None)
 
 @admin.route('/panelist/')
 def panelist():

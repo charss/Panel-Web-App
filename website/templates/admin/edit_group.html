@@ -49,19 +49,19 @@
             <div>
                 <p>Editing Group</p>
                 <label for="groupCode">Group Code:</label>
-                <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
+                <input type='text' id='groupCode' name='groupCode' value ="{{ to_edit.id }}" disabled><br>
                 <label for="groupName">Group Name:</label>
-                <input type='text' id='groupName' name='groupName'><br>
+                <input type='text' id='groupName' name='groupName' value='{{ to_edit.name }}'><br>
                 <label for="projectTitle">Project Title:</label>
-                <input type='text' id='projectTitle' name='projectTitle'><br>
+                <input type='text' id='projectTitle' name='projectTitle' value='{{ to_edit.project_title }}'><br>
                 <label for="program">Program:</label>
-                <select name="program" id='program'>
-                    <option value='agd'>BSIT - AGD</option>
-                    <option value='da'>BSIT - DA</option>
-                    <option value='smba'>BSIT - SMBA</option>
-                    <option value='wma'>BSIT - WMA</option>
-                    <option value='bscs'>BSCS</option>
-                    <option value='bma'>BMA</option>
+                <select name="program" id='program' value='asd'>
+                    <option value='agd' {% if to_edit.program == 'agd' %}selected {% endif %}>BSIT - AGD</option>
+                    <option value='da' {% if to_edit.program == 'da' %}selected {% endif %}>BSIT - DA</option>
+                    <option value='smba' {% if to_edit.program == 'smba' %}selected {% endif %}>BSIT - SMBA</option>
+                    <option value='wma' {% if to_edit.program == 'wma' %}selected {% endif %}>BSIT - WMA</option>
+                    <option value='bscs' {% if to_edit.program == 'bscs' %}selected {% endif %}>BSCS</option>
+                    <option value='bma' {% if to_edit.program == 'bma' %}selected {% endif %}>BMA</option>
                 </select>
                 <br>
                 
@@ -118,7 +118,6 @@
         function addRow() {
             var empTab = document.getElementById('empTable');
             var totalProp = parseInt(document.getElementById('totalProp').value);
-            
             var rowCnt = empTab.rows.length;    // get the number of rows.
             var tr = empTab.insertRow(rowCnt); // table row.
             tr = empTab.insertRow(rowCnt);
@@ -188,11 +187,13 @@
             console.log(dict);
         }
 
+        var id = document.getElementById('groupCode').value
+
         $(document).ready(function () {
             $("#submit").on("click", function() {
                 var js_data = JSON.stringify(submit());
                 $.ajax({
-                    url: "/new_group/",
+                    url: "/edit_group/" + id,
                     type : 'POST',
                     contentType: 'application/json',
                     dataType : 'json',

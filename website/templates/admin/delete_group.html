@@ -33,38 +33,43 @@
             border-collapse: collapse; padding: 2px 3px; text-align: center;
         }
     </style>
+    
 {% endblock %}
-
-{% block functions %}
-{% endblock %}
-
 {% block content %}
+    <div id="overlay">
+        <div id="text">
+            <div id='close_button' onclick="off()">
+                <a href='/groups'>
+                    <img src="{{ url_for('static', filename='close.png') }}">
+                </a>
+            </div>
+
+            <div>
+                <p>Are you sure you?</p>
+                <form method='POST'>
+                    <button id='submit' name='submit' value='yes'>Yes</button>
+                    <button id='submit' name='submit' values='no'>No</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
     <div class='create_button'>
-        <a href="/new_group/">
-            <button>Create New Group</button>
-        </a>
+        <button>Create New Group</button>
     </div>
 
-    <div class='display_grid'>
-        {% if groups %}
-            {% for group in groups %}
-                <div class='box'
-                    <p>ID: {{group.id}}</p>
-                    <p>Group Name: {{group.name}}</p>
-                    <p>Project Title: {{group.project_title}}</p>
-                    <p>Program: {{group.program}}</p>
-                    <a href="/edit_group/{{group.id}}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="/delete_group/{{group.id}}">
-                        <button>Delete</button>
-                    </a>
-                </div>
-            {% endfor %}
-        {% endif %}
+    {% if groups %}
+        {% for group in groups %}
+            <div class='box'
+                <p>ID: {{group.id}}</p>
+                <p>Group Name: {{group.name}}</p>
+                <p>Project Title: {{group.project_title}}</p>
+                <p>Program: {{group.program}}</p>
+                <br>
+            </div>
+        {% endfor %}
+    {% endif %}
 
-        
-    </div>
 {% endblock %}
-
-
