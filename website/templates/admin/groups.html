@@ -34,6 +34,10 @@
         }
     </style>
 {% endblock %}
+
+{% block functions %}
+{% endblock %}
+
 {% block content %}
     <div class='create_button'>
         <a href="/new_group/">
@@ -49,7 +53,7 @@
                     <p>Group Name: {{group.name}}</p>
                     <p>Project Title: {{group.project_title}}</p>
                     <p>Program: {{group.program}}</p>
-                    <a href="#">
+                    <a href="/edit_group/{{group.id}}">
                         <button>Edit</button>
                     </a>
                 </div>
