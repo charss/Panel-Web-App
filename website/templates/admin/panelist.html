@@ -35,30 +35,33 @@
         </a>
     </div>
 
-    {% if panels %}
-        {% for panel in panels %}
-            <div class='box'>
-                <p>ID: {{ panel.id }}</p>
-                <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-                <p>School: {{ panel.school }}</p>
-                <p>Defenses:</p>
-                {% if panel.defenses %} 
-                    {% for defense in panel.defenses %}
-                        <p>    - {{ defense.group.name }} - {{ defense.start_date }}</p>
-                    {% endfor %}
-                {% else %}
-                    <p>NOTHING SCHEDULED</p>
-                {% endif %}
-                <br>
-                <a href="/edit_panel/{{panel.id}}">
-                    <button>Edit</button>
-                </a>
-                <a href="/delete_panel/{{panel.id}}">
-                    <button>Delete</button>
-                </a>
-            </div>
-        {% endfor %}
-    {% endif %}
+    <div class='display_grid'>
+        {% if panels %}
+            {% for panel in panels %}
+                <div class='box'>
+                    <p>ID: {{ panel.id }}</p>
+                    <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                    <p>School: {{ panel.school }}</p>
+                    <p>Defenses:</p>
+                    {% if panel.defenses %} 
+                        {% for defense in panel.defenses %}
+                            <p>    - {{ defense.group.name }} - {{ defense.start_date }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>NOTHING SCHEDULED</p>
+                    {% endif %}
+                    <br>
+                    <a href="/edit_panel/{{panel.id}}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="/delete_panel/{{panel.id}}">
+                        <button>Delete</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
 
     <script>
     </script>

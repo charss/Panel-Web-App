@@ -51,8 +51,12 @@
                 <div class='box'
                     <p>ID: {{group.id}}</p>
                     <p>Group Name: {{group.name}}</p>
-                    <p>Project Title: {{group.project_title}}</p>
+                    <p>Project Title: {{ group.project_title }}</p>
                     <p>Program: {{group.program}}</p>
+                    <p>Members:</p>
+                    {% for member in group.members %}
+                        <p>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</p>
+                    {% endfor%}
                     <a href="/edit_group/{{group.id}}">
                         <button>Edit</button>
                     </a>
@@ -62,8 +66,6 @@
                 </div>
             {% endfor %}
         {% endif %}
-
-        
     </div>
 {% endblock %}
 

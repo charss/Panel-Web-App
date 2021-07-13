@@ -38,16 +38,33 @@
         </a>
     </div>
 
-    {% if defenses %}
-        {% for defense in defenses %}
-            <p>ID: {{ defense.id }}</p>
-            <p>Group Name: {{ defense.group.name }} </p>
-            <p>Panels:</p>
-            {% for panel in defense.panels %}
-                <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+    <div class='display_grid'>
+        {% if defenses %}
+            {% for defense in defenses %}
+                <div class='box'>
+                    <p>ID: {{ defense.id }}</p>
+                    <p>Group Name: {{ defense.group.name }} </p>
+                    <p>Panels:</p>
+                    {% for panel in defense.panels %}
+                        {% if panel.id == defense.head_panel_id: %}
+                            <p>    HP - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                        {% else: %}
+                            <p>    - {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
+                        {% endif %}
+
+                    {% endfor %}
+                    <p>Defense Date: {{ defense.start_date}}</p>
+                    <br>
+                    <a href="/edit_sched/{{ defense.id }}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="/delete_sched/{{ defense.id }}">
+                        <button>Delete</button>
+                    </a>
+                </div>
+                
             {% endfor %}
-            <p>Defense Date: {{ defense.start_date}}</p>
-            <br>
-        {% endfor %}
-    {% endif %}
+        {% endif %}
+    </div>
+    
 {% endblock %}

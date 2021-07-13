@@ -268,30 +268,35 @@ def populate_students():
 
 def populate_panelist():
     new_panel = Panelist(last_name='Abacan',
+                         password='alabang1',
                          first_name='Ray Carlo',
                          middle_in='',
                          school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Aldana',
+                         password='alabang2',
                          first_name='Resty',
                          middle_in='',
                          school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Ortega',
+                         password='alabang3',
                          first_name='Miles',
                          middle_in='',
                          school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Almeniana',
+                         password='alabang4',
                          first_name='Fanny',
                          middle_in='',
                          school='FEU Alabang')
     db.session.add(new_panel)
 
     new_panel = Panelist(last_name='Carpio',
+                         password='alabang5',
                          first_name='Ailene',
                          middle_in='',
                          school='FEU Alabang')
