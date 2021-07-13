@@ -47,6 +47,16 @@ class Panelist(db.Model, UserMixin):
         secondary=defense_panel,
         backref=db.backref('panels')
     )
+
+    def get_id(self):
+        return self.username
+
+class Master(db.Model, UserMixin):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(150), nullable=False)
+
+    def get_id(self):
+        return self.username
     
 
 class Defense(db.Model):
