@@ -145,9 +145,11 @@ def new_panel():
         firstName = request.form['firstName']
         middleIn = request.form['middleIn']
         school = request.form['school']
+        username = f"{lastName.lower()}_{school.lower()[4]}"
         password = f"{school.lower()[4:]}{obj.id+1}"
 
         new_panel = Panelist(last_name=lastName,
+                             username=username,
                              password=password,
                              first_name=firstName,
                              middle_in=middleIn,
@@ -175,7 +177,8 @@ def edit_panel(content):
         panel.first_name = request.form['firstName']
         panel.middle_in = request.form['middleIn']
         panel.school = request.form['school']
-
+        panel.username = f"{panel.last_name.lower()}_{panel.school.lower()[4]}"
+        panel.password = f"{panel.school.lower()[4]}{panel.id}"
 
         db.session.commit()
         return redirect(url_for('admin.panelist'))
