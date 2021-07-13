@@ -1,14 +1,16 @@
 from flask import Blueprint, render_template, url_for, request, jsonify
 from werkzeug.utils import redirect
 from .models import Group, Student, Panelist, Defense
+from flask_login import login_required, current_user
 from . import db
 from .populate import *
 from datetime import datetime, date, time, timedelta
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
 
-@admin.route("/home")
-def home():
+@admin.route("/home/")
+@login_required
+def admin_home():
     if not db.session.query(Group).first():
         populate_group()
 
@@ -18,10 +20,14 @@ def home():
     if not db.session.query(Panelist).first():
         populate_panelist()
 
+    if not db.session.query(Defense).first():
+        populate_defense()
+
     return render_template("home.html")
 
 
 @admin.route('/groups/', methods=['GET', 'POST'])
+@login_required
 def group():
     obj = 0
     if db.session.query(Group).first():
@@ -34,6 +40,7 @@ def group():
         return render_template('groups.html', groups=None, current_id=1)
 
 @admin.route('/new_group/', methods=['GET', 'POST'])
+@login_required
 def new_group():
     obj = 0
     if db.session.query(Group).first():
@@ -83,6 +90,7 @@ def new_group():
         return render_template('new_group.html', groups=None, current_id=1)
 
 @admin.route('/edit_group/<content>', methods=['GET', 'POST'])
+@login_required
 def edit_group(content):
     obj = 0
     if db.session.query(Group).first():
@@ -104,6 +112,7 @@ def edit_group(content):
         return render_template('edit_group.html', groups=None, current_id=1, to_edit=None)
 
 @admin.route('/delete_group/<content>', methods=['GET', 'POST'])
+@login_required
 def delete_group(content):
     obj = 0
     if db.session.query(Group).first():
@@ -124,6 +133,7 @@ def delete_group(content):
         return render_template('delete_group.html', groups=None, current_id=1, to_edit=None)
 
 @admin.route('/panelist/')
+@login_required
 def panelist():
     obj = 0
     if db.session.query(Panelist).first():
@@ -135,6 +145,7 @@ def panelist():
         return render_template('panelist.html', panels=None, current_id=1)
 
 @admin.route('/new_panel/', methods=['GET', 'POST'])
+@login_required
 def new_panel():
     obj = 0
     if db.session.query(Panelist).first():
@@ -164,6 +175,7 @@ def new_panel():
         return render_template('new_panel.html', panels=None, current_id=1)
 
 @admin.route('/edit_panel/<content>', methods=['GET', 'POST'])
+@login_required
 def edit_panel(content):
     obj = 0
     if db.session.query(Group).first():
@@ -178,7 +190,7 @@ def edit_panel(content):
         panel.middle_in = request.form['middleIn']
         panel.school = request.form['school']
         panel.username = f"{panel.last_name.lower()}_{panel.school.lower()[4]}"
-        panel.password = f"{panel.school.lower()[4]}{panel.id}"
+        panel.password = f"{panel.school.lower()[4:]}{panel.id}"
 
         db.session.commit()
         return redirect(url_for('admin.panelist'))
@@ -190,6 +202,7 @@ def edit_panel(content):
 
 
 @admin.route('/delete_panel/<content>', methods=['GET', 'POST'])
+@login_required
 def delete_panel(content):
     obj = 0
     if db.session.query(Panelist).first():
@@ -209,6 +222,7 @@ def delete_panel(content):
         return render_template('delete_panel.html', panels=None, current_id=1)
 
 @admin.route('/student/')
+@login_required
 def student():
     if db.session.query(Student).first(): 
         return render_template('student.html', students=Student.query.all())
@@ -216,6 +230,7 @@ def student():
         return render_template('student.html', students=None)
 
 @admin.route('/edit_student/<content>', methods=['GET', 'POST'])
+@login_required
 def edit_student(content):
     student = db.session.query(Student).filter_by(stud_no=content).first()
     
@@ -236,6 +251,7 @@ def edit_student(content):
         return render_template('edit_student.html', students=None)
 
 @admin.route('/delete_student/<content>', methods=['GET', 'POST'])
+@login_required
 def delete_student(content):
     if request.method == 'POST':
         if request.form['submit'] == 'yes':
@@ -252,6 +268,7 @@ def delete_student(content):
 
 
 @admin.route('/schedule/')
+@login_required
 def schedule():
     obj = 0
     if db.session.query(Defense).first():
@@ -265,6 +282,7 @@ def schedule():
         return render_template('schedule.html', defenses=None, current_id=1)
 
 @admin.route('/new_sched/', methods=['GET', 'POST'])
+@login_required
 def new_sched():
     obj = 0
     if db.session.query(Defense).first():
@@ -301,6 +319,7 @@ def new_sched():
         return render_template('new_sched.html', defenses=None, current_id=1, groups=Group.query.all(), panels=Panelist.query.all())
 
 @admin.route('/edit_sched/<content>', methods=['GET', 'POST'])
+@login_required
 def edit_sched(content):
     defense = db.session.query(Defense).filter_by(id=content).first()
 
@@ -337,6 +356,7 @@ def edit_sched(content):
         return render_template('edit_sched.html', defenses=None, groups=Group.query.all(), panels=Panelist.query.all())
 
 @admin.route('/delete_sched/<content>', methods=['GET', 'POST'])
+@login_required
 def delete_sched(content):
     if request.method == 'POST':
         if request.form['submit'] == 'yes':

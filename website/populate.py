@@ -1,5 +1,8 @@
 from .models import Group, Student, Panelist, Defense
+from datetime import datetime, timedelta, date, time
+import random
 from . import db
+
 
 def populate_group():
     new_group = Group(name='OHRCa', 
@@ -308,3 +311,31 @@ def populate_panelist():
     db.session.add(new_panel)
 
     db.session.commit()
+
+def populate_defense():
+    date_temp  = date.fromisoformat('2021-07-07')
+    time_temp  = time.fromisoformat('13:00:00')
+    for x in range(1, 11):
+        if x == 7:
+            date_temp  = date.fromisoformat('2021-07-14')
+            time_temp  = time.fromisoformat('15:00:00')
+        arr = []
+        while len(arr) != 3:
+            panel = db.session.query(Panelist).filter_by(id=random.randint(1, 5)).first()
+            if panel not in arr:
+                arr.append(panel)
+        start_date = datetime.combine(date_temp, time_temp)
+        end_date = start_date + timedelta(hours=1)
+        time_temp = time.fromisoformat(end_date.strftime('%H:%M:%S'))
+
+        new_defense = Defense(
+            group_id=x, 
+            start_date=start_date, 
+            end_date=end_date, 
+            head_panel_id=random.choice(arr).id
+        )
+        db.session.add(new_defense)
+        new_defense.panels.append(arr[0])
+        new_defense.panels.append(arr[1])
+        new_defense.panels.append(arr[2])
+        db.session.commit()
