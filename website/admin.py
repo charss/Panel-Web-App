@@ -91,38 +91,12 @@ def edit_group(content):
     group = db.session.query(Group).filter_by(id=content).first()
     
     if request.method == 'POST':
-        if type(obj) == int:
-            temp = 0
-        else:
-            temp = obj.id
-
-        data = request.json
-        group.name = data['group_name']
-        group.project_title = data['project_title']
-        group.program = data['program']
-        # i = 0
-        # for prop in data['proponents']:
-        #     if i == 0:
-        #         studNo = prop
-        #     elif i == 1:
-        #         lastName = prop
-        #     elif i == 2:
-        #         firstName = prop
-        #     elif i == 3:
-        #         middleI = prop
-        #         new_student = Student(stud_no=studNo, 
-        #                               last_name=lastName, 
-        #                               first_name=firstName,
-        #                               middle_in=middleI,
-        #                               group_id=temp)
-        #         db.session.add(new_student)
-        #         db.session.commit()
-        #         i = -1
-        #     i += 1
-
-
+        group.name = request.form['groupName']
+        group.project_title = request.form['projectTitle']
+        group.program = request.form['program']
         db.session.commit()
-        return jsonify(data)
+
+        return redirect(url_for('admin.group'))
 
     if db.session.query(Group).first(): 
         return render_template('edit_group.html', groups=Group.query.all(), current_id=obj.id+1, to_edit=group)
@@ -199,25 +173,6 @@ def edit_panel(content):
         panel.first_name = request.form['firstName']
         panel.middle_in = request.form['middleIn']
         panel.school = request.form['school']
-        # i = 0
-        # for prop in data['proponents']:
-        #     if i == 0:
-        #         studNo = prop
-        #     elif i == 1:
-        #         lastName = prop
-        #     elif i == 2:
-        #         firstName = prop
-        #     elif i == 3:
-        #         middleI = prop
-        #         new_student = Student(stud_no=studNo, 
-        #                               last_name=lastName, 
-        #                               first_name=firstName,
-        #                               middle_in=middleI,
-        #                               group_id=temp)
-        #         db.session.add(new_student)
-        #         db.session.commit()
-        #         i = -1
-        #     i += 1
 
 
         db.session.commit()
