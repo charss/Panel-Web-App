@@ -23,6 +23,9 @@ def admin_home():
     if not db.session.query(Defense).first():
         populate_defense()
 
+    if not db.session.query(Rubric).first():
+        populate_rubric()
+
     return render_template("home.html")
 
 
@@ -93,9 +96,6 @@ def new_group():
 @login_required
 def edit_group(content):
     obj = 0
-    if db.session.query(Group).first():
-        obj = db.session.query(Group).order_by(Group.id.desc()).first()
-
     group = db.session.query(Group).filter_by(id=content).first()
     
     if request.method == 'POST':
@@ -106,10 +106,7 @@ def edit_group(content):
 
         return redirect(url_for('admin.group'))
 
-    if db.session.query(Group).first(): 
-        return render_template('edit_group.html', groups=Group.query.all(), current_id=obj.id+1, to_edit=group)
-    else:
-        return render_template('edit_group.html', groups=None, current_id=1, to_edit=None)
+    return render_template('edit_group.html', groups=Group.query.all(),to_edit=group)
 
 @admin.route('/delete_group/<content>', methods=['GET', 'POST'])
 @login_required
@@ -344,7 +341,6 @@ def edit_sched(content):
         defense.panels.append(panel1)
         defense.panels.append(panel2)
         defense.panels.append(panel3)
-        print(defense.panels)
 
         db.session.commit()
        
@@ -379,6 +375,73 @@ def rubrics():
         obj = db.session.query(Rubric).order_by(Rubric.id.desc()).first()
     
     if db.session.query(Rubric).first(): 
-        return render_template('rubrics.html', rubrics=Defense.query.all(), current_id=obj.id+1)
+        return render_template('rubrics.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
     else:
         return render_template('rubrics.html', rubrics=None, current_id=1)
+
+@admin.route('/new_rubric/', methods=['GET', 'POST'])
+@login_required
+def new_rubric():
+    obj = 0
+
+    if db.session.query(Rubric).first():
+        obj = db.session.query(Rubric).order_by(Rubric.id.desc()).first()
+    
+    if request.method == 'POST':
+        desc = request.form['desc']
+        rate5 = request.form['rate5']
+        rate4 = request.form['rate4']
+        rate3 = request.form['rate3']
+        rate2 = request.form['rate2']
+        rate1 = request.form['rate1']
+        weight = int(request.form['weight'])
+        rub_type = request.form['rubType']
+        pbl_lvl = request.form['pblLvl']
+
+        temp = Rubric(
+            desc=desc,
+            rate5=rate5,
+            rate4=rate4,
+            rate3=rate3,
+            rate2=rate2,
+            rate1=rate1,
+            weight=weight,
+            rubric_type=rub_type,
+            pbl_lvl=pbl_lvl
+        )
+
+        db.session.add(temp)
+        db.session.commit()
+
+       
+        return redirect(url_for('admin.rubrics'))
+
+    if db.session.query(Rubric).first():
+        obj = db.session.query(Rubric).order_by(Rubric.id.desc()).first()
+    
+    if db.session.query(Rubric).first(): 
+        return render_template('new_rubric.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('new_rubric.html', rubrics=None, current_id=1)
+
+
+@admin.route('/edit_rubric/<content>', methods=['GET', 'POST'])
+@login_required
+def edit_rubric(content):
+    rubric = db.session.query(Rubric).filter_by(id=content).first()
+    
+    if request.method == 'POST':
+        desc = request.form['desc']
+        rate5 = request.form['rate5']
+        rate4 = request.form['rate4']
+        rate3 = request.form['rate3']
+        rate2 = request.form['rate2']
+        rate1 = request.form['rate1']
+        weight = int(request.form['weight'])
+        rubric_type = request.form['rubType']
+        pbl_lvl = request.form['pblLvl']
+
+        db.session.commit()
+        return redirect(url_for('admin.rubrics'))
+    
+    return render_template('edit_rubric.html', rubrics=Rubric.query.all(), to_edit=rubric)

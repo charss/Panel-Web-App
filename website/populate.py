@@ -1,4 +1,4 @@
-from .models import Group, Student, Panelist, Defense
+from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet
 from datetime import datetime, timedelta, date, time
 import random
 from . import db
@@ -339,3 +339,71 @@ def populate_defense():
         new_defense.panels.append(arr[1])
         new_defense.panels.append(arr[2])
         db.session.commit()
+
+def populate_rubric():
+    temp = Rubric(
+        desc='Subject Mastery',
+        rate5='Student discusses the subject with enough information, provides supporting details and gives specific examples.',
+        rate4='Student discusses the subject with enough information and supporting details.',
+        rate3='Student discusses the subject with enough information. ',
+        rate2='Student discusses the subject with very minimal details during the discussion.',
+        rate1='Student has no subject mastery at all.',
+        weight=8,
+        rubric_type='Individual',
+        pbl_lvl='PBL1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Ability to Answer Questions',
+        rate5='Student can answer all questions about the subject and can explain thoroughly.',
+        rate4='Student can answer most questions about the subject.',
+        rate3='Student can answer some questions about the subject.',
+        rate2='Student can answer few questions about the subject.',
+        rate1='Student cannot answer any question about the subject.',
+        weight=6,
+        rubric_type='Individual',
+        pbl_lvl='PBL1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Delivery',
+        rate5='Student shows very excellent gestures and expressions to convey ideas.',
+        rate4='Student shows very good gestures and expressions to convey ideas.',
+        rate3='Student shows good gestures and expressions to convey ideas.',
+        rate2='Student shows gestures and expressions that needs improvement to convey ideas.',
+        rate1='Student show poor gestures and expressions to convey ideas.',
+        weight=2,
+        rubric_type='Individual',
+        pbl_lvl='PBL1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Verbal and Non Verbal Ability',
+        rate5='Correct grammar, pronunciation, choice of words and use of the English language in general are exceptional.',
+        rate4='Correct grammar, pronunciation, choice of words and use of the English language in general are good.',
+        rate3='Correct grammar, pronunciation, choice of words and use of the English language in general are acceptable. ',
+        rate2='Correct grammar, pronunciation, choice of words, and use of the English language are acceptable, with some flaws.',
+        rate1='Correct grammar, pronunciation, choice of words and use of the English language in general are rarely observed.',
+        weight=2,
+        rubric_type='Individual',
+        pbl_lvl='PBL1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Grooming',
+        rate5='Student wears formal attire and appears professional, well groomed, and decent.',
+        rate4='Student appears professional and decent.',
+        rate3='Student is well-groomed and in corporate attire.',
+        rate2='Appearance is unprofessional but attempts have been made to look decent.',
+        rate1='Appearance is unprofessional.',
+        weight=2,
+        rubric_type='Individual',
+        pbl_lvl='PBL1'
+    )
+    db.session.add(temp)
+
+    db.session.commit()

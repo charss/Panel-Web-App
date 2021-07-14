@@ -19,6 +19,10 @@
                     {% for member in group.members %}
                         <p>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</p>
                     {% endfor%}
+                    <p>Defenses:</p>
+                    {% for defense in group.defenses %}
+                        <p>{{ defense.id }} - {{ defense.start_date }} </p>
+                    {% endfor%}
                     <a href="/edit_group/{{group.id}}">
                         <button>Edit</button>
                     </a>
