@@ -1,0 +1,105 @@
+{% extends "admin.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+    <div id="overlay">
+        <div id="text">
+            
+            <div id='close_button' onclick="off()">
+                <a href='/rubrics/'>
+                    <img src="{{ url_for('static', filename='close.png') }}">
+                </a>
+                
+            </div>
+
+            <div style='overflow-y: scroll; height: 80vh;'>
+                <p>Create New Rubric</p>
+                <form method='POST'>
+                    <label for="rubricCode">Rubric Code:</label>
+                    <input type='text' id='rubricCode' name='rubricCode' value ="{{ current_id }}" disabled><br>
+
+                    <label for="desc">Description</label>
+                    <input type='text' id='desc' name='desc'><br>
+
+
+                    <label for='rate5'>Rate 5</label>
+                    <textarea id='rate5' name='rate5'></textarea>
+                    <br>
+
+                    <label for='rate4'>Rate 4</label>
+                    <textarea id='rate4' name='rate4'></textarea>
+                    <br>
+
+                    <label for='rate3'>Rate 3</label>
+                    <textarea id='rate3' name='rate3'></textarea>
+                    <br>
+
+
+                    <label for='rate2'>Rate 2</label>
+                    <textarea id='rate2' name='rate2'></textarea>
+                    <br>
+
+                    <label for='rate1'>Rate 1</label>
+                    <textarea id='rate1' name='rate1'></textarea>
+                    <br>
+
+                    <label for="weight">Weight</label>
+                    <input type="number" id="weight" name='weight' autocomplete='off' min='1' max='9' value=0 onkeydown='return false;'>
+                    <br>
+
+                    <label for="rubType">Rubric Type</label>
+                    <select name="rubType" id='rubType'>
+                        <option value='Individual'>Individual</option>
+                        <option value='Group'>Group</option>
+                    </select>
+                    <br>
+
+                    <label for="pblLvl">PBL Level</label>
+                    <select name="pblLvl" id='pblLvl'>
+                        <option value='PBL1'>PBL1</option>
+                        <option value='PBL2'>PBL2</option>
+                        <option value='PBL3'>PBL3</option>
+                        <option value='PBL4'>PBL4</option>
+                    </select>
+                    <br>
+
+                    
+                    <button type='submit' id='submit' name='submit'>Submit</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+
+    <div class='create_button'>
+        <button>Create New Rubric</button>
+    </div>
+
+    <div class='display_grid'>
+        {% if rubrics %}
+            {% for rubric in rubrics %}
+                <div class='box'>
+                    <p>ID: {{ rubric.id }}</p>
+                    <p>Description: {{ rubric.desc }}</p>
+                    <p>Rate 5: {{ rubric.rate5 }}</p>
+                    <p>Rate 4: {{ rubric.rate4 }}</p>
+                    <p>Rate 3: {{ rubric.rate3 }}</p>
+                    <p>Rate 2: {{ rubric.rate2 }}</p>
+                    <p>Rate 1: {{ rubric.rate1 }}</p>
+                    <p>Weight: x{{ rubric.weight }}</p>
+                    <p>Rubric Type: {{ rubric.rubric_type }}</p>
+                    <p>PBL Level: {{ rubric.pbl_lvl }}</p>
+                    <br>
+                    <a href="">
+                        <button>Edit</button>
+                    </a>
+                    <a href="">
+                        <button>Delete</button>
+                    </a>
+                </div>
+                
+            {% endfor %}
+        {% endif %}
+    </div>
+
+{% endblock %}

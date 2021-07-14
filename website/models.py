@@ -28,7 +28,7 @@ class Group(db.Model):
     program       = db.Column(db.String(150), nullable=False)
     gradesheets   = db.relationship('Gradesheet', backref='group', uselist=True)
     members       = db.relationship('Student', backref='group', uselist=True)
-    defenses      = db.relationship('Defense', backref='group')
+    defenses      = db.relationship('Defense', backref='group', uselist=True)
     
 
 class Student(db.Model):
