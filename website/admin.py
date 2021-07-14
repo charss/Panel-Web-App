@@ -445,3 +445,19 @@ def edit_rubric(content):
         return redirect(url_for('admin.rubrics'))
     
     return render_template('edit_rubric.html', rubrics=Rubric.query.all(), to_edit=rubric)
+
+@admin.route('/delete_rubric/<content>', methods=['GET', 'POST'])
+@login_required
+def delete_rubric(content):
+    if request.method == 'POST':
+        if request.form['submit'] == 'yes':
+            db.session.query(Rubric).filter_by(id=content).delete()
+            db.session.commit()
+            return redirect(url_for('admin.rubrics'))
+        else:
+            return redirect(url_for('admin.rubrics'))
+
+    if db.session.query(Defense).first(): 
+        return render_template('delete_rubric.html', rubrics=Rubric.query.all())
+    else:
+        return render_template('delete_rubric.html', rubrics=None)
