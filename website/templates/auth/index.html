@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Sign-in</title>
+    <link rel='stylesheet' href="{{ url_for('static', filename='auth/assets/bootstrap/css/bootstrap.min.css') }}" />
+    <link rel='stylesheet' href="{{ url_for('static', filename='auth/assets/css/styles.css') }}" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"
+      crossorigin="anonymous"
+    />
+</head>
+
+<body style="background: rgb(227,227,227);">
+    {% with messages = get_flashed_messages(with_categories=true) %} {% if
+    messages %} {% for category, message in messages %} {% if category ==
+    'error' %}
+    <div class="alert alert-danger alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% else %}
+
+    <div class="alert alert-success alter-dismissable fade show" role="alert">
+      {{ message }}
+      <button type="button" class="close" data-dismiss="alert">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    {% endif %} {% endfor %} {% endif %} {% endwith %}
+    
+    <div class="center-whole">
+        <div class = container-img>
+        <img src="{{ url_for('static', filename='login_image.jpg') }}" style='max-width: 400px;' />
+        <h1 class = "center-h1">Sign In</h1>
+        </div>
+
+        <form method='POST'>
+            <div class="table-responsive">
+                <table class="t-center" >
+                    <thead>
+                        <tr>
+                            <th style="border-style: none;">
+                                Username <input type="text" class="form-control" id='email' name='email' style="width: 390px;"/> 
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr style="border-style: none;">
+                            <td style="border-style: none;font-weight: bold;">
+                                Password<input type="password" class="form-control" id='password' name='password' style="width: 390px;" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="border-style: none;">
+                                <div class= "text-center" style='padding-top: 20px; padding-bottom: 30px;'>
+                                    <button type='submit' class="btn btn-primary" type="button" id="button-color">Sign In</button>
+                                </div>
+                            </td>
+                                
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </form>
+
+    </div>
+
+    <!-- <script src="assets/bootstrap/js/bootstrap.min.js"></script> -->
+    <script
+      type="text/javascript"
+      src="{{ url_for('static', filename='auth/assets/bootstrap/js/bootstrap.min.js') }}"
+    ></script>
+</body>
+
+</html>

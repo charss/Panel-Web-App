@@ -9,6 +9,12 @@ defense_panel = db.Table('defense_panel',
          db.Column('defense_id', db.Integer, db.ForeignKey('defense.id'))
 )
 
+scores = db.Table('scores',
+         db.Column('panel_id', db.Integer, db.ForeignKey('gradesheet.id')),
+         db.Column('defense_id', db.Integer, db.ForeignKey('rubric.id')),
+         db.Column('score', db.Integer)
+)
+
 class User(db.Model):
     id         = db.Column(db.Integer, primary_key=True)
     email      = db.Column(db.String(150), unique=True)
@@ -16,12 +22,14 @@ class User(db.Model):
     first_name = db.Column(db.String(150))
 
 class Group(db.Model):
-    id            = db.Column(db.Integer, primary_key=True)
-    name          = db.Column(db.String(150), nullable=False)
-    project_title = db.Column(db.String(150), nullable=False)
-    program       = db.Column(db.String(150), nullable=False)
-    members       = db.relationship('Student', backref='group', uselist=True)
-    defenses      = db.relationship('Defense', backref='group')
+    id             = db.Column(db.Integer, primary_key=True)
+    name           = db.Column(db.String(150), nullable=False)
+    project_title  = db.Column(db.String(150), nullable=False)
+    program        = db.Column(db.String(150), nullable=False)
+    group_sheet_id = db.Column(db.Integer, db.ForeignKey('gradesheet.id'))
+    indiv_sheet_id = db.Column(db.Integer, db.ForeignKey('gradesheet.id'))
+    members        = db.relationship('Student', backref='group', uselist=True)
+    defenses       = db.relationship('Defense', backref='group')
     
 
 class Student(db.Model):
@@ -71,5 +79,28 @@ class Defense(db.Model):
         backref=db.backref('defenses')
     )
     
+class Gradesheet(db.Model):
+    id            = db.Column(db.Integer, primary_key=True)
+    sheet_type    = db.Column(db.String(50), nullable=False)
+    total         = db.Column(db.Integer, nullable=False)
+    group_sheet   = db.relationship('Group', backref='groupsheet')
+    indiv_sheet   = db.relationship('Group', backref='indivsheet')
+    paneling      = db.relationship(
+        'Rubric',
+        secondary=scores,
+        backref=db.backref('rubric')
+    )
+
+class Rubric(db.Model):
+    id           = db.Column(db.Integer, primary_key=True)
+    desc         = db.Column(db.String(150), nullable=False)
+    rate1        = db.Column(db.String(150), nullable=False)
+    rate2        = db.Column(db.String(150), nullable=False)
+    rate3        = db.Column(db.String(150), nullable=False)
+    rate4        = db.Column(db.String(150), nullable=False)
+    rate5        = db.Column(db.String(150), nullable=False)
+    weight       = db.Column(db.Integer, nullable=False)
+    rubric_type  = db.Column(db.String(150), nullable=False)
+    pbl_lvl      = db.Column(db.String(150), nullable=False)
 
     
