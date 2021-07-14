@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, request, jsonify
 from werkzeug.utils import redirect
-from .models import Group, Student, Panelist, Defense
+from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet
 from flask_login import login_required, current_user
 from . import db
 from .populate import *
@@ -370,3 +370,15 @@ def delete_sched(content):
         return render_template('delete_sched.html', defenses=Defense.query.all(), groups=Group.query.all(), panels=Panelist.query.all())
     else:
         return render_template('delete_sched.html', defenses=None, groups=Group.query.all(), panels=Panelist.query.all())
+
+@admin.route('/rubrics/')
+@login_required
+def rubrics():
+    obj = 0
+    if db.session.query(Rubric).first():
+        obj = db.session.query(Rubric).order_by(Rubric.id.desc()).first()
+    
+    if db.session.query(Rubric).first(): 
+        return render_template('rubrics.html', rubrics=Defense.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('rubrics.html', rubrics=None, current_id=1)

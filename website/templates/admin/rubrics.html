@@ -8,7 +8,7 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="/groups/" class="nav-link text-dark font-italic bg-light">
+        <a href="/groups/" class="nav-link text-dark font-italic">
             <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>Groups
         </a>
     </li>
@@ -33,56 +33,36 @@
         </a>
     </li>
     <li class="nav-item">
-        <a href="" class="nav-link text-dark font-italic">
+        <a href="" class="nav-link text-dark font-italic bg-light">
             <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Rubrics
         </a>
     </li>
-    <style>
-        table { width: 100%; }
-        table, th, td { border: solid 1px #DDD;
-            border-collapse: collapse; padding: 2px 3px; text-align: center;
-        }
-    </style>
-    
 {% endblock %}
 {% block content %}
-    <div id="overlay">
-        <div id="text">
-            <div id='close_button' onclick="off()">
-                <a href='/groups'>
-                    <img src="{{ url_for('static', filename='close.png') }}">
-                </a>
-            </div>
-
-            <div>
-                <p>Are you sure you?</p>
-                <form method='POST'>
-                    <button id='submit' name='submit' value='yes'>Yes</button>
-                    <button id='submit' name='submit' values='no'>No</button>
-                </form>
-                
-            </div>
-        </div>
-    </div>
-
-
-    <div class='create_button'>
-        <button>Create New Group</button>
-    </div>
 
     <div class='display_grid'>
-        {% if groups %}
-            {% for group in groups %}
-                <div class='box'
-                    <p>ID: {{group.id}}</p>
-                    <p>Group Name: {{group.name}}</p>
-                    <p>Project Title: {{group.project_title}}</p>
-                    <p>Program: {{group.program}}</p>
+        {% if students %}
+            {% for student in students %}
+                <div class='box'>
+                    <p>ID: {{ student.stud_no }}</p>
+                    <p>Name: {{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</p>
+                    <p>Group: {{ student.group_id }}</p>
+                    <p>Group Name: {{ student.group.name }}</p>
                     <br>
+                    <a href="/edit_student/{{ student.stud_no }}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="/delete_student/{{ student.stud_no }}">
+                        <button>Delete</button>
+                    </a>
                 </div>
+                
             {% endfor %}
         {% endif %}
     </div>
     
 
+    
+    <script>
+    </script>
 {% endblock %}
