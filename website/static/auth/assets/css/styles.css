@@ -1,0 +1,57 @@
+.center-whole {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 450px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
+  border-radius: 30px;
+}
+
+img {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  opacity: 0.25;
+  border-radius: 25px;
+  margin-top: 20px;
+}
+
+.container-img {
+  position: relative;
+  text-align: center;
+  color: white;
+}
+
+.center-h1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: green;
+}
+
+button {
+  margin-top: 21px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 25px;
+  margin-bottom: 50px;
+}
+
+#th-email {
+  width: 20%;
+}
+
+.t-center {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+}
+
+#button-color {
+  background: green;
+  border-color: green;
+}
