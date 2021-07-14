@@ -15,21 +15,20 @@ scores = db.Table('scores',
          db.Column('score', db.Integer)
 )
 
-class User(db.Model):
-    id         = db.Column(db.Integer, primary_key=True)
-    email      = db.Column(db.String(150), unique=True)
-    password   = db.Column(db.String(150))
-    first_name = db.Column(db.String(150))
+# class User(db.Model):
+#     id         = db.Column(db.Integer, primary_key=True)
+#     email      = db.Column(db.String(150), unique=True)
+#     password   = db.Column(db.String(150))
+#     first_name = db.Column(db.String(150))
 
 class Group(db.Model):
-    id             = db.Column(db.Integer, primary_key=True)
-    name           = db.Column(db.String(150), nullable=False)
-    project_title  = db.Column(db.String(150), nullable=False)
-    program        = db.Column(db.String(150), nullable=False)
-    group_sheet_id = db.Column(db.Integer, db.ForeignKey('gradesheet.id'))
-    indiv_sheet_id = db.Column(db.Integer, db.ForeignKey('gradesheet.id'))
-    members        = db.relationship('Student', backref='group', uselist=True)
-    defenses       = db.relationship('Defense', backref='group')
+    id            = db.Column(db.Integer, primary_key=True)
+    name          = db.Column(db.String(150), nullable=False)
+    project_title = db.Column(db.String(150), nullable=False)
+    program       = db.Column(db.String(150), nullable=False)
+    gradesheets   = db.relationship('Gradesheet', backref='group', uselist=True)
+    members       = db.relationship('Student', backref='group', uselist=True)
+    defenses      = db.relationship('Defense', backref='group')
     
 
 class Student(db.Model):
@@ -80,16 +79,16 @@ class Defense(db.Model):
     )
     
 class Gradesheet(db.Model):
-    id            = db.Column(db.Integer, primary_key=True)
-    sheet_type    = db.Column(db.String(50), nullable=False)
-    total         = db.Column(db.Integer, nullable=False)
-    group_sheet   = db.relationship('Group', backref='groupsheet')
-    indiv_sheet   = db.relationship('Group', backref='indivsheet')
-    paneling      = db.relationship(
+    id         = db.Column(db.Integer, primary_key=True)
+    sheet_type = db.Column(db.String(50), nullable=False)
+    total      = db.Column(db.Integer, nullable=False)
+    group_id   = db.Column(db.Integer, db.ForeignKey('group.id'))
+    paneling   = db.relationship(
         'Rubric',
         secondary=scores,
         backref=db.backref('rubric')
     )
+
 
 class Rubric(db.Model):
     id           = db.Column(db.Integer, primary_key=True)
