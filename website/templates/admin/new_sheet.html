@@ -1,0 +1,93 @@
+{% extends "admin.html" %}
+{% block title %}Home Page{% endblock %}
+{% block content %}
+    <div class='create_button'>
+        <a href="/new_group/">
+            <button>Create New Gradesheet Template</button>
+        </a>
+    </div>
+
+
+    <div id="overlay">
+        <div id="text">
+            <div id='close_button' onclick="off()">
+                <a href='/gradesheets'>
+                    <img src="{{ url_for('static', filename='close.png') }}">
+                </a>
+                
+            </div>
+
+            <div>
+                <p>Create new Gradesheet Template</p>
+                <form method='POST'>
+                    <label for="sheetCode">Gradesheet Code:</label>
+                    <input type='text' id='sheetCode' name='sheetCode' value ="{{ current_id }}" disabled><br>
+
+                    <label for="rubricType">Rubric Type:</label>
+                    <select name='rubricType' id='rubricType'>
+                        <option value='Individual'>Individual</option>
+                        <option value='Group'>Group</option>
+                    </select>
+                    <br>
+                    
+
+                    {% for x in range(1, 6) %}
+                        <label for="rubric{{ x }}">Rubric {{ x }}:</label>
+                        <select name='rubric{{ x }}' id='rubric{{ x }}'>
+                            {% if rubrics %}
+                                    <option value='noValue'>------------</option>
+                                {% for rubric in rubrics %}
+                                    <option value="{{ rubric.id }}">{{ rubric.desc }} (x{{ rubric.weight }})</option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                        <br>
+                    {% endfor %}
+
+                    <button type='submit' id='submit' name='submit'>Submit</button>
+                </form>
+                
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class='display_grid'>
+        {% if groups %}
+            {% for group in groups %}
+                <div class='box'
+                    <p>ID: {{group.id}}</p>
+                    <p>Group Name: {{group.name}}</p>
+                    <p>Project Title: {{ group.project_title }}</p>
+                    <p>Program: {{group.program}}</p>
+                    <p>Members:</p>
+                    {% for member in group.members %}
+                        <p>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</p>
+                    {% endfor%}
+                    <p>Defenses:</p>
+                    {% for defense in group.defenses %}
+                        <p>{{ defense.id }} - {{ defense.start_date }} </p>
+                    {% endfor%}
+                    <a href="">
+                        <button>Edit</button>
+                    </a>
+                    <a href="">
+                        <button>Delete</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div> -->
+
+    <script>
+        $(document).ready(function(){
+            $('select').on('change', function(event ) {
+                var prevValue = $(this).data('previous');
+            $('select').not(this).find('option[value="'+prevValue+'"]').show();    
+                var value = $(this).val();
+            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+            });
+        });
+
+		
+    </script>
+{% endblock %}

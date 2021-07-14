@@ -1,0 +1,502 @@
+<html>
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+		
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+	</head>
+	<body>
+		<form method='POST'>
+			<div class="parent">
+				<div class="div1"> 
+					<p style="text-align: left; padding-left: 10px;">{{ current_id }}</p>
+					<h1>FEU ALABANG</h1>
+				</div>
+				<div class="div2 green_bg"> 
+					<title_font1>ORAL DEFENSE</title_font1>
+					<title_font1><br>INDIVIDUAL GRADE SHEET</title_font1>
+				</div>
+				<div class="div3"> 
+					<details_font>GROUP NAME:</details_font>
+				</div>
+				<div class="div4"> 
+					<details_font>G R O U P D E T A I L S</details_font>
+				</div>
+				<div class="div5"> 
+					<details_font>PROJECT TITLE:</details_font>
+				</div>
+				<div class="div6"> 
+					<details_font>P R O J E C T D E T A I L S</details_font>
+				</div>
+				<div class="div7"> 
+					<details_font>ORAL DEFENSE:</details_font><br>
+					<details_font>SCHEDULE:</details_font>
+				</div>
+				<div class="div8"> 
+					<details_font>DATE:</details_font>
+				</div>
+				<div class="div9"> 
+					<details_font>TIME:</details_font> 
+				</div>
+				<div class="div10"> 
+				<details_font>ROOMS:</details_font> 
+				</div>
+				<div class="div11"> 
+					DATE DETAILS 
+				</div>
+				<div class="div12"> 
+					TIME DETAILS
+				</div>
+				<div class="div13"> 
+					ROOM DETAILS
+				</div>
+				<div class="div14 green_bg empty_spc"> 
+					<prop_font1> PROPONENT NAME (LN, FN MI.) </prop_font1>
+				</div>
+				<div class="div15"> 
+					<details_font> PROPONENT 1: </details_font>
+				</div>
+				<div class="div16"> 
+					P R O P O N E N T D E T A I L S
+				</div>
+				<div class="div17"> 
+					<details_font> PROPONENT 2: </details_font>
+				</div>
+				<div class="div18"> 
+					P R O P O N E N T D E T A I L S
+				</div>
+				<div class="div19"> 
+					<details_font> PROPONENT 3: </details_font>
+				</div>
+				<div class="div20"> 
+					P R O P O N E N T D E T A I L S
+				</div>
+				<div class="div21"> 
+					<details_font> PROPONENT 4: </details_font>
+				</div>
+				<div class="div22"> 
+					P R O P O N E N T D E T A I L S
+				</div>
+				<div class="div23 empty_spc"> 
+					<prop_font1> EASTER EGG TIME </prop_font1>
+				</div>
+				<div class="div24 green_bg empty_spc"> 
+					<com_font>CRITERIA <br> AND <br> WEIGHT</com_font>
+				</div>
+				<div class="div25 green_bg empty_spc"> 
+					5
+				</div>
+				<div class="div26 green_bg empty_spc"> 
+					4
+				</div>
+				<div class="div27 green_bg empty_spc"> 
+					3
+				</div>
+				<div class="div28 green_bg empty_spc"> 
+					2
+				</div>
+				<div class="div29 green_bg empty_spc"> 
+					1
+				</div>
+				<div class="div30 green_bg"> 
+					VERY ACCEPTABLE
+				</div>
+				<div class="div31 green_bg"> 
+					ACCEPTABLE
+				</div>
+				<div class="div32 green_bg">
+					FAIR
+				</div>
+				<div class="div33 green_bg">
+					NEEDS <br> IMPROVEMENT
+				</div>
+				<div class="div34 green_bg"> 
+					POOR
+				</div>
+				<div class="div35 yellow_bg empty_spc"> 
+					STUDENT'S <br> INDIVIDUAL <br> GRADE
+				</div>
+				<div class="div36 green_bg"> 
+					{{ rubrics[contents['rubric1'] - 1].desc }}
+					<br>
+					(x{{ rubrics[contents['rubric1'] - 1].weight }})
+				</div>
+				<div class="div37">
+					{{ rubrics[contents['rubric1'] - 1].rate5 }}
+				</div>
+				<div class="div38">
+					{{ rubrics[contents['rubric1'] - 1].rate4 }}
+				</div>
+				<div class="div39"> 
+					{{ rubrics[contents['rubric1'] - 1].rate3 }}
+				</div>
+				<div class="div40"> 
+					{{ rubrics[contents['rubric1'] - 1].rate2 }}
+				</div>
+				<div class="div41"> 
+					{{ rubrics[contents['rubric1'] - 1].rate1 }}
+				</div>
+				<div class="div42 yellow_bg"> 
+					1 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div43 yellow_bg"> 
+					2 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div44 yellow_bg"> 
+					3 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div45 yellow_bg"> 
+					4 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div46 empty_spc"></div>
+				<div class="div47 empty_spc"></div>
+				<div class="div48 empty_spc"></div>
+				<div class="div49 empty_spc"></div>
+				<div class="div50 empty_spc"></div>
+				<div class="div51 green_bg"> 
+					{{ rubrics[contents['rubric2'] - 1].desc }}
+					(x{{ rubrics[contents['rubric2'] - 1].weight }})
+				</div>
+				<div class="div52"> 
+					{{ rubrics[contents['rubric2'] - 1].rate5 }}
+				</div>
+				<div class="div53"> 
+					{{ rubrics[contents['rubric2'] - 1].rate4 }}
+				</div>
+				<div class="div54"> 
+					{{ rubrics[contents['rubric2'] - 1].rate3 }}
+				</div>
+				<div class="div55"> 
+					{{ rubrics[contents['rubric2'] - 1].rate2 }}
+				</div>
+				<div class="div56">
+					{{ rubrics[contents['rubric2'] - 1].rate1 }}
+				</div>
+				<div class="div57 yellow_bg"> 
+					1 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div58 yellow_bg"> 
+					2 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div59 yellow_bg"> 
+					3 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div60 yellow_bg"> 
+					4 <br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div61 empty_spc"> 
+				</div>
+				<div class="div62 empty_spc"> 		
+				</div> 
+				<div class="div63 empty_spc"> 		
+				</div>
+				<div class="div64 empty_spc"> 		
+				</div>
+				<div class="div65 empty_spc"> 
+				</div>
+				<div class="div66 green_bg">
+					{{ rubrics[contents['rubric3'] - 1].desc }}
+					(x{{ rubrics[contents['rubric3'] - 1].weight }})
+				</div>
+				<div class="div67"> 
+					{{ rubrics[contents['rubric3'] - 1].rate5 }}
+				</div>
+				<div class="div68"> 
+					{{ rubrics[contents['rubric3'] - 1].rate4 }}
+				</div>
+				<div class="div69"> 
+					{{ rubrics[contents['rubric3'] - 1].rate3 }}
+				</div>
+				<div class="div70"> 
+					{{ rubrics[contents['rubric3'] - 1].rate2 }}
+				</div>
+				<div class="div71"> 
+					{{ rubrics[contents['rubric3'] - 1].rate1 }}
+				</div>
+				<div class="div72 yellow_bg"> 
+					1<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div73 yellow_bg"> 
+					2<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div74 yellow_bg"> 
+					3<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div75 yellow_bg"> 
+					4<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div76 empty_spc"> 
+				</div>
+				<div class="div77 empty_spc"> 
+				</div>
+				<div class="div78 empty_spc"> 
+				</div>
+				<div class="div79 empty_spc"> 
+				</div>
+				<div class="div80 empty_spc"> 
+				</div>
+				<div class="div81 green_bg">
+					{{ rubrics[contents['rubric4'] - 1].desc }}
+					(x{{ rubrics[contents['rubric4'] - 1].weight }})
+				</div>
+				<div class="div82">
+					{{ rubrics[contents['rubric4'] - 1].rate5 }}
+				</div>
+				<div class="div83"> 
+					{{ rubrics[contents['rubric4'] - 1].rate4 }}
+				</div>
+				<div class="div84"> 
+					{{ rubrics[contents['rubric4'] - 1].rate3 }}
+				</div>
+				<div class="div85"> 
+					{{ rubrics[contents['rubric4'] - 1].rate2 }}
+				</div>
+				<div class="div86"> 
+					{{ rubrics[contents['rubric3'] - 1].rate1 }}
+				</div>
+				<div class="div87 yellow_bg"> 
+					1<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div88 yellow_bg"> 
+					2<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div89 yellow_bg"> 
+					3<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div90 yellow_bg"> 
+					4<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div91 empty_spc"> 
+				</div>
+				<div class="div92 empty_spc"> 		
+				</div>
+				<div class="div93 empty_spc"> 			
+				</div>
+				<div class="div94 empty_spc"> 		
+				</div>
+				<div class="div95 empty_spc"> 		
+				</div>
+				<div class="div96 green_bg"> 
+					{{ rubrics[contents['rubric5'] - 1].desc }}
+					(x{{ rubrics[contents['rubric5'] - 1].weight }})
+				</div>
+				<div class="div97"> 
+					{{ rubrics[contents['rubric1'] - 1].rate5 }}
+				</div>
+				<div class="div98"> 
+					{{ rubrics[contents['rubric2'] - 1].rate4 }}
+				</div>
+				<div class="div99"> 
+					{{ rubrics[contents['rubric3'] - 1].rate3 }}
+				</div>
+				<div class="div100"> 
+					{{ rubrics[contents['rubric4'] - 1].rate2 }}
+				</div>
+				<div class="div101"> 
+					{{ rubrics[contents['rubric5'] - 1].rate1 }}
+				</div>
+				<div class="div102 yellow_bg"> 
+					1<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select> 
+				</div>
+				<div class="div103 yellow_bg"> 
+					2<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div104 yellow_bg"> 
+					3<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div105 yellow_bg"> 
+					4<br> <br>
+					<select name="score" id="score">
+						<option value="five">5</option>
+						<option value="four">4</option>
+						<option value="three">3</option>
+						<option value="two">2</option>
+						<option value="One">1</option>
+					</select>
+				</div>
+				<div class="div106 empty_spc"> 			
+				</div>
+				<div class="div107 empty_spc"> 
+				</div>
+				<div class="div108 empty_spc"> 
+				</div>
+				<div class="div109 empty_spc"> 
+				</div>
+				<div class="div110 empty_spc"> 
+				</div>
+				<div class="div111 green_bg empty_spc"> 
+					TOTAL:
+				</div>
+				<div class="div112 yellow_bg empty_spc"> 
+					0
+				</div>
+				<div class="div113 yellow_bg empty_spc"> 
+					0
+				</div>
+				<div class="div114 yellow_bg empty_spc"> 
+					0
+				</div>
+				<div class="div115 yellow_bg empty_spc"> 
+					0
+				</div>
+				<div class="div116 drkr_grn"> 
+					<button class="but" type="button" id="button_inp" name="button_inp">SUBMIT</button>
+				</div>
+			</div>
+		</form>
+	
+
+	<script>
+        $(document).ready(function(){
+            $('select').on('change', function(event ) {
+                var prevValue = $(this).data('previous');
+            $('select').not(this).find('option[value="'+prevValue+'"]').show();    
+                var value = $(this).val();
+            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+            });
+        });
+
+		
+    </script>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+	</body>
+
+	
+
+
+</html>

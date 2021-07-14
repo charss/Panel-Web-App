@@ -1,3 +1,4 @@
+from sqlalchemy.sql.elements import True_
 from sqlalchemy.sql.expression import nullslast
 from . import db
 from flask_login import UserMixin
@@ -10,9 +11,14 @@ defense_panel = db.Table('defense_panel',
 )
 
 scores = db.Table('scores',
-         db.Column('panel_id', db.Integer, db.ForeignKey('gradesheet.id')),
+         db.Column('gradesheet.id', db.Integer, db.ForeignKey('gradesheet.id')),
          db.Column('defense_id', db.Integer, db.ForeignKey('rubric.id')),
          db.Column('score', db.Integer)
+)
+
+templates = db.Table('templates',
+         db.Column('template_id', db.Integer, db.ForeignKey('template.id')),
+         db.Column('rubric_id', db.Integer, db.ForeignKey('rubric.id')),
 )
 
 # class User(db.Model):
@@ -83,12 +89,16 @@ class Gradesheet(db.Model):
     sheet_type = db.Column(db.String(50), nullable=False)
     total      = db.Column(db.Integer, nullable=False)
     group_id   = db.Column(db.Integer, db.ForeignKey('group.id'))
-    paneling   = db.relationship(
-        'Rubric',
-        secondary=scores,
-        backref=db.backref('rubric')
-    )
+    # rubrics   = db.relationship(
+    #     'Rubric',
+    #     secondary=templates,
+    #     backref=db.backref('rubric')
+    # )
 
+class Template(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    sheet_type = db.Column(db.String(50), nullable=False)
+    
 
 class Rubric(db.Model):
     id           = db.Column(db.Integer, primary_key=True)
@@ -101,5 +111,10 @@ class Rubric(db.Model):
     weight       = db.Column(db.Integer, nullable=False)
     rubric_type  = db.Column(db.String(150), nullable=False)
     pbl_lvl      = db.Column(db.String(150), nullable=False)
+    gradesheet   = db.relationship(
+        'Template',
+        secondary=templates,
+        backref=db.backref('rubric')
+    )
 
     
