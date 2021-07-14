@@ -1,50 +1,5 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
-{% block navigation %}
-    <li class="nav-item">
-        <!-- bg-light shows the selected -->
-        <a href="/home" class="nav-link text-dark font-italic">
-            <i class="fa fa-th-large mr-3 text-primary fa-fw"></i>Dashboard
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="/groups/" class="nav-link text-dark font-italic">
-            <i class="fa fa-address-card mr-3 text-primary fa-fw"></i>Groups
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="/panelist/" class="nav-link text-dark font-italic">
-            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Panelists
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="/student/" class="nav-link text-dark font-italic">
-            <i class="fa fa-cubes mr-3 text-primary fa-fw"></i>Students
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="/schedule/" class="nav-link text-dark font-italic bg-light">
-            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Schedules
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="" class="nav-link text-dark font-italic">
-            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Gradesheets
-        </a>
-    </li>
-    <li class="nav-item">
-        <a href="" class="nav-link text-dark font-italic">
-            <i class="fa fa-picture-o mr-3 text-primary fa-fw"></i>Rubrics
-        </a>
-    </li>
-    <style>
-        table { width: 100%; }
-        table, th, td { border: solid 1px #DDD;
-            border-collapse: collapse; padding: 2px 3px; text-align: center;
-        }
-    </style>
-    
-{% endblock %}
 {% block content %}
     <div id="overlay">
         <div id="text">
