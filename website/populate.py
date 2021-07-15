@@ -407,3 +407,4 @@ def populate_rubric():
     db.session.add(temp)
 
     db.session.commit()
+
