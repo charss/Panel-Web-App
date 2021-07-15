@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, url_for, request, jsonify, session
 from werkzeug.utils import redirect
-from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet
+from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet, Template
 from flask_login import login_required, current_user
 from . import db
 from .populate import *
@@ -95,7 +95,6 @@ def new_group():
 @admin.route('/edit_group/<content>', methods=['GET', 'POST'])
 @login_required
 def edit_group(content):
-    obj = 0
     group = db.session.query(Group).filter_by(id=content).first()
     
     if request.method == 'POST':
@@ -466,13 +465,13 @@ def delete_rubric(content):
 @login_required
 def gradesheets():
     obj = 0
-    if db.session.query(Gradesheet).first():
-        obj = db.session.query(Gradesheet).order_by(Gradesheet.id.desc()).first()
+    if db.session.query(Template).first():
+        obj = db.session.query(Template).order_by(Template.id.desc()).first()
     
-    if db.session.query(Gradesheet).first(): 
-        return render_template('gradesheet.html', gradesheet=Gradesheet.query.all(), current_id=obj.id+1)
+    if db.session.query(Template).first(): 
+        return render_template('gradesheet.html', templates=Template.query.all(), current_id=obj.id+1)
     else:
-        return render_template('gradesheet.html', rubrics=None, current_id=1)
+        return render_template('gradesheet.html', templates=None, current_id=1)
 
 
 @admin.route('/new_sheet/', methods=['GET', 'POST'])
@@ -511,42 +510,42 @@ def new_sheet():
         return render_template('new_sheet.html', rubrics=Rubric.query.all(), current_id=1)
 
 
-    # if db.session.query(Gradesheet).first(): 
-    #     return render_template('gradesheet/individual.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
-    # else:
-    #     return render_template('gradesheet/individual.html', rubrics=Rubric.query.all(), current_id=1)
+@admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
+@login_required
+def view_sheet(content):
 
+    template = db.session.query(Template).filter_by(id=content).first()
+    rubrics = []
+
+    for rubric in template.rubric:
+        rubrics.append(rubric.id)
+
+    print(template.rubric)
+    print(Rubric.query.all())
+    for x in range(len(template.rubric)):
+        print(template.rubric[x] == Rubric.query.all()[x])
+
+    return render_template('gradesheet/view_sheet.html', rubrics=template.rubric)
+    return redirect(url_for('admin.gradesheets'))
+    
 @admin.route('/confirm_sheet/', methods=['GET', 'POST'])
 @login_required
 def confirm_sheet():
-    obj = 0
-    if db.session.query(Gradesheet).first():
-        obj = db.session.query(Gradesheet).order_by(Gradesheet.id.desc()).first()
-    
     if request.method == 'POST':
-        pass
-        # group = db.session.query(Group).filter_by(id=request.form['group'][5:]).first()
-        # panel1 = db.session.query(Panelist).filter_by(id=request.form['selectBox1']).first()
-        # panel2 = db.session.query(Panelist).filter_by(id=request.form['selectBox2']).first()
-        # panel3 = db.session.query(Panelist).filter_by(id=request.form['selectBox3']).first()
-        
-        # date_temp  = date.fromisoformat(request.form['defense_date'])
-        # time_temp  = time.fromisoformat(request.form['start_time'])
-        # start_date = datetime.combine(date_temp, time_temp)
+        new_template = Template(sheet_type=session['trial']['rubric_type'])
+        db.session.add(new_template)
+        rubric1 = db.session.query(Rubric).filter_by(id=session['trial']['rubric1']).first()
+        rubric2 = db.session.query(Rubric).filter_by(id=session['trial']['rubric2']).first()
+        rubric3 = db.session.query(Rubric).filter_by(id=session['trial']['rubric3']).first()
+        rubric4 = db.session.query(Rubric).filter_by(id=session['trial']['rubric4']).first()
+        rubric5 = db.session.query(Rubric).filter_by(id=session['trial']['rubric5']).first()
+        new_template.rubric.append(rubric1)
+        new_template.rubric.append(rubric2)
+        new_template.rubric.append(rubric3)
+        new_template.rubric.append(rubric4)
+        new_template.rubric.append(rubric5)
+        db.session.commit()
+        session.pop('trial')
+        return redirect(url_for('admin.gradesheets'))
 
-        # duration = request.form['duration'][4:]
-        # end_date = start_date + timedelta(hours=int(duration))
-
-        # new_defense = Defense(group_id=group.id, start_date=start_date, end_date=end_date, head_panel_id=panel1.id)
-        # db.session.add(new_defense)
-        # db.session.commit()
-
-        # new_defense.panels.append(panel1)
-        # new_defense.panels.append(panel2)
-        # new_defense.panels.append(panel3)
-
-        # db.session.commit()
-       
-        # return redirect(url_for('admin.schedule'))
-    # return render_template('gradesheet.html')
     return render_template('gradesheet/individual.html', contents=session['trial'], rubrics=Rubric.query.all())

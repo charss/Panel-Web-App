@@ -6,6 +6,7 @@
         <title>{% block title %}{% endblock %}</title>
 	</head>
 	<body>
+		{% set x = 0 %}
 		<form method='POST'>
 			<div class="parent">
 				<div class="div1"> 
@@ -117,24 +118,25 @@
 					STUDENT'S <br> INDIVIDUAL <br> GRADE
 				</div>
 				<div class="div36 green_bg"> 
-					{{ rubrics[contents['rubric1'] - 1].desc }}
+					{{ rubrics[x].desc }}
 					<br>
-					(x{{ rubrics[contents['rubric1'] - 1].weight }})
+					(x{{ rubrics[x].weight }})
 				</div>
 				<div class="div37">
-					{{ rubrics[contents['rubric1'] - 1].rate5 }}
+					{{ rubrics[x].rate5 }}
 				</div>
 				<div class="div38">
-					{{ rubrics[contents['rubric1'] - 1].rate4 }}
+					{{ rubrics[x].rate4 }}
 				</div>
 				<div class="div39"> 
-					{{ rubrics[contents['rubric1'] - 1].rate3 }}
+					{{ rubrics[x].rate3 }}
 				</div>
 				<div class="div40"> 
-					{{ rubrics[contents['rubric1'] - 1].rate2 }}
+					{{ rubrics[x].rate2 }}
 				</div>
 				<div class="div41"> 
-					{{ rubrics[contents['rubric1'] - 1].rate1 }}
+					{{ rubrics[x].rate1 }}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div42 yellow_bg"> 
 					1 <br> <br>
@@ -182,23 +184,25 @@
 				<div class="div49 empty_spc"></div>
 				<div class="div50 empty_spc"></div>
 				<div class="div51 green_bg"> 
-					{{ rubrics[contents['rubric2'] - 1].desc }}
-					(x{{ rubrics[contents['rubric2'] - 1].weight }})
+					{{ rubrics[x].desc }}
+					<br>
+					(x{{ rubrics[x].weight }})
 				</div>
 				<div class="div52"> 
-					{{ rubrics[contents['rubric2'] - 1].rate5 }}
+					{{ rubrics[x].rate5 }}
 				</div>
 				<div class="div53"> 
-					{{ rubrics[contents['rubric2'] - 1].rate4 }}
+					{{ rubrics[x].rate4 }}
 				</div>
 				<div class="div54"> 
-					{{ rubrics[contents['rubric2'] - 1].rate3 }}
+					{{ rubrics[x].rate3 }}
 				</div>
 				<div class="div55"> 
-					{{ rubrics[contents['rubric2'] - 1].rate2 }}
+					{{ rubrics[x].rate2 }}
 				</div>
 				<div class="div56">
-					{{ rubrics[contents['rubric2'] - 1].rate1 }}
+					{{ rubrics[x].rate1 }}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div57 yellow_bg"> 
 					1 <br> <br>
@@ -251,23 +255,24 @@
 				<div class="div65 empty_spc"> 
 				</div>
 				<div class="div66 green_bg">
-					{{ rubrics[contents['rubric3'] - 1].desc }}
-					(x{{ rubrics[contents['rubric3'] - 1].weight }})
+					{{ rubrics[x].desc }}
+					(x{{ rubrics[x].weight }})
 				</div>
 				<div class="div67"> 
-					{{ rubrics[contents['rubric3'] - 1].rate5 }}
+					{{ rubrics[x].rate5 }}
 				</div>
 				<div class="div68"> 
-					{{ rubrics[contents['rubric3'] - 1].rate4 }}
+					{{ rubrics[x].rate4 }}
 				</div>
 				<div class="div69"> 
-					{{ rubrics[contents['rubric3'] - 1].rate3 }}
+					{{ rubrics[x].rate3 }}
 				</div>
 				<div class="div70"> 
-					{{ rubrics[contents['rubric3'] - 1].rate2 }}
+					{{ rubrics[x].rate2 }}
 				</div>
 				<div class="div71"> 
-					{{ rubrics[contents['rubric3'] - 1].rate1 }}
+					{{ rubrics[x].rate1 }}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div72 yellow_bg"> 
 					1<br> <br>
@@ -320,23 +325,24 @@
 				<div class="div80 empty_spc"> 
 				</div>
 				<div class="div81 green_bg">
-					{{ rubrics[contents['rubric4'] - 1].desc }}
-					(x{{ rubrics[contents['rubric4'] - 1].weight }})
+					{{ rubrics[x].desc }}
+					(x{{ rubrics[x].weight }})
 				</div>
 				<div class="div82">
-					{{ rubrics[contents['rubric4'] - 1].rate5 }}
+					{{ rubrics[x].rate5 }}
 				</div>
 				<div class="div83"> 
-					{{ rubrics[contents['rubric4'] - 1].rate4 }}
+					{{ rubrics[x].rate4 }}
 				</div>
 				<div class="div84"> 
-					{{ rubrics[contents['rubric4'] - 1].rate3 }}
+					{{ rubrics[x].rate3 }}
 				</div>
 				<div class="div85"> 
-					{{ rubrics[contents['rubric4'] - 1].rate2 }}
+					{{ rubrics[x].rate2 }}
 				</div>
 				<div class="div86"> 
-					{{ rubrics[contents['rubric3'] - 1].rate1 }}
+					{{ rubrics[x].rate1 }}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div87 yellow_bg"> 
 					1<br> <br>
@@ -389,23 +395,23 @@
 				<div class="div95 empty_spc"> 		
 				</div>
 				<div class="div96 green_bg"> 
-					{{ rubrics[contents['rubric5'] - 1].desc }}
-					(x{{ rubrics[contents['rubric5'] - 1].weight }})
+					{{ rubrics[x].desc }}
+					(x{{ rubrics[x].weight }})
 				</div>
 				<div class="div97"> 
-					{{ rubrics[contents['rubric1'] - 1].rate5 }}
+					{{ rubrics[x].rate5 }}
 				</div>
 				<div class="div98"> 
-					{{ rubrics[contents['rubric2'] - 1].rate4 }}
+					{{ rubrics[x].rate4 }}
 				</div>
 				<div class="div99"> 
-					{{ rubrics[contents['rubric3'] - 1].rate3 }}
+					{{ rubrics[x].rate3 }}
 				</div>
 				<div class="div100"> 
-					{{ rubrics[contents['rubric4'] - 1].rate2 }}
+					{{ rubrics[x].rate2 }}
 				</div>
 				<div class="div101"> 
-					{{ rubrics[contents['rubric5'] - 1].rate1 }}
+					{{ rubrics[x].rate1 }}
 				</div>
 				<div class="div102 yellow_bg"> 
 					1<br> <br>
