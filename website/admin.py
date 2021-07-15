@@ -414,10 +414,7 @@ def new_rubric():
 
        
         return redirect(url_for('admin.rubrics'))
-
-    if db.session.query(Rubric).first():
-        obj = db.session.query(Rubric).order_by(Rubric.id.desc()).first()
-    
+   
     if db.session.query(Rubric).first(): 
         return render_template('new_rubric.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
     else:
@@ -478,10 +475,9 @@ def gradesheets():
 @login_required
 def new_sheet():
     obj = 0
-
-    if db.session.query(Gradesheet).first():
-        obj = db.session.query(Gradesheet).order_by(Gradesheet.id.desc()).first()
-
+    if db.session.query(Template).first():
+        obj = db.session.query(Template).order_by(Template.id.desc()).first()
+        print(obj)
     if request.method == 'POST':
         rubric_type = request.form['rubricType']
         rubric1 = int(request.form['rubric1'])
@@ -502,12 +498,11 @@ def new_sheet():
         session['trial'] = contents
 
         return redirect(url_for('admin.confirm_sheet', contents=contents, rubrics=Rubric.query.all()))
-        # return render_template('gradesheet/individual.html', contents=contents, rubrics=Rubric.query.all())
 
-    if db.session.query(Gradesheet).first(): 
-        return render_template('new_sheet.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
+    if db.session.query(Template).first():
+        return render_template('new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), current_id=obj.id+1)
     else:
-        return render_template('new_sheet.html', rubrics=Rubric.query.all(), current_id=1)
+        return render_template('new_sheet.html', templates=None, rubrics=Rubric.query.all(), current_id=1)
 
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
