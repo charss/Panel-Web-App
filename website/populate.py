@@ -350,7 +350,8 @@ def populate_rubric():
         rate1='Student has no subject mastery at all.',
         weight=8,
         rubric_type='Individual',
-        pbl_lvl='PBL1'
+        category='None',
+        pbl_lvl='None'
     )
     db.session.add(temp)
 
@@ -363,7 +364,8 @@ def populate_rubric():
         rate1='Student cannot answer any question about the subject.',
         weight=6,
         rubric_type='Individual',
-        pbl_lvl='PBL1'
+        category='None',
+        pbl_lvl='None'
     )
     db.session.add(temp)
 
@@ -376,7 +378,8 @@ def populate_rubric():
         rate1='Student show poor gestures and expressions to convey ideas.',
         weight=2,
         rubric_type='Individual',
-        pbl_lvl='PBL1'
+        category='None',
+        pbl_lvl='None'
     )
     db.session.add(temp)
 
@@ -389,7 +392,8 @@ def populate_rubric():
         rate1='Correct grammar, pronunciation, choice of words and use of the English language in general are rarely observed.',
         weight=2,
         rubric_type='Individual',
-        pbl_lvl='PBL1'
+        category='None',
+        pbl_lvl='None'
     )
     db.session.add(temp)
 
@@ -402,7 +406,8 @@ def populate_rubric():
         rate1='Appearance is unprofessional.',
         weight=2,
         rubric_type='Individual',
-        pbl_lvl='PBL1'
+        category='None',
+        pbl_lvl='None'
     )
     db.session.add(temp)
 

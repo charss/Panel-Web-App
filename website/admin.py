@@ -1,3 +1,4 @@
+from re import L
 from flask import Blueprint, render_template, url_for, request, jsonify, session
 from werkzeug.utils import redirect
 from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet, Template
@@ -395,8 +396,14 @@ def new_rubric():
         rate1 = request.form['rate1']
         weight = int(request.form['weight'])
         rub_type = request.form['rubType']
-        pbl_lvl = request.form['pblLvl']
+        
+        if rub_type == 'Group':
+            pbl_lvl = request.form['pblLvl']
+            category = request.form['category']
+        else:
+            pbl_lvl = category = None
 
+        print(rub_type, pbl_lvl, category)
         temp = Rubric(
             desc=desc,
             rate5=rate5,
@@ -406,14 +413,15 @@ def new_rubric():
             rate1=rate1,
             weight=weight,
             rubric_type=rub_type,
-            pbl_lvl=pbl_lvl
+            pbl_lvl=pbl_lvl,
+            category=category
         )
 
         db.session.add(temp)
         db.session.commit()
 
        
-        return redirect(url_for('admin.rubrics'))
+        # return redirect(url_for('admin.rubrics'))
    
     if db.session.query(Rubric).first(): 
         return render_template('new_rubric.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
@@ -477,26 +485,20 @@ def new_sheet():
     obj = 0
     if db.session.query(Template).first():
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
-        print(obj)
+
     if request.method == 'POST':
+        multiselect = request.form['invis'].split(',')
+        if '-1982' in multiselect:
+            multiselect.pop(0)
         rubric_type = request.form['rubricType']
-        rubric1 = int(request.form['rubric1'])
-        rubric2 = int(request.form['rubric2'])
-        rubric3 = int(request.form['rubric3'])
-        rubric4 = int(request.form['rubric4'])
-        rubric5 = int(request.form['rubric5'])
 
         contents = {
             'rubric_type': rubric_type,
-            'rubric1': rubric1,
-            'rubric2': rubric2,
-            'rubric3': rubric3,
-            'rubric4': rubric4,
-            'rubric5': rubric5,
+            'rubrics': multiselect
         }
 
         session['trial'] = contents
-
+        
         return redirect(url_for('admin.confirm_sheet', contents=contents, rubrics=Rubric.query.all()))
 
     if db.session.query(Template).first():
@@ -521,26 +523,33 @@ def view_sheet(content):
         print(template.rubric[x] == Rubric.query.all()[x])
 
     return render_template('gradesheet/view_sheet.html', rubrics=template.rubric)
-    return redirect(url_for('admin.gradesheets'))
     
 @admin.route('/confirm_sheet/', methods=['GET', 'POST'])
 @login_required
 def confirm_sheet():
+    obj = 0
+    if db.session.query(Template).first():
+        obj = db.session.query(Template).order_by(Template.id.desc()).first()
+
     if request.method == 'POST':
         new_template = Template(sheet_type=session['trial']['rubric_type'])
         db.session.add(new_template)
-        rubric1 = db.session.query(Rubric).filter_by(id=session['trial']['rubric1']).first()
-        rubric2 = db.session.query(Rubric).filter_by(id=session['trial']['rubric2']).first()
-        rubric3 = db.session.query(Rubric).filter_by(id=session['trial']['rubric3']).first()
-        rubric4 = db.session.query(Rubric).filter_by(id=session['trial']['rubric4']).first()
-        rubric5 = db.session.query(Rubric).filter_by(id=session['trial']['rubric5']).first()
-        new_template.rubric.append(rubric1)
-        new_template.rubric.append(rubric2)
-        new_template.rubric.append(rubric3)
-        new_template.rubric.append(rubric4)
-        new_template.rubric.append(rubric5)
+
+
+        for rubric in session['trial']['rubrics']:
+            new_template.rubric.append(db.session.query(Rubric).filter_by(id=rubric)).first()
+
         db.session.commit()
         session.pop('trial')
         return redirect(url_for('admin.gradesheets'))
+    else:
+        rubric_list = []
+        for rubric in session['trial']['rubrics']:
+            rubric_list.append(db.session.query(Rubric).filter_by(id=int(rubric)).first())
+        print('HELLO', type(rubric_list))
+        print(rubric_list)
 
-    return render_template('gradesheet/individual.html', contents=session['trial'], rubrics=Rubric.query.all())
+    if db.session.query(Template).first():
+        return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=obj.id+1)
+    else:
+        return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=1)
