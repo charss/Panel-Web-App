@@ -2,11 +2,8 @@
 {% block title %}Home Page{% endblock %}
 
 {% block content %}
-    <div class='create_button'>
-        <a href="">
-            <button>Create New Gradesheet Template</button>
-        </a>
-    </div>
+<body onload='check()'>
+    
     <style>
        .MultiCheckBox {
            background-color: white;
@@ -88,6 +85,17 @@
 
     <script>
         var arr = [];
+
+        var rubric_arr = '{{ back_arr | tojson }}'
+        // '{% for rubric in rubrics %}'
+        //     rubric_arr.push('{{ rubric.id|int }}')
+        // '{% endfor %}'
+
+        if (rubric_arr.includes("1")) {
+            console.log('MERON')
+        }
+        console.log(rubric_arr)
+
         $(document).ready(function () {
             $(document).on("click", ".MultiCheckBox", function () {
                 var detail = $(this).next();
@@ -157,13 +165,16 @@
                 detail.css({ "width": parseInt(options.width) + 10, "max-height": localOption.height });
                 var multiCheckBoxDetailBody = detail.find(".MultiCheckBoxDetailBody");
 
+                
                 this.find("option").each(function () {
                     var val = $(this).attr("value");
-
                     if (val == undefined)
                         val = '';
-
-                    multiCheckBoxDetailBody.append("<div class='cont'><div><input type='checkbox' class='mulinput' value='" + val + "' /></div><div>" + $(this).text() + "</div></div>");
+                    if (rubric_arr.includes(val.toString())) {
+                        multiCheckBoxDetailBody.append("<div class='cont'><div><input type='checkbox' class='mulinput' value='" + val + "' checked/></div><div>" + $(this).text() + "</div></div>");
+                    } else {
+                        multiCheckBoxDetailBody.append("<div class='cont'><div><input type='checkbox' class='mulinput' value='" + val + "' /></div><div>" + $(this).text() + "</div></div>");
+                    }
                 });
 
                 multiCheckBoxDetailBody.css("max-height", (parseInt($(".MultiCheckBoxDetail").css("max-height")) - 28) + "px");
@@ -183,38 +194,40 @@
         $(document).ready(function () {
             $("#test").CreateMultiCheckBox({ width: '500px', defaultText : 'Select Below', height:'240px' });
         });
-
-
-        function putHere() {
-            document.getElementById('invis').value = arr;
-        }
-
     </script>
+    <div class='create_button'>
+        <a href="">
+            <button>Create New Gradesheet Template</button>
+        </a>
+    </div>
     <div id="overlay">
         <div id="text">
-            <div id='close_button' onclick="off()">
+            <div id='close_button'>
                 <a href='/gradesheets'>
                     <img src="{{ url_for('static', filename='close.png') }}">
                 </a>
                 
             </div>
 
+            <p>Create new Gradesheet Template</p>
             <div>
-                <p>Create new Gradesheet Template</p>
                 <form method='POST'>
                     <label for="sheetCode">Gradesheet Code:</label>
                     <input type='text' id='sheetCode' name='sheetCode' value ="{{ current_id }}" disabled><br>
-
-                    <label for="rubricType">Rubric Type:</label>
-                    <select name='rubricType' id='rubricType'>
-                        <option value='Individual'>Individual</option>
-                        <option value='Group'>Group</option>
-                    </select>
+                    <label for="rubType">Rubric Type:</label>
+                    <input onchange="yeah()" type="radio" id="group" name="rubType" value="Group">
+                    <label for="group">Group</label>
+                    <input onchange="yeah()" type="radio" id="individual" name="rubType" value="Individual">
+                    <label for="individual">Individual</label>
                     <br>
+
+                        
                     <label>Select Rubric(s) Below</label>
                     <select id="test">
                         {% for rubric in rubrics %}
-                            <option value="{{ rubric.id }}">{{ rubric.desc }} (x{{ rubric.weight }})</option>
+                            {% if rubric.rubric_type == rub_type %}
+                                <option value="{{ rubric.id }}">{{ rubric.desc }} (x{{ rubric.weight }})</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <input type='hidden' id='invis' name='invis' onclick='putHere();'>
@@ -250,6 +263,12 @@
     </div>
 
     <script>
+        var temp ='{{ rub_type }}'
+
+        function putHere() {
+            document.getElementById('invis').value = arr;
+        }
+
         $(document).ready(function(){
             $('select').on('change', function(event ) {
                 var prevValue = $(this).data('previous');
@@ -258,5 +277,57 @@
             $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
             });
         });
+
+
+        $(document).ready(function () {
+            $("#submit").on("click", function() {
+                var js_data = JSON.stringify(submit());
+                $.ajax({
+                    url: "/new_group/",
+                    type : 'POST',
+                    contentType: 'application/json',
+                    dataType : 'json',
+                    data : js_data
+                }).done(function(result) {
+                    console.log(result);
+                    $("#data").html(result);
+                    console.log('SUCCESS')
+                    window.location.href = "/groups";
+                }).fail(function(jqXHR, textStatus, errorThrown) {
+                    console.log("fail: ",textStatus, errorThrown);
+                });
+            });
+        });
+
+    
+        function yeah() {
+            selected_value = $("input[name='rubType']:checked").val();
+            var clock={
+            "key": selected_value //say
+        };
+
+
+            $.ajax({
+                url: '/parse_data/',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(clock),
+                contentType:"application/json; charset=UTF-8"
+            })
+            .done(function(data) {
+                window.location.href = "/new_sheet/" + data['key'];
+            })
+        }
+
+
+        function check() {
+            if (temp == 'Individual') {
+                document.getElementById('individual').checked = true;
+            } else {
+                document.getElementById('group').checked = true;
+            }
+        }
     </script>
+</body>
+    
 {% endblock %}

@@ -1,5 +1,5 @@
-from re import L
 from flask import Blueprint, render_template, url_for, request, jsonify, session
+from sqlalchemy.sql.operators import json_getitem_op
 from werkzeug.utils import redirect
 from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet, Template
 from flask_login import login_required, current_user
@@ -9,9 +9,10 @@ from datetime import datetime, date, time, timedelta
 
 admin = Blueprint('admin', __name__, static_folder='static', template_folder='templates/admin')
 
-@admin.route("/home/")
+@admin.route("/home/", defaults={'data' : 'None'})
+@admin.route("/home/<data>")
 @login_required
-def admin_home():
+def admin_home(data):
     if not db.session.query(Group).first():
         populate_group()
 
@@ -27,9 +28,8 @@ def admin_home():
     if not db.session.query(Rubric).first():
         populate_rubric()
 
-    return render_template("home.html")
-
-
+    return render_template("home.html", rub_type=data)
+    
 @admin.route('/groups/', methods=['GET', 'POST'])
 @login_required
 def group():
@@ -470,6 +470,12 @@ def delete_rubric(content):
 @login_required
 def gradesheets():
     obj = 0
+    try:
+        session.pop('trial')
+        print("MAY SESSION")
+    except:
+        print("WALANG SESSION")
+
     if db.session.query(Template).first():
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
     
@@ -479,10 +485,20 @@ def gradesheets():
         return render_template('gradesheet.html', templates=None, current_id=1)
 
 
-@admin.route('/new_sheet/', methods=['GET', 'POST'])
+@admin.route('/new_sheet/', defaults={'data' : 'None'}, methods=['GET', 'POST'])
+@admin.route('/new_sheet/<data>', methods=['GET', 'POST'])
 @login_required
-def new_sheet():
+def new_sheet(data):
     obj = 0
+    back_arr = []
+    try:
+        if session['trial']:
+            back_arr = session['trial']['rubrics']
+            print(back_arr)
+            print('BACKED')
+    except:
+        print("BRAND NEW")
+
     if db.session.query(Template).first():
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
 
@@ -490,7 +506,8 @@ def new_sheet():
         multiselect = request.form['invis'].split(',')
         if '-1982' in multiselect:
             multiselect.pop(0)
-        rubric_type = request.form['rubricType']
+        print(multiselect)
+        rubric_type = request.form['rubType']
 
         contents = {
             'rubric_type': rubric_type,
@@ -502,9 +519,9 @@ def new_sheet():
         return redirect(url_for('admin.confirm_sheet', contents=contents, rubrics=Rubric.query.all()))
 
     if db.session.query(Template).first():
-        return render_template('new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), current_id=obj.id+1)
+        return render_template('new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, current_id=obj.id+1, rub_type=data)
     else:
-        return render_template('new_sheet.html', templates=None, rubrics=Rubric.query.all(), current_id=1)
+        return render_template('new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, current_id=1, rub_type=data)
 
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
@@ -531,25 +548,41 @@ def confirm_sheet():
     if db.session.query(Template).first():
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
 
+    rubric_list = []
+    for rubric in session['trial']['rubrics']:
+        rubric_list.append(db.session.query(Rubric).filter_by(id=rubric).first())
+
     if request.method == 'POST':
-        new_template = Template(sheet_type=session['trial']['rubric_type'])
-        db.session.add(new_template)
+        if request.form.get('button_inp'):
+            print("BACKING")
+            return redirect(url_for('admin.new_sheet'))
+        else:
+            print('SUBMITTING')
+            print(session['trial']['rubric_type'])
+            new_template = Template(sheet_type=session['trial']['rubric_type'])
+            db.session.add(new_template)
 
 
-        for rubric in session['trial']['rubrics']:
-            new_template.rubric.append(db.session.query(Rubric).filter_by(id=rubric)).first()
+            for rubric in rubric_list:
+                new_template.rubric.append(rubric)
 
-        db.session.commit()
-        session.pop('trial')
-        return redirect(url_for('admin.gradesheets'))
-    else:
-        rubric_list = []
-        for rubric in session['trial']['rubrics']:
-            rubric_list.append(db.session.query(Rubric).filter_by(id=int(rubric)).first())
-        print('HELLO', type(rubric_list))
-        print(rubric_list)
+            db.session.commit()
+            session.pop('trial')
+            return redirect(url_for('admin.gradesheets'))
+
 
     if db.session.query(Template).first():
         return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=obj.id+1)
     else:
         return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=1)
+
+
+
+@admin.route('/parse_data/', methods=['GET', 'POST'])
+def parse_data():
+    if request.method == "POST":
+        data = request.get_json()
+        print(data['key'])
+        # return redirect(url_for('admin.admin_home', data=data['key']))
+        return jsonify(data)
+        render_template('home.html', data=data['key'])

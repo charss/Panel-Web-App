@@ -62,8 +62,6 @@
 
     
     <script>
-        var arrValues = new Array();
-        var arrHead = new Array();
-        var dict = {}
+        var user = JSON.parse('{{ user | tojson | safe}}');
     </script>
 {% endblock %}

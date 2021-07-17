@@ -1,8 +1,54 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
 {% block content %}
-{% set x = 1 %}
-{{ x }}
-{% set x = x + 1 %}
-{{ x }}
+<body onload='check()'>
+<button onclick="yeah()">Click me</button>
+<form id="my_radio_box">
+    <!-- <input type="radio" name="my_options" value="option 1"> Option 1
+    <input type="radio" name="my_options" value="option 2"> Option 2
+    <input type="radio" name="my_options" value="option 3"> Option 3 -->
+
+    <label for="rubType">Rubric Type:</label>
+    <input onchange='yeah()' type="radio" id="group" name="rubType" value="Group">
+    <label for="group">Group</label>
+    <input onchange='yeah()' type="radio" id="individual" name="rubType" value="Individual">
+    <label for="individual">Individual</label>
+</form>
+
+<p>{{ rub_type }}</p>
+<br>
+<script>
+    var temp ='{{ rub_type }}'
+    console.log(temp)
+    
+    function yeah() {
+        selected_value = $("input[name='rubType']:checked").val();
+        var clock={
+          "key": selected_value //say
+       };
+
+        $.ajax({
+            url: '/parse_data/',
+            type: 'POST',
+            dataType: 'json',
+            data: JSON.stringify(clock),
+            contentType:"application/json; charset=UTF-8"
+        })
+        .done(function(data) {
+            window.location.href = "/home/" + data['key'];
+        })
+    }
+
+
+function check() {
+    if (temp == 'Individual') {
+        document.getElementById('individual').checked = true;
+    } else {
+        document.getElementById('group').checked = true;
+    }
+}
+
+</script>
+</body>
+
 {% endblock %}
