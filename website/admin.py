@@ -491,10 +491,11 @@ def gradesheets():
 def new_sheet(data):
     obj = 0
     back_arr = []
+    back_rub = None
     try:
         if session['trial']:
             back_arr = session['trial']['rubrics']
-            print(back_arr)
+            back_rub = session['trial']['rubric_type']
             print('BACKED')
     except:
         print("BRAND NEW")
@@ -519,9 +520,9 @@ def new_sheet(data):
         return redirect(url_for('admin.confirm_sheet', contents=contents, rubrics=Rubric.query.all()))
 
     if db.session.query(Template).first():
-        return render_template('new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, current_id=obj.id+1, rub_type=data)
+        return render_template('new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=obj.id+1, rub_type=data)
     else:
-        return render_template('new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, current_id=1, rub_type=data)
+        return render_template('new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=1, rub_type=data)
 
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
@@ -534,13 +535,57 @@ def view_sheet(content):
     for rubric in template.rubric:
         rubrics.append(rubric.id)
 
-    print(template.rubric)
-    print(Rubric.query.all())
-    for x in range(len(template.rubric)):
-        print(template.rubric[x] == Rubric.query.all()[x])
+    return render_template('gradesheet/view_sheet.html', template=template, rubrics=template.rubric)
 
-    return render_template('gradesheet/view_sheet.html', rubrics=template.rubric)
-    
+@admin.route('/edit_sheet/<content>', methods=['GET', 'POST'])
+@login_required
+def edit_sheet(content):
+    template = db.session.query(Template).filter_by(id=content).first()
+
+    new_rubrics = []
+
+    if request.method == "POST":
+        multiselect = request.form['invis'].split(',')
+        if '-1982' in multiselect:
+            multiselect.pop(0)
+        
+        contents = {
+            'rubric_id': template.id,
+            'rubric_type': template.sheet_type,
+            'rubrics': multiselect
+        }
+
+        session['trial'] = contents
+        
+        return redirect(url_for('admin.c_edit_sheet'))
+
+    return render_template('edit_sheet.html', to_edit=template, rubrics=Rubric.query.all())
+
+@admin.route('/c_edit_sheet/', methods=['GET', 'POST'])
+@login_required
+def c_edit_sheet():
+
+    template = db.session.query(Template).filter_by(id=session['trial']['rubric_id']).first()
+
+    new_rubrics = []
+    for x in session['trial']['rubrics']:
+        new_rubrics.append(db.session.query(Rubric).filter_by(id=x).first())
+
+    if request.method == 'POST':
+        if request.form.get('button_inp'):
+            return redirect(url_for('admin.edit_sheet'))
+        else:
+            template.rubric = []
+
+            for rubric in new_rubrics:
+                template.rubric.append(rubric)
+
+            db.session.commit()
+            session.pop('trial')
+            return redirect(url_for('admin.gradesheets'))
+
+    return render_template('gradesheet/individual2.html', rubrics=session['trial']['rubrics'])
+
 @admin.route('/confirm_sheet/', methods=['GET', 'POST'])
 @login_required
 def confirm_sheet():
@@ -554,7 +599,6 @@ def confirm_sheet():
 
     if request.method == 'POST':
         if request.form.get('button_inp'):
-            print("BACKING")
             return redirect(url_for('admin.new_sheet'))
         else:
             print('SUBMITTING')
