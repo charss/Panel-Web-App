@@ -37,6 +37,9 @@ def group():
     if db.session.query(Group).first():
         obj = db.session.query(Group).order_by(Group.id.desc()).first()
     
+    if request.method == 'POST':
+        if request.form.get('search'):
+            pass
     
     if db.session.query(Group).first(): 
         return render_template('groups.html', groups=Group.query.all(), current_id=obj.id+1)
@@ -129,7 +132,7 @@ def delete_group(content):
     else:
         return render_template('delete_group.html', groups=None, current_id=1, to_edit=None)
 
-@admin.route('/panelist/')
+@admin.route('/panelist/', methods=['GET', 'POST'])
 @login_required
 def panelist():
     obj = 0
@@ -542,7 +545,12 @@ def view_sheet(content):
 def edit_sheet(content):
     template = db.session.query(Template).filter_by(id=content).first()
 
-    new_rubrics = []
+    try:
+        if session['trial']:
+            print('BACKED')
+    except:
+        print("BRAND NEW")
+
 
     if request.method == "POST":
         multiselect = request.form['invis'].split(',')
@@ -573,7 +581,7 @@ def c_edit_sheet():
 
     if request.method == 'POST':
         if request.form.get('button_inp'):
-            return redirect(url_for('admin.edit_sheet'))
+            return redirect(url_for('admin.edit_sheet', content=template.id))
         else:
             template.rubric = []
 
@@ -584,7 +592,7 @@ def c_edit_sheet():
             session.pop('trial')
             return redirect(url_for('admin.gradesheets'))
 
-    return render_template('gradesheet/individual2.html', rubrics=session['trial']['rubrics'])
+    return render_template('gradesheet/individual2.html', rubrics=new_rubrics)
 
 @admin.route('/confirm_sheet/', methods=['GET', 'POST'])
 @login_required

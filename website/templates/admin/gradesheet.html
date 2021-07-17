@@ -14,7 +14,13 @@
                 <div class='box'>
                     <p>ID: {{ template.id }}</p>
                     <p>Gradesheet Type: {{ template.sheet_type }}</p>
-
+                    <p>Rubrics:</p>
+                    <ul>
+                        {% for rubric in template.rubric %}
+                            <li>{{ rubric.desc }}</li>
+                        {% endfor %}
+                    </ul>
+                    
                     <a href="/view_sheet/{{ template.id }}">
                         <button>View</button>
                     </a>

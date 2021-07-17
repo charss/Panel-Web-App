@@ -16,13 +16,19 @@
                     <p>Project Title: {{ group.project_title }}</p>
                     <p>Program: {{group.program}}</p>
                     <p>Members:</p>
-                    {% for member in group.members %}
-                        <p>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</p>
-                    {% endfor%}
+                    <ul>
+                        {% for member in group.members %}
+                            <li>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</li>
+                        {% endfor%}
+                    </ul>
+                    
                     <p>Defenses:</p>
-                    {% for defense in group.defenses %}
-                        <p>{{ defense.id }} - {{ defense.start_date }} </p>
-                    {% endfor%}
+                    <ul>
+                        {% for defense in group.defenses %}
+                            <li>{{ defense.id }} - {{ defense.start_date }} </li>
+                        {% endfor%}
+                    </ul>
+                    
                     <a href="/edit_group/{{group.id}}">
                         <button>Edit</button>
                     </a>
