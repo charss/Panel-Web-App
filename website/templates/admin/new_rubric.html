@@ -1,81 +1,90 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+Rubrics
+{% endblock %}
+{% block button %}
+<a href="/new_rubric/">
+    <button>Create New Rubric</button>
+</a>
+{% endblock %}
 {% block content %}
-    <div id="overlay">
-        <div id="text">
-            
-            <div id='close_button' onclick="off()">
-                <a href='/rubrics/'>
-                    <img src="{{ url_for('static', filename='close.png') }}">
-                </a>
-                
-            </div>
+    <style>
+        #text {
+            width: 500px;
+        }
 
-            <div style='overflow-y: scroll; height: 80vh;'>
-                <p>Create New Rubric</p>
-                <form method='POST'>
-                    <label for="rubricCode">Rubric Code:</label>
-                    <input type='text' id='rubricCode' name='rubricCode' value ="{{ current_id }}" disabled><br>
+        textarea {
+            height: 30px;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
 
-                    <label for="desc">Description</label>
-                    <input type='text' id='desc' name='desc'><br>
+        textarea:focus {
+            height: 5em;
+        }
 
-
-                    <label for='rate5'>Rate 5</label>
-                    <textarea id='rate5' name='rate5'></textarea>
-                    <br>
-
-                    <label for='rate4'>Rate 4</label>
-                    <textarea id='rate4' name='rate4'></textarea>
-                    <br>
-
-                    <label for='rate3'>Rate 3</label>
-                    <textarea id='rate3' name='rate3'></textarea>
-                    <br>
-
-
-                    <label for='rate2'>Rate 2</label>
-                    <textarea id='rate2' name='rate2'></textarea>
-                    <br>
-
-                    <label for='rate1'>Rate 1</label>
-                    <textarea id='rate1' name='rate1'></textarea>
-                    <br>
-
-                    <label for="weight">Weight</label>
-                    <input type="number" id="weight" name='weight' autocomplete='off' min='1' max='9' value=0 onkeydown='return false;'>
-                    <br>
-
-                    <label for="rubType">Rubric Type</label>
-                    <select name="rubType" id='rubType'>
-                        <option value='Individual'>Individual</option>
-                        <option value='Group'>Group</option>
-                    </select>
-                    <br>
-
-                    <label for="pblLvl">PBL Level</label>
-                    <select name="pblLvl" id='pblLvl'>
-                        <option value='PBL1'>PBL1</option>
-                        <option value='PBL2'>PBL2</option>
-                        <option value='PBL3'>PBL3</option>
-                        <option value='PBL4'>PBL4</option>
-                    </select>
-                    <br>
-
+        #desc, #category {
+            width: 100%;
+        }
+    </style>
+    <body onload='check()'>
+        <div id="overlay">
+            <div id="text">
+                <div id='close_button' onclick="off()">
+                    <a href='/rubrics/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
+                    </a>
                     
-                    <button type='submit' id='submit' name='submit'>Submit</button>
-                </form>
-                
+                </div>
+                <p>Create New Rubric</p>
+                <div style='overflow-y: scroll; height: 80vh;'>
+                    <form method='POST' autocomplete='off'>
+                        <label for="rubricCode">Rubric Code:</label>
+                        <input type='text' id='rubricCode' name='rubricCode' value ="{{ current_id }}" disabled><br>
+
+                        <label for="rubType">Rubric Type:</label>
+                        <input onclick="check()" type="radio" id="group" name="rubType" value="Group" checked>
+                        <label for="group">Group</label>
+                        <input onclick="check()" type="radio" id="individual" name="rubType" value="Individual">
+                        <label for="individual">Individual</label>
+                        <br>
+
+                        <label for="pblLvl">PBL Level:</label>
+                        <input type="radio" id="pbl1" name="pblLvl" value="PBL1" checked>
+                        <label for="pbl1">PBL1</label>
+                        <input type="radio" id="pbl2" name="pblLvl" value="PBL2">
+                        <label for="pbl2">PBL2</label>
+                        <input type="radio" id="pbl3" name="pblLvl" value="PBL3">
+                        <label for="pbl3">PBL3</label>
+                        <input type="radio" id="pbl4" name="pblLvl" value="PBL4">
+                        <label for="pbl4">PBL4</label>
+                        <br>
+                        
+                        <label for="category">Category:</label>
+                        <input type='text' id='category' name='category' style='text-align: left;' required><br>
+
+                        <label for="desc">Description:</label>
+                        <input type='text' id='desc' name='desc' style='text-align: left;' required><br>
+                        
+                        {% for x in range(5, 0, -1) %}
+                            <label for='rate{{ x }}'>Rate {{ x }}:</label>
+                            <textarea id='rate{{ x }}' name='rate{{ x }}' required></textarea>
+                            <br>
+                        {% endfor %}
+
+                        <label for="weight">Weight</label>
+                        <input type="number" id="weight" name='weight' autocomplete='off' min='1' max='9' value=1 onkeydown='return false;'>
+                        <br>
+                        
+                        <button type='submit' id='submit' name='submit'>Submit</button>
+                    </form>
+                    
+                </div>
             </div>
         </div>
-    </div>
 
-
-    <div class='create_button'>
-        <button>Create New Rubric</button>
-    </div>
-
-    <div class='display_grid'>
+        <div class='display_grid'>
         {% if rubrics %}
             {% for rubric in rubrics %}
                 <div class='box'>
@@ -89,17 +98,45 @@
                     <p>Weight: x{{ rubric.weight }}</p>
                     <p>Rubric Type: {{ rubric.rubric_type }}</p>
                     <p>PBL Level: {{ rubric.pbl_lvl }}</p>
+                    <p>Category: {{ rubric.category }}</p>
                     <br>
-                    <a href="">
+                    <a href="/edit_rubric/{{ rubric.id }}">
                         <button>Edit</button>
                     </a>
-                    <a href="">
+                    <a href="/delete_rubric/ {{ rubric.id }}">
                         <button>Delete</button>
                     </a>
                 </div>
-                
             {% endfor %}
         {% endif %}
     </div>
 
+        <script>
+            function check() {
+                const rbs = document.querySelectorAll('input[name="rubType"]');
+                let selectedValue;
+                for (const rb of rbs) {
+                    if (rb.checked) {
+                        selectedValue = rb.value;
+                        break;
+                    }
+                }
+
+                if (selectedValue == 'Individual') {
+                    document.getElementById('category').disabled = true;
+                    document.getElementById('pbl1').disabled = true;
+                    document.getElementById('pbl2').disabled = true;
+                    document.getElementById('pbl3').disabled = true;
+                    document.getElementById('pbl4').disabled = true;
+                } else {
+                    document.getElementById('category').disabled = false;
+                    document.getElementById('pbl1').disabled = false;
+                    document.getElementById('pbl2').disabled = false;
+                    document.getElementById('pbl3').disabled = false;
+                    document.getElementById('pbl4').disabled = false;
+                }
+            }
+            
+        </script>
+    </body>
 {% endblock %}

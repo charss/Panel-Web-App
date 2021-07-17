@@ -1,0 +1,203 @@
+:root {
+    
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial;
+    display: flex;
+    margin: 0;
+}
+
+nav {
+    width: 20%;
+    height: 100vh;
+    top: 0; /* this is required for "sticky" to work */
+    position: sticky;
+    background: #19462D;
+}
+
+nav .top {
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    background: #1b412c;
+    padding: 30px;
+    padding-left: 20px;
+}
+
+nav .top .pic_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 15px;
+}
+
+nav .top .pic_div .profile_pic {
+    border-radius: 50%;
+}
+
+
+nav .top .profile_info {
+    flex-grow: 1;
+    overflow-x: hidden;
+}
+
+nav .top .profile_info .username {
+    margin: 0px;
+    font-size: 30px;
+}
+
+nav .top .profile_info .position {
+    margin: 0px;
+    font-size: 20px;
+}
+
+nav .bottom {
+    display: flex;
+    flex-direction: column;
+}
+
+nav .bottom a {
+    text-decoration: none;
+    font-size: 20px;
+    font-style: italic;
+    color: black;
+    padding: 20px;
+    padding-left: 30px;
+}
+
+nav .bottom a:hover {
+    background-color: #1b412c;
+}
+
+nav .bottom .logout {
+    color: red;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+main .top_bar {
+    display: inline-flex;
+    height: 80px;
+    max-height: 80px;
+    top: 0;
+    position: sticky;
+    background: white;
+    padding: 20px;
+    padding-top: 0px;
+    flex-direction: row;
+    margin-right: 14px;
+}
+
+.top_bar:after {
+    content: ""; 
+    display: flex; 
+    margin: 0 auto; 
+    width: 96.5%; 
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    border-bottom: 1px solid rgb(179, 179, 179); 
+}
+
+main .top_bar .page_title  {
+    flex-grow: 3;
+}
+
+main .top_bar .search_part {
+    margin: 20px;
+    margin-right: 0;
+}
+
+
+main .top_bar .search_part input[type=text] {
+    width: 130px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 20px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+    float: right;
+}
+
+main .top_bar .search_part input[type=text]:focus {
+    width: 100%;
+}
+
+main .top_bar .create_button button {
+    margin-top:20px;
+    margin-left: 20px;
+    height: 45px;
+    border: 2px solid #ccc;
+    font-size: 16px;
+    color: -internal-light-dark;
+    background-color: white;
+    border-radius: 4%;
+}
+main .content {
+    background: white;
+    height: 100%;
+    padding: 20px;
+    overflow-y: scroll;
+}
+
+
+#overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 20px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    background-color: pink;
+    border: 1px;
+    border-color: red;
+    border-style: solid;
+}
+
+
+#close_button {
+    text-align: right;
+}
+
+input { 
+    text-align: right; 
+}
+
+.box {
+    border: 1px;
+    border-color: black; 
+    border-style: solid; 
+}
+
+.display_grid {
+    position: relative;
+}

@@ -11,10 +11,6 @@ Rubrics
 {% block content %}
 <body onload='check()'>
     <style>
-        .disabledDiv {
-            pointer-events: none;
-            opacity: 0.4;
-        }
        .MultiCheckBox {
            background-color: white;
             border:1px solid #e2e2e2;
@@ -95,7 +91,11 @@ Rubrics
 
     <script>
         var arr = [];
-        var rubric_arr = '{{ back_arr | tojson }}'
+        '{% for rubric in to_edit.rubric %}'
+            arr.push('{{ rubric.id }}')
+        '{% endfor %}'
+
+        console.log(arr)
 
         $(document).ready(function () {
             $(document).on("click", ".MultiCheckBox", function () {
@@ -159,7 +159,7 @@ Rubrics
 
                 this.hide();
                 this.attr("multiple", "multiple");
-                var divSel = $("<div class='MultiCheckBox' id='selectionBox'>" + localOption.defaultText + "<span class='k-icon k-i-arrow-60-down'><svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='sort-down' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512' class='svg-inline--fa fa-sort-down fa-w-10 fa-2x'><path fill='currentColor' d='M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z' class=''></path></svg></span></div>").insertBefore(this);
+                var divSel = $("<div class='MultiCheckBox'>" + localOption.defaultText + "<span class='k-icon k-i-arrow-60-down'><svg aria-hidden='true' focusable='false' data-prefix='fas' data-icon='sort-down' role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 512' class='svg-inline--fa fa-sort-down fa-w-10 fa-2x'><path fill='currentColor' d='M41 288h238c21.4 0 32.1 25.9 17 41L177 448c-9.4 9.4-24.6 9.4-33.9 0L24 329c-15.1-15.1-4.4-41 17-41z' class=''></path></svg></span></div>").insertBefore(this);
                 divSel.css({ "width": localOption.width });
 
                 var detail = $("<div class='MultiCheckBoxDetail'><div class='MultiCheckBoxDetailHeader'><input type='checkbox' class='mulinput' value='-1982' /><div>Select All</div></div><div class='MultiCheckBoxDetailBody'></div></div>").insertAfter(divSel);
@@ -171,7 +171,9 @@ Rubrics
                     var val = $(this).attr("value");
                     if (val == undefined)
                         val = '';
-                    if (rubric_arr.includes(val.toString())) {
+
+                    
+                    if (arr.includes(val.toString())) {
                         multiCheckBoxDetailBody.append("<div class='cont'><div><input type='checkbox' class='mulinput' value='" + val + "' checked/></div><div>" + $(this).text() + "</div></div>");
                     } else {
                         multiCheckBoxDetailBody.append("<div class='cont'><div><input type='checkbox' class='mulinput' value='" + val + "' /></div><div>" + $(this).text() + "</div></div>");
@@ -197,6 +199,7 @@ Rubrics
         });
     </script>
 
+    {% set rub_type = to_edit.sheet_type %}
     <div id="overlay">
         <div id="text">
             <div id='close_button'>
@@ -206,20 +209,14 @@ Rubrics
                 
             </div>
 
-            <p>Create new Gradesheet Template</p>
+            <p>Edit Gradesheet Template</p>
             <div>
                 <form method='POST'>
                     <label for="sheetCode">Gradesheet Code:</label>
-                    <input type='text' id='sheetCode' name='sheetCode' value ="{{ current_id }}" disabled><br>
-                    <label for="rubType">Rubric Type:</label>
-                    <input onchange="yeah()" type="radio" id="group" name="rubType" value="Group" required>
-                    <label for="group">Group</label>
-                    <input onchange="yeah()" type="radio" id="individual" name="rubType" value="Individual">
-                    <label for="individual">Individual</label>
-
+                    <input type='text' id='sheetCode' name='sheetCode' value ="{{ to_edit.id }}" disabled><br>
+                    <label>Rubric Type: {{ to_edit.sheet_type }}</label>
                     <br>
 
-                        
                     <label>Select Rubric(s) Below</label>
                     <select id="test">
                         {% for rubric in rubrics %}
@@ -235,7 +232,6 @@ Rubrics
             </div>
         </div>
     </div>
-
 
     <div class='display_grid'>
         {% if templates %}
@@ -265,8 +261,6 @@ Rubrics
     </div>
 
     <script>
-        
-
         function putHere() {
             document.getElementById('invis').value = arr;
         }
@@ -300,47 +294,6 @@ Rubrics
                 });
             });
         });
-
-    
-        function yeah() {
-            selected_value = $("input[name='rubType']:checked").val();
-            console.log('Selected Value: ' + selected_value)
-            var clock = {
-                "key": selected_value //say
-            };
-
-
-            $.ajax({
-                url: '/parse_data/',
-                type: 'POST',
-                dataType: 'json',
-                data: JSON.stringify(clock),
-                contentType:"application/json; charset=UTF-8"
-            })
-            .done(function(data) {
-                window.location.href = "/new_sheet/" + data['key'];
-            })
-        }
-
-
-        function check() {
-
-            var temp = 'empty' 
-            if ('{{ back_rub }}' != 'None' && '{{ rub_type }}' != 'None') {
-                temp = '{{ rub_type }}'
-            } else if ('{{ back_rub }}' == 'None') {
-                temp = '{{ rub_type }}'
-            } else {
-                temp = '{{ back_rub }}'
-            }
-
-
-            if (temp == 'Individual') {
-                document.getElementById('individual').checked = true;
-            } else if (temp == 'Group') {
-                document.getElementById('group').checked = true;
-            } 
-        }
     </script>
 </body>
     

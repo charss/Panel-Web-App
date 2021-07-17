@@ -1,5 +1,13 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+Panelists
+{% endblock %}
+{% block button %}
+<a href="/new_panel/">
+    <button>Create New Panelist</button>
+</a>
+{% endblock %}
 {% block content %}
     <div id="overlay">
         <div id="text">

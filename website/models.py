@@ -110,7 +110,8 @@ class Rubric(db.Model):
     rate5        = db.Column(db.String(150), nullable=False)
     weight       = db.Column(db.Integer, nullable=False)
     rubric_type  = db.Column(db.String(150), nullable=False)
-    pbl_lvl      = db.Column(db.String(150), nullable=False)
+    pbl_lvl      = db.Column(db.String(150))
+    category     = db.Column(db.String(150))
     gradesheet   = db.relationship(
         'Template',
         secondary=templates,

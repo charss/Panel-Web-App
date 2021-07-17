@@ -1,12 +1,14 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+    Panelists
+{% endblock %}
+{% block button %}
+<a href="/new_panel/">
+    <button>Create New Panelist</button>
+</a>
+{% endblock %}
 {% block content %}
-    <div class='create_button'>
-        <a href="/new_panel/">
-            <button onclick="on(); createTable()" >Create New Panelist</button>
-        </a>
-    </div>
-
     <div class='display_grid'>
         {% if panels %}
             {% for panel in panels %}
@@ -15,10 +17,14 @@
                     <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
                     <p>School: {{ panel.school }}</p>
                     <p>Defenses:</p>
+                    
                     {% if panel.defenses %} 
-                        {% for defense in panel.defenses %}
-                            <p>    - {{ defense.group.name }} - {{ defense.start_date }}</p>
-                        {% endfor %}
+                        <ul>
+                            {% for defense in panel.defenses %}
+                                <li>{{ defense.group.name }} - {{ defense.start_date }}</li>
+                            {% endfor %}
+                        </ul>
+                        
                     {% else %}
                         <p>NOTHING SCHEDULED</p>
                     {% endif %}
@@ -33,8 +39,4 @@
             {% endfor %}
         {% endif %}
     </div>
-    
-
-    <script>
-    </script>
 {% endblock %}
