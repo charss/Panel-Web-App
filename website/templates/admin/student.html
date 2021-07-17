@@ -1,7 +1,9 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+Students
+{% endblock %}
 {% block content %}
-
     <div class='display_grid'>
         {% if students %}
             {% for student in students %}

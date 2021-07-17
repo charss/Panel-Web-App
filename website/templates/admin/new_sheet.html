@@ -1,9 +1,15 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
-
+{% block pagename %}
+Rubrics
+{% endblock %}
+{% block button %}
+<a href="">
+    <button>Create New Template</button>
+</a>
+{% endblock %}
 {% block content %}
 <body onload='check()'>
-    
     <style>
         .disabledDiv {
             pointer-events: none;
@@ -190,11 +196,7 @@
             $("#test").CreateMultiCheckBox({ width: '500px', defaultText : 'Select Below', height:'240px' });
         });
     </script>
-    <div class='create_button'>
-        <a href="">
-            <button>Create New Gradesheet Template</button>
-        </a>
-    </div>
+
     <div id="overlay">
         <div id="text">
             <div id='close_button'>
@@ -241,7 +243,12 @@
                 <div class='box'>
                     <p>ID: {{ template.id }}</p>
                     <p>Gradesheet Type: {{ template.sheet_type }}</p>
-
+                    <p>Rubrics:</p>
+                    <ul>
+                        {% for rubric in template.rubric %}
+                            <li>{{ rubric.desc }}</li>
+                        {% endfor %}
+                    </ul>
                     <a href="/view_sheet/{{ template.id }}">
                         <button>View</button>
                     </a>

@@ -95,16 +95,19 @@ main .top_bar {
     padding: 20px;
     padding-top: 0px;
     flex-direction: row;
+    margin-right: 14px;
 }
 
-/* .top_bar:after {
+.top_bar:after {
     content: ""; 
     display: flex; 
     margin: 0 auto; 
-    width: 100%; 
-    position: relative;
+    width: 96.5%; 
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
     border-bottom: 1px solid rgb(179, 179, 179); 
-} */
+}
 
 main .top_bar .page_title  {
     flex-grow: 3;
@@ -112,7 +115,7 @@ main .top_bar .page_title  {
 
 main .top_bar .search_part {
     margin: 20px;
-    margin-right: 0px;
+    margin-right: 0;
 }
 
 
@@ -135,11 +138,12 @@ main .top_bar .search_part input[type=text]:focus {
 }
 
 main .top_bar .create_button button {
-    margin: 20px;
+    margin-top:20px;
+    margin-left: 20px;
     height: 45px;
     border: 2px solid #ccc;
     font-size: 16px;
-    color: -internal-light-dark
+    color: -internal-light-dark;
     background-color: white;
     border-radius: 4%;
 }
@@ -147,4 +151,53 @@ main .content {
     background: white;
     height: 100%;
     padding: 20px;
+    overflow-y: scroll;
+}
+
+
+#overlay {
+    position: fixed;
+    display: block;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+}
+
+#text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    font-size: 20px;
+    color: white;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+    background-color: pink;
+    border: 1px;
+    border-color: red;
+    border-style: solid;
+}
+
+
+#close_button {
+    text-align: right;
+}
+
+input { 
+    text-align: right; 
+}
+
+.box {
+    border: 1px;
+    border-color: black; 
+    border-style: solid; 
+}
+
+.display_grid {
+    position: relative;
 }

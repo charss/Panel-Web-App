@@ -1,13 +1,14 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
-
+{% block pagename %}
+Rubrics
+{% endblock %}
+{% block button %}
+<a href="/new_sheet/">
+    <button>Create New Template</button>
+</a>
+{% endblock %}
 {% block content %}
-    <div class='create_button'>
-        <a href="/new_sheet/">
-            <button>Create New Gradesheet Template</button>
-        </a>
-    </div>
-
     <div class='display_grid'>
         {% if templates %}
             {% for template in templates %}

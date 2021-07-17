@@ -1,5 +1,13 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+Groups
+{% endblock %}
+{% block button %}
+<a href="/new_group/">
+    <button>Create New Group</button>
+</a>
+{% endblock %}
 {% block content %}
     <div id="overlay">
         <div id="text">
@@ -36,20 +44,34 @@
         </div>
     </div>
 
-
-    <div class='create_button'>
-        <button>Create New Group</button>
-    </div>
-
     <div class='display_grid'>
         {% if groups %}
             {% for group in groups %}
                 <div class='box'
                     <p>ID: {{group.id}}</p>
                     <p>Group Name: {{group.name}}</p>
-                    <p>Project Title: {{group.project_title}}</p>
+                    <p>Project Title: {{ group.project_title }}</p>
                     <p>Program: {{group.program}}</p>
-                    <br>
+                    <p>Members:</p>
+                    <ul>
+                        {% for member in group.members %}
+                            <li>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</li>
+                        {% endfor%}
+                    </ul>
+                    
+                    <p>Defenses:</p>
+                    <ul>
+                        {% for defense in group.defenses %}
+                            <li>{{ defense.id }} - {{ defense.start_date }} </li>
+                        {% endfor%}
+                    </ul>
+                    
+                    <a href="/edit_group/{{group.id}}">
+                        <button>Edit</button>
+                    </a>
+                    <a href="/delete_group/{{group.id}}">
+                        <button>Delete</button>
+                    </a>
                 </div>
             {% endfor %}
         {% endif %}

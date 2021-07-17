@@ -567,7 +567,7 @@ def edit_sheet(content):
         
         return redirect(url_for('admin.c_edit_sheet'))
 
-    return render_template('edit_sheet.html', to_edit=template, rubrics=Rubric.query.all())
+    return render_template('edit_sheet.html', to_edit=template, templates=Template.query.all(), rubrics=Rubric.query.all())
 
 @admin.route('/c_edit_sheet/', methods=['GET', 'POST'])
 @login_required

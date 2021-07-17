@@ -1,14 +1,14 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
-
+{% block pagename %}
+    Rubrics
+{% endblock %}
+{% block button %}
+<a href="/new_rubric/">
+    <button>Create New Rubric</button>
+</a>
+{% endblock %}
 {% block content %}
-
-    <div class='create_button'>
-        <a href="">
-            <button>Create New Rubric</button>
-        </a>
-    </div>
-
     <div id="overlay">
         <div id="text">
             <div id='close_button' onclick="off()">
@@ -23,7 +23,6 @@
                     <button id='submit' name='submit' value='yes'>Yes</button>
                     <button id='submit' name='submit' values='no'>No</button>
                 </form>
-                
             </div>
         </div>
     </div>
@@ -42,15 +41,15 @@
                     <p>Weight: x{{ rubric.weight }}</p>
                     <p>Rubric Type: {{ rubric.rubric_type }}</p>
                     <p>PBL Level: {{ rubric.pbl_lvl }}</p>
+                    <p>Category: {{ rubric.category }}</p>
                     <br>
                     <a href="/edit_rubric/{{ rubric.id }}">
                         <button>Edit</button>
                     </a>
-                    <a href="">
+                    <a href="/delete_rubric/ {{ rubric.id }}">
                         <button>Delete</button>
                     </a>
                 </div>
-                
             {% endfor %}
         {% endif %}
     </div>
