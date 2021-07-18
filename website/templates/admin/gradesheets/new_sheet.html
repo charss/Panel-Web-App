@@ -1,0 +1,190 @@
+{% extends "admin.html" %}
+{% block title %}Home Page{% endblock %}
+{% block pagename %}
+Gradesheets
+{% endblock %}
+{% block button %}
+<a href="">
+    <button>Create New Template</button>
+</a>
+{% endblock %}
+{% block content %}
+<style>
+    .container {
+        height: fit-content;
+    }
+</style>
+<body onload='check()'>
+    {% if back_rub != "" and data == None %}
+        {% set data = back_rub %}
+    {% endif %}
+    <div id="overlay">
+        <div class='container'>
+            <div class='header_div'>
+                <div class='header_title'>
+                    <p>Create New Template</p>
+                </div>
+                <div class='close_button'>
+                    <a href='/gradesheets/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
+                    </a>
+                </div>
+            </div>
+
+            <div class='content_div'>
+                <form method='POST'>
+                    <div class='form_div'>
+                        <div class='query'>
+                            <label for="sheetCode">Gradesheet Code:</label>
+                            <span>
+                                <input type='text' id='sheetCode' name='sheetCode' value ="{{ current_id }}" disabled>
+                            </span>
+                        </div>
+
+                        <label for="rubType">Rubric Type:</label>
+                        <span>
+                            <input onchange="sheet_type(); check()" type="radio" id="group" name="rubType" value="Group" required>
+                            <label for="group">Group</label>
+                            <input onchange="sheet_type(); check()" type="radio" id="individual" name="rubType" value="Individual">
+                            <label for="individual">Individual</label>
+                        </span>
+                        
+                        <label for="pblLvl">PBL Level:</label>
+                        <span>
+                            <input onchange='pbl_level();' type="radio" id="pbl1" name="pblLvl" value="PBL1" required>
+                            <label for="pbl1">PBL1</label>
+                            <input onchange='pbl_level(); 'type="radio" id="pbl2" name="pblLvl" value="PBL2">
+                            <label for="pbl2">PBL2</label>
+                            <input onchange='pbl_level();' type="radio" id="pbl3" name="pblLvl" value="PBL3">
+                            <label for="pbl3">PBL3</label>
+                            <input onchange='pbl_level(); 'type="radio" id="pbl4" name="pblLvl" value="PBL4">
+                            <label for="pbl4">PBL4</label>
+                        </span>
+                        
+                        <label>Select Rubric(s) Below</label>
+                        <select id="rubrics" name='rubrics' multiple required disabled>
+                            {% for rubric in rubrics %}
+                                {% if rubric.rubric_type == data %}
+                                    {% set x = rubric.id|string %}
+                                    <option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+                                {% elif rubric.pbl_lvl == data %}
+                                    {% set x = rubric.id|string %}
+                                    <option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+
+                        <button type='submit' id='submit' name='submit'>Submit</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class='display_grid'>
+        {% if templates %}
+            {% for template in templates %}
+                <div class='box'>
+                    <p>ID: {{ template.id }}</p>
+                    <p>Gradesheet Type: {{ template.sheet_type }}</p>
+                    <p>Rubrics:</p>
+                    <ul>
+                        {% for rubric in template.rubric %}
+                            <li>{{ rubric.desc }}</li>
+                        {% endfor %}
+                    </ul>
+                    <a href="/view_sheet/{{ template.id }}">
+                        <button>View</button>
+                    </a>
+
+                    <a href="">
+                        <button>Edit</button>
+                    </a>
+                    <a href="">
+                        <button>Delete</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <script>
+        function putHere() {
+            document.getElementById('invis').value = arr;
+        }
+
+        function sheet_type() {
+            selected_value = $("input[name='rubType']:checked").val();
+            var clock = {
+                "key": selected_value //say
+            };
+            $.ajax({
+                url: '/parse_data/',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(clock),
+                contentType:"application/json; charset=UTF-8"
+            })
+            .done(function(data) {
+                window.location.href = "/new_sheet/" + data['key'];
+            })
+        }
+
+        function pbl_level() {
+            selected_value = $("input[name='pblLvl']:checked").val();
+            var clock = {
+                "key": selected_value //say
+            };
+            $.ajax({
+                url: '/parse_data/',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(clock),
+                contentType:"application/json; charset=UTF-8"
+            })
+            .done(function(data) {
+                window.location.href = "/new_sheet/" + data['key'];
+            })
+        }
+
+
+        function check() {
+            var temp = 'empty' 
+            if ('{{ back_rub }}' != 'None' && '{{ data }}' != 'None') {
+                temp = '{{ data }}'
+            } else if ('{{ back_rub }}' == 'None') {
+                temp = '{{ data }}'
+            } else {
+                temp = '{{ back_rub }}'
+            }
+
+            if (temp == 'Individual') {
+                document.getElementById('individual').checked = true;
+                document.getElementById('rubrics').disabled = false;
+                document.getElementById('pbl1').disabled = true;
+                document.getElementById('pbl2').disabled = true;
+                document.getElementById('pbl3').disabled = true;
+                document.getElementById('pbl4').disabled = true;
+                '{% set data = "Individual" %}'
+            } else {
+                document.getElementById('group').checked = true;
+                if (temp == 'PBL1') {
+                    document.getElementById('pbl1').checked = true;
+                    document.getElementById('rubrics').disabled = false;
+                } else if (temp == 'PBL2') {
+                    document.getElementById('pbl2').checked = true;
+                    document.getElementById('rubrics').disabled = false;
+                } else if (temp == 'PBL3') {
+                    document.getElementById('pbl3').checked = true;
+                    document.getElementById('rubrics').disabled = false;
+                } else if (temp == 'PBL4') {
+                    document.getElementById('pbl4').checked = true;
+                    document.getElementById('rubrics').disabled = false;
+                }
+            }
+        }
+    </script>
+</body>
+    
+{% endblock %}

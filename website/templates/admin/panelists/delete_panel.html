@@ -1,0 +1,20 @@
+{% extends "panelists/panelist.html" %}
+{% block overlay %}
+    <div id="overlay">
+        <div id="text">
+            <div id='close_button' onclick="off()">
+                <a href='/panelist'>
+                    <img src="{{ url_for('static', filename='close.png') }}">
+                </a>
+            </div>
+
+            <div>
+                <p>Are you sure you?</p>
+                <form method='POST'>
+                    <button id='submit' name='submit' value='yes'>Yes</button>
+                    <button id='submit' name='submit' values='no'>No</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

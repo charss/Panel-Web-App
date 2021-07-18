@@ -1,0 +1,115 @@
+{% extends "schedules/schedule.html" %}
+{% block overlay %}
+    <div id="overlay">
+        <div class='container'>
+            <div class='header_div'>
+                <div class='header_title'>
+                    <p>Create New Schedule</p>
+                </div>
+                <div class='close_button'>
+                    <a href='/schedule/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
+                    </a>
+                </div>
+            </div>
+
+            <div class='content_div'>
+                <form method='POST'>
+                    <div class='form_div'>
+                        <div class='query'>
+                            <label for="userCode">Defense Code:</label>
+                            <span>
+                                <input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="group">Group</label>
+                            <span>
+                                <select name='group' id='group'>
+                                    {% if groups %}
+                                        {% for group in groups %}
+                                            <option value="group{{ group.id }}">{{ group.id }} - {{ group.name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="selectBox1">Head Panelist</label>
+                            <span>
+                                <select name='selectBox1' id='selectBox1'>
+                                    <option value='no_value'>-----------</option>
+                                    {% if panels %}
+                                        {% for panel in panels %}
+                                            <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="selectBox2">Co-Panelist</label>
+                            <span>
+                                <select name='selectBox2' id='selectBox2'>
+                                    <option value='no_value'>-----------</option>
+                                    {% if panels %}
+                                        {% for panel in panels %}
+                                            <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="selectBox3">Co-Panelist</label>
+                            <span>
+                                <select name='selectBox3' id='selectBox3'>
+                                    <option value='no_value'>-----------</option>
+                                    {% if panels %}
+                                        {% for panel in panels %}
+                                            <option value="{{ panel.id }}">{{ panel.id }} - {{ panel.last_name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="defense_date">Defense Date:</label>
+                            <span>
+                                <input type="date" id="defense_date" name="defense_date" required>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="start_time">Start Time:</label>
+                            <span>
+                                <input type="time" id="start_time" name="start_time" min="09:00" max='' required>
+                            </span>
+                        </div>
+                        
+                        <div class='query'>
+                            <label for="duration">Duration</label>
+                            <span>
+                                <select name='duration' id='duration'>
+                                    <option value='hour1'>1</option>
+                                    <option value='hour2'>2</option>
+                                    <option value='hour3'>3</option>
+                                </select>
+                            </span>
+                        </div>
+
+                        
+                        <button type='submit' id='submit' name='submit'>Submit</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

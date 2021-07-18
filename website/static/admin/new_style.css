@@ -155,39 +155,6 @@ main .content {
 }
 
 
-#overlay {
-    position: fixed;
-    display: block;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0,0,0,0.5);
-    z-index: 2;
-    cursor: pointer;
-}
-
-#text{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    font-size: 20px;
-    color: white;
-    transform: translate(-50%,-50%);
-    -ms-transform: translate(-50%,-50%);
-    background-color: pink;
-    border: 1px;
-    border-color: red;
-    border-style: solid;
-}
-
-
-#close_button {
-    text-align: right;
-}
-
 input { 
     text-align: right; 
 }
@@ -200,4 +167,93 @@ input {
 
 .display_grid {
     position: relative;
+}
+
+#overlay {
+    position: fixed;
+    display: flex;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 2;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    position: absolute;
+    flex-direction: column;
+    width: 30%;
+    height: 55%;
+    background-color: white;
+    overflow-y: hidden;
+}
+
+.container .header_div {
+    height: 20%;
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    background-color: #1b412c;
+    top: 0;
+    position: sticky;
+}
+
+.header_div .header_title {
+    position: relative;
+    float: left;
+    font-size: 30px;
+}
+
+.header_div .header_title p {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 5px;
+}
+
+.header_div .close_button {
+    position: relative;
+    float: right;
+}
+
+.container .content_div {
+    width: 100%;
+    height: 80%;
+    padding: 20px;
+    overflow: auto;
+}
+
+.container .content_div .form_div {
+    display: inline-flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.query {
+    width: 100%;
+}
+
+.query span {
+    display: block;
+    overflow: hidden;
+    padding-left: 10px;
+}
+
+.query label {
+    float: left;
+    width: 35%;
+}
+
+.query span input {
+    width: 100%;
+}
+
+.query span select {
+    width: 100%;
 }

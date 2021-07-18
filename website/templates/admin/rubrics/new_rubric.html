@@ -1,0 +1,172 @@
+{% extends "admin.html" %}
+{% block title %}Home Page{% endblock %}
+{% block pagename %}
+Rubrics
+{% endblock %}
+{% block button %}
+<a href="/new_rubric/">
+    <button>Create New Rubric</button>
+</a>
+{% endblock %}
+{% block content %}
+    <style>
+        #text {
+            width: 500px;
+        }
+
+        textarea {
+            height: 30px;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        textarea:focus {
+            height: 5em;
+        }
+
+        #desc, #category {
+            width: 100%;
+        }
+    </style>
+    <body onload='check()'>
+
+        <div id="overlay">
+            <div class='container'>
+                <div class='header_div'>
+                    <div class='header_title'>
+                        <p>Create New Rubric</p>
+                    </div>
+                    <div class='close_button'>
+                        <a href='/rubrics/'>
+                            <img src="{{ url_for('static', filename='close.png') }}">
+                        </a>
+                    </div>
+                </div>
+
+                <div class='content_div'>
+                    <form method='POST'>
+                        <div class='form_div'>
+                            <div class='query'>
+                                <label for="rubricCode">Rubric Code:</label>
+                                <span>
+                                    <input type='text' id='rubricCode' name='rubricCode' value ="{{ current_id }}" disabled><br>
+                                </span>
+                            </div>
+
+                            <label for="rubType">Rubric Type:</label>
+                            <span>
+                                <input onclick="check()" type="radio" id="group" name="rubType" value="Group" checked>
+                                <label for="group">Group</label>
+                                <input onclick="check()" type="radio" id="individual" name="rubType" value="Individual">
+                                <label for="individual">Individual</label>
+                            </span>
+                            
+
+                            <label for="pblLvl">PBL Level:</label>
+                            <span>
+                                <input type="radio" id="pbl1" name="pblLvl" value="PBL1" checked>
+                                <label for="pbl1">PBL1</label>
+                                <input type="radio" id="pbl2" name="pblLvl" value="PBL2">
+                                <label for="pbl2">PBL2</label>
+                                <input type="radio" id="pbl3" name="pblLvl" value="PBL3">
+                                <label for="pbl3">PBL3</label>
+                                <input type="radio" id="pbl4" name="pblLvl" value="PBL4">
+                                <label for="pbl4">PBL4</label>
+                            </span>
+                            
+
+                            <div class='query'>
+                                <label for="category">Category:</label>
+                                <span>
+                                    <input type='text' id='category' name='category' style='text-align: left;' required >
+                                </span>
+                            </div>
+
+                            <div class='query'>
+                                <label for="desc">Description:</label>
+                                <span>
+                                    <input type='text' id='desc' name='desc' style='text-align: left;' required>
+                                </span>
+                            </div>
+                            
+                            {% for x in range(5, 0, -1) %}
+                                <div class='query'>
+                                    <label for='rate{{ x }}'>Rate {{ x }}:</label>
+                                    <span> 
+                                        <textarea id='rate{{ x }}' name='rate{{ x }}' required></textarea>
+                                    </span>
+                                </div>
+                            {% endfor %}
+
+                            <div class='query'>
+                                <label for="weight">Weight</label>
+                                <span>
+                                    <input type="number" id="weight" name='weight' autocomplete='off' min='1' max='9' value=1 onkeydown='return false;'>
+                                </span>
+                            </div>
+
+                            <button type='submit' id='submit' name='submit'>Submit</button>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class='display_grid'>
+            {% if rubrics %}
+                {% for rubric in rubrics %}
+                    <div class='box'>
+                        <p>ID: {{ rubric.id }}</p>
+                        <p>Description: {{ rubric.desc }}</p>
+                        <p>Rate 5: {{ rubric.rate5 }}</p>
+                        <p>Rate 4: {{ rubric.rate4 }}</p>
+                        <p>Rate 3: {{ rubric.rate3 }}</p>
+                        <p>Rate 2: {{ rubric.rate2 }}</p>
+                        <p>Rate 1: {{ rubric.rate1 }}</p>
+                        <p>Weight: x{{ rubric.weight }}</p>
+                        <p>Rubric Type: {{ rubric.rubric_type }}</p>
+                        <p>PBL Level: {{ rubric.pbl_lvl }}</p>
+                        <p>Category: {{ rubric.category }}</p>
+                        <br>
+                        <a href="/edit_rubric/{{ rubric.id }}">
+                            <button>Edit</button>
+                        </a>
+                        <a href="/delete_rubric/ {{ rubric.id }}">
+                            <button>Delete</button>
+                        </a>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    
+
+        <script>
+            function check() {
+                const rbs = document.querySelectorAll('input[name="rubType"]');
+                let selectedValue;
+                for (const rb of rbs) {
+                    if (rb.checked) {
+                        selectedValue = rb.value;
+                        break;
+                    }
+                }
+
+                if (selectedValue == 'Individual') {
+                    document.getElementById('category').disabled = true;
+                    document.getElementById('pbl1').disabled = true;
+                    document.getElementById('pbl2').disabled = true;
+                    document.getElementById('pbl3').disabled = true;
+                    document.getElementById('pbl4').disabled = true;
+                } else {
+                    document.getElementById('category').disabled = false;
+                    document.getElementById('pbl1').disabled = false;
+                    document.getElementById('pbl2').disabled = false;
+                    document.getElementById('pbl3').disabled = false;
+                    document.getElementById('pbl4').disabled = false;
+                }
+            }
+            
+        </script>
+    </body>
+{% endblock %}
