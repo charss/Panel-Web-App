@@ -6,6 +6,8 @@
 {% block button %}
 {% endblock %}
 {% block content %}
+    {% block overlay %}
+    {% endblock %}
     <div class='display_grid'>
         {% if defenses %}
             {% for defense in defenses %}

@@ -1,60 +1,63 @@
-{% extends "admin.html" %}
-{% block title %}Home Page{% endblock %}
-{% block pagename %}
-Panelists
-{% endblock %}
-{% block button %}
-<a href="/new_panel/">
-    <button>Create New Panelist</button>
-</a>
-{% endblock %}
-{% block content %}
+{% extends "panelists/panelist.html" %}
+{% block overlay %}
+
+
     <div id="overlay">
-        <div id="text">
-            <div id='close_button' onclick="off()">
-                <a href='/panelist'>
-                    <img src="{{ url_for('static', filename='close.png') }}">
-                </a>
+        <div class='container'>
+            <div class='header_div'>
+                <div class='header_title'>
+                    <p>Create New Panelist</p>
+                </div>
+                <div class='close_button'>
+                    <a href='/panelist/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
+                    </a>
+                </div>
             </div>
-            <p>New Panelist</p>
-            <div>
-                <form method='POST'>
-                    <label for="userCode">User Code:</label>
-                    <input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
 
-                    <label for="lastName">Last Name</label>
-                    <input type='text' id='lastName' name='lastName'><br>
+            <div class='content_div'>
+                <div class='form_div'>
+                    <div class='query'>
+                        <label for="groupCode">Group Code:</label>
+                        <span>
+                            <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
+                        </span>
+                    </div>
 
-                    <label for="firstName">First Name</label>
-                    <input type='text' id='firstName' name='firstName'><br>
+                    <div class='query'>
+                        <label for="lastName">Last Name:</label>
+                        <span>
+                            <input type='text' id='lastName' name='lastName'>
+                        </span>
+                    </div>
+                        
+                    <div class='query'>
+                        <label for="firstName">First Name</label>
+                        <span>
+                            <input type='text' id='firstName' name='firstName'><br>
+                        </span>
+                    </div>
 
-                    <label for="middleIn">Middle Initial</label>
-                    <input type='text' id='middleIn' name='middleIn'><br>
+                    <div class='query'>
+                        <label for="middleIn">Middle Initial</label>
+                        <span>
+                            <input type='text' id='middleIn' name='middleIn'><br>
+                        </span>
+                    </div>
 
-                    <label for="school">School:</label>
-                    <select name="school" id='school'>
-                        <option value='FEU Alabang'>FEU Alabang</option>
-                        <option value='FEU Tech'>FEU Tech</option>
-                        <option value='FEU Diliman'>FEU Diliman</option>
-                    </select>
-                    <br>
-
-                    <button type='submit' id='submit' name='submit'>Submit</button>
-                </form>
+                    <div class='query'>
+                        <label for="school">School:</label>
+                        <span>
+                            <select name="school" id='school'>
+                                <option value='FEU Alabang'>FEU Alabang</option>
+                                <option value='FEU Tech'>FEU Tech</option>
+                                <option value='FEU Diliman'>FEU Diliman</option>
+                            </select>
+                        </span>
+                    </div>
+                    <button id='submit' name='submit'>Submit</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class='display_grid'>
-        {% if panels %}
-            {% for panel in panels %}
-                <div class='box'>
-                    <p>ID: {{ panel.id }}</p>
-                    <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-                    <p>School: {{ panel.school }}</p>
-                    <br>
-                </div>
-                
-            {% endfor %}
-        {% endif %}
     </div>
 {% endblock %}

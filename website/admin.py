@@ -32,10 +32,11 @@ def admin_home(data):
     if not db.session.query(Rubric).first():
         populate_rubric()
 
-    if db.session.query(Defense).first(): 
-        return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1)
-    else:
-        return render_template('home.html', defenses=None, current_id=1)
+    # if db.session.query(Defense).first(): 
+    #     return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1)
+    # else:
+    #     return render_template('home.html', defenses=None, current_id=1)
+    return render_template('overlay.html')
     
 @admin.route('/groups/', methods=['GET', 'POST'])
 @login_required
@@ -431,7 +432,7 @@ def new_rubric():
         db.session.commit()
 
        
-        # return redirect(url_for('admin.rubrics'))
+        return redirect(url_for('admin.rubrics'))
    
     if db.session.query(Rubric).first(): 
         return render_template('rubrics/new_rubric.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
@@ -495,15 +496,16 @@ def gradesheets():
         return render_template('gradesheets/gradesheet.html', templates=None, current_id=1)
 
 
-@admin.route('/new_sheet/', defaults={'data' : 'None'}, methods=['GET', 'POST'])
+@admin.route('/new_sheet/', methods=['GET', 'POST'])
 @admin.route('/new_sheet/<data>', methods=['GET', 'POST'])
 @login_required
-def new_sheet(data):
+def new_sheet(data=None):
     obj = 0
     back_arr = []
     back_rub = None
     try:
         if session['trial']:
+            print(session['trial'])
             back_arr = session['trial']['rubrics']
             back_rub = session['trial']['rubric_type']
             print('BACKED')
@@ -514,10 +516,8 @@ def new_sheet(data):
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
 
     if request.method == 'POST':
-        multiselect = request.form['invis'].split(',')
-        if '-1982' in multiselect:
-            multiselect.pop(0)
-        print(multiselect)
+        multiselect = request.form.getlist('rubrics')
+
         rubric_type = request.form['rubType']
 
         contents = {
@@ -530,9 +530,9 @@ def new_sheet(data):
         return redirect(url_for('admin.confirm_sheet', contents=contents, rubrics=Rubric.query.all()))
 
     if db.session.query(Template).first():
-        return render_template('gradesheets/new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=obj.id+1, rub_type=data)
+        return render_template('gradesheets/new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=obj.id+1, data=data)
     else:
-        return render_template('gradesheets/new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=1, rub_type=data)
+        return render_template('gradesheets/new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=1, data=data)
 
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
@@ -547,9 +547,10 @@ def view_sheet(content):
 
     return render_template('gradesheet/view_sheet.html', template=template, rubrics=template.rubric)
 
-@admin.route('/edit_sheet/<content>', methods=['GET', 'POST'])
+@admin.route('/edit_sheet/<content>/<pbl>', methods=['GET', 'POST'])
+@admin.route('/edit_sheet/<content>/', methods=['GET', 'POST'])
 @login_required
-def edit_sheet(content):
+def edit_sheet(content, pbl='None'):
     template = db.session.query(Template).filter_by(id=content).first()
 
     try:
@@ -560,9 +561,7 @@ def edit_sheet(content):
 
 
     if request.method == "POST":
-        multiselect = request.form['invis'].split(',')
-        if '-1982' in multiselect:
-            multiselect.pop(0)
+        multiselect = request.form.getlist('rubrics')
         
         contents = {
             'rubric_id': template.id,
@@ -574,12 +573,11 @@ def edit_sheet(content):
         
         return redirect(url_for('admin.c_edit_sheet'))
 
-    return render_template('gradesheets/edit_sheet.html', to_edit=template, templates=Template.query.all(), rubrics=Rubric.query.all())
+    return render_template('gradesheets/edit_sheet.html', to_edit=template, templates=Template.query.all(), rubrics=Rubric.query.all(), pbl=pbl)
 
 @admin.route('/c_edit_sheet/', methods=['GET', 'POST'])
 @login_required
 def c_edit_sheet():
-
     template = db.session.query(Template).filter_by(id=session['trial']['rubric_id']).first()
 
     new_rubrics = []
@@ -639,12 +637,12 @@ def confirm_sheet():
 @admin.route('/assign_indiv/', methods=['GET', 'POST'])
 @login_required
 def assign_indiv():
-    return render_template('assign_indiv.html', defenses=Defense.query.all())
+    return render_template('schedules/assign_indiv.html', templates=Template.query.all())
     
 
 @admin.route('/parse_data/', methods=['GET', 'POST'])
 def parse_data():
     if request.method == "POST":
         data = request.get_json()
-        print(data['key'])
+        session['gradesheet'] = data
         return jsonify(data)

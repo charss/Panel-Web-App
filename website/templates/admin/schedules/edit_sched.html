@@ -1,160 +1,170 @@
-{% extends "admin.html" %}
-{% block title %}Home Page{% endblock %}
-{% block pagename %}
-Schedules
-{% endblock %}
-{% block button %}
-<a href="/new_sched/">
-    <button>Create New Defense Schedule</button>
-</a>
-{% endblock %}
-{% block content %}
+{% extends "schedules/schedule.html" %}
+{% block overlay %}
     <div id="overlay">
-        <div id="text">
-            
-            <div id='close_button' onclick="off()">
-                <a href='/schedule'>
-                    <img src="{{ url_for('static', filename='close.png') }}">
-                </a>
+        <div class='container'>
+            <div class='header_div'>
+                <div class='header_title'>
+                    <p>Create New Schedule</p>
+                </div>
+                <div class='close_button'>
+                    <a href='/schedule/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
+                    </a>
+                </div>
             </div>
 
-            <div>
-                <p>Editing Schedule</p> 
-                <form method='POST'>
-                    <label for="userCode">Defense Code:</label>
-                    <input type='text' id='userCode' name='userCode' value ="{{ to_edit.id }}" disabled><br>
+            <div class='content_div'>
+                <div class='form_div'>
+                    <div class='query'>
+                        <span>
+                        </span>
+                    </div>
 
-                    <label for="group">Group</label>
-                    <select name='group' id='group'>
-                        {% if groups %}
-                            {% for group in groups %}
-                                <option value="group{{ group.id }}" {% if to_edit.group_id == group.id %}selected {% endif %}>{{ group.id }} - {{ group.name}}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                    <br>
+                    <div class='query'>
+                        <label for="lastName">Last Name:</label>
+                        <span>
+                            <input type='text' id='lastName' name='lastName' value="{{ to_edit.last_name }}">
+                        </span>
+                    </div>
+                        
+                    <div class='query'>
+                        <label for="firstName">First Name</label>
+                        <span>
+                            <input type='text' id='firstName' name='firstName' value="{{ to_edit.first_name }}">
+                        </span>
+                    </div>
 
-                    <label for="selectBox1">Head Panelist</label>
-                    <select name='selectBox1' id='selectBox1'>
-                        <option value='no_value'>-----------</option>
-                        {% if panels %}
-                            {% for panel in panels %}
-                                <option value="{{ panel.id }}" {% if to_edit.panels[0].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                    <br>
+                    <div class='query'>
+                        <label for="middleIn">Middle Initial</label>
+                        <span>
+                            <input type='text' id='middleIn' name='middleIn' value="{{ to_edit.middle_in }}">
+                        </span>
+                    </div>
 
-                    <label for="selectBox2">Co-Panelist</label>
-                    <select name='selectBox2' id='selectBox2'>
-                        <option value='no_value'>-----------</option>
-                        {% if panels %}
-                            {% for panel in panels %}
-                                <option value="{{ panel.id }}" {% if to_edit.panels[1].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                    <br>
-
-                    <label for="selectBox3">Co-Panelist</label>
-                    <select name='selectBox3' id='selectBox3'>
-                        <option value='no_value'>-----------</option>
-                        {% if panels %}
-                            {% for panel in panels %}
-                                <option value="{{ panel.id }}" {% if to_edit.panels[2].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
-                            {% endfor %}
-                        {% endif %}
-                    </select>
-                    <br>
-                    
-                    <label for="defense_date">Defense Date:</label>
-                    <input type="date" id="defense_date" name="defense_date" value='{{ to_edit.start_date.date() }}' required>
-                    <br>
-                    
-                    <label for="start_time">Start Time:</label>
-                    <input type="time" id="start_time" name="start_time" min="09:00" max='' value='{{ to_edit.start_date.strftime("%H:%M") }}' required>
-                    <br>
-                    
-                    <label for="duration">Duration</label>
-                    <select name='duration' id='duration'>
-                        <option value='hour1'>1</option>
-                        <option value='hour2'>2</option>
-                        <option value='hour3'>3</option>
-                    </select>
-                    <br>
-                    
-                    <button type='submit' id='submit' name='submit'>Submit</button>
-                </form>
-                
+                    <div class='query'>
+                        <label for="school">School:</label>
+                        <span>
+                            <select name="school" id='school'>
+                                <option value='FEU Alabang' {% if to_edit.school == 'FEU Alabang' %}selected {% endif %}>FEU Alabang</option>
+                                <option value='FEU Tech' {% if to_edit.school == 'FEU Tech' %}selected {% endif %}>FEU Tech</option>
+                                <option value='FEU Diliman' {% if to_edit.school == 'FEU Diliman' %}selected {% endif %}>FEU Diliman</option>
+                            </select>
+                        </span>
+                    </div>
+                    <button id='submit' name='submit'>Submit</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class='display_grid'>
-        {% if defenses %}
-            {% for defense in defenses %}
-                <div class='box'>
-                    <p>ID: {{ defense.id }}</p>
-                    <p>Group Name: {{ defense.group.name }} </p>
-                    <p>Panels:</p>
-                    <ul>
-                        {% for panel in defense.panels %}
-                            {% if panel.id == defense.head_panel_id: %}
-                                <li>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. - HP</li>
-                            {% else: %}
-                                <li>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</li>
-                            {% endif %}
-                        {% endfor %}
-                    </ul>
-                    <p>Defense Date: {{ defense.start_date}}</p>
-                    <a href="">
-                        <button>Assign Individual Gradesheet</button>
-                    </a>
-                    <br>
-                    <br>
-                    <a href="">
-                        <button>Assign Group Gradesheet</button>
-                    </a>
-                    <br>
-                    <br>
-                    <a href="/edit_sched/{{ defense.id }}">
-                        <button>Edit</button>
-                    </a>
-                    
-                    <a href="/delete_sched/{{ defense.id }}">
-                        <button>Delete</button>
+    <div id="overlay">
+        <div class='container'>
+            <div class='header_div'>
+                <div class='header_title'>
+                    <p>Edit Schedule</p>
+                </div>
+                <div class='close_button'>
+                    <a href='/schedule/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
                     </a>
                 </div>
-                
-            {% endfor %}
-        {% endif %}
+            </div>
+
+            <div class='content_div'>
+                <form method='POST'>
+                    <div class='form_div'>
+                        <div class='query'>
+                            <label for="userCode">Defense Code:</label>
+                            <span>
+                                <input type='text' id='userCode' name='userCode' value ="{{ to_edit.id }}" disabled>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="group">Group</label>
+                            <span>
+                                <select name='group' id='group'>
+                                    {% if groups %}
+                                        {% for group in groups %}
+                                            <option value="group{{ group.id }}" {% if to_edit.group_id == group.id %}selected {% endif %}>{{ group.id }} - {{ group.name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="selectBox1">Head Panelist</label>
+                            <span>
+                                <select name='selectBox1' id='selectBox1'>
+                                    <option value='no_value'>-----------</option>
+                                    {% if panels %}
+                                        {% for panel in panels %}
+                                            <option value="{{ panel.id }}" {% if to_edit.panels[0].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="selectBox2">Co-Panelist</label>
+                            <span>
+                                <select name='selectBox2' id='selectBox2'>
+                                    <option value='no_value'>-----------</option>
+                                    {% if panels %}
+                                        {% for panel in panels %}
+                                            <option value="{{ panel.id }}" {% if to_edit.panels[1].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="selectBox3">Co-Panelist</label>
+                            <span>
+                                <select name='selectBox3' id='selectBox3'>
+                                    <option value='no_value'>-----------</option>
+                                    {% if panels %}
+                                        {% for panel in panels %}
+                                            <option value="{{ panel.id }}" {% if to_edit.panels[2].id == panel.id %}selected {% endif %}>{{ panel.id }} - {{ panel.last_name}}</option>
+                                        {% endfor %}
+                                    {% endif %}
+                                </select>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="defense_date">Defense Date:</label>
+                            <span>
+                                <input type="date" id="defense_date" name="defense_date" value='{{ to_edit.start_date.date() }}' required>
+                            </span>
+                        </div>
+
+                        <div class='query'>
+                            <label for="start_time">Start Time:</label>
+                            <span>
+                                <input type="time" id="start_time" name="start_time" min="09:00" max='' value='{{ to_edit.start_date.strftime("%H:%M") }}' required>
+                            </span>
+                        </div>
+                        
+                        <div class='query'>
+                            <label for="duration">Duration</label>
+                            <span>
+                                <select name='duration' id='duration'>
+                                    <option value='hour1'>1</option>
+                                    <option value='hour2'>2</option>
+                                    <option value='hour3'>3</option>
+                                </select>
+                            </span>
+                        </div>
+
+                        <button type='submit' id='submit' name='submit'>Submit</button>
+                    </div>
+                    
+                </form>
+            </div>
+        </div>
     </div>
-    
-
-    
-    <script>
-        var arrValues = new Array();
-        var arrHead = new Array();
-        var dict = {}
-
-        $(document).ready(function(){
-            $('select').on('click', function(event ) {
-                var prevValue = $(this).data('previous');
-            $('select').not(this).find('option[value="'+prevValue+'"]').show();
-                var value = $(this).val();
-            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
-            });
-        });
-        
-        $(document).ready(function(){
-            $('select').on('change', function(event ) {
-                var prevValue = $(this).data('previous');
-            $('select').not(this).find('option[value="'+prevValue+'"]').show();    
-                var value = $(this).val();
-            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
-            });
-        });
-
-        
-    </script>
 {% endblock %}

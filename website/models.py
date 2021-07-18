@@ -81,6 +81,7 @@ class Defense(db.Model):
 class Template(db.Model):
     id         = db.Column(db.Integer, primary_key=True)
     sheet_type = db.Column(db.String(50), nullable=False)
+    pbl_level  = db.Column(db.String(50), nullable=True),
     template   = db.relationship(
         'Defense',
         secondary=defense_panel_score,

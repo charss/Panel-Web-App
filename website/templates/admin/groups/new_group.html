@@ -1,90 +1,76 @@
-{% extends "admin.html" %}
-{% block title %}Home Page{% endblock %}
-{% block pagename %}
-Groups
-{% endblock %}
-{% block button %}
-<a href="/new_group/">
-    <button>Create New Group</button>
-</a>
-{% endblock %}
-{% block content %}
-    <div id="overlay">
-        <div id="text">
+{% extends "groups/groups.html" %}
+{% block overlay %}
+    <style>
+        .container {
+            width: fit-content;
             
-            <div id='close_button' onclick="off()">
-                <a href='/groups'>
-                    <img src="{{ url_for('static', filename='close.png') }}">
-                </a>
-                
+        }
+    </style>
+
+    <div id="overlay">
+        <div class='container'>
+            <div class='header_div'>
+                <div class='header_title'>
+                    <p>Create New Group</p>
+                </div>
+                <div class='close_button'>
+                    <a href='/groups/'>
+                        <img src="{{ url_for('static', filename='close.png') }}">
+                    </a>
+                </div>
             </div>
 
-            <p>Adding New Group</p>
-            <div>
-                <label for="groupCode">Group Code:</label>
-                <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled><br>
+            <div class='content_div'>
+                <div class='form_div'>
+                    <div class='query'>
+                        <label for="groupCode">Group Code:</label>
+                        <span>
+                            <input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
+                        </span>
+                    </div>
 
-                <label for="groupName">Group Name:</label>
-                <input type='text' id='groupName' name='groupName'><br>
+                    <div class='query'>
+                        <label for="groupName">Group Name:</label>
+                        <span>
+                            <input type='text' id='groupName' name='groupName'>
+                        </span>
+                    </div>
+                        
+                    <div class='query'>
+                        <label for="projectTitle">Project Title:</label>
+                        <span>
+                            <input type='text' id='projectTitle' name='projectTitle'><br>
+                        </span>
+                    </div>
 
-                <label for="projectTitle">Project Title:</label>
-                <input type='text' id='projectTitle' name='projectTitle'><br>
-                
-                <label for="program">Program:</label>
-                <select name="program" id='program'>
-                    <option value='BSIT-AGD'>BSIT-AGD</option>
-                    <option value='BSIT-DA'>BSIT-DA</option>
-                    <option value='BSIT-SMBA'>BSIT-SMBA</option>
-                    <option value='BSIT-WMA'>BSIT-WMA</option>
-                    <option value='BSCS'>BSCS</option>
-                    <option value='BMA'>BMA</option>
-                </select>
-                <br>
-                
-                <label for="totalProp">Total Proponents:</label>
-                <input type="text" id="totalProp" name='totalProp' autocomplete='off' min='1' max='9' value=0 disabled>
-                <input type='button' name='generate' value='Add proponent' onclick='addRow();'></button>
-                
-                <div id="cont"></div>
-                <button id='submit' name='submit'>Submit</button>
+                    <div class='query'>
+                        <label for="program">Program:</label>
+                        <span>
+                            <select name="program" id='program'>
+                                <option value='BSIT-AGD'>BSIT-AGD</option>
+                                <option value='BSIT-DA'>BSIT-DA</option>
+                                <option value='BSIT-SMBA'>BSIT-SMBA</option>
+                                <option value='BSIT-WMA'>BSIT-WMA</option>
+                                <option value='BSCS'>BSCS</option>
+                                <option value='BMA'>BMA</option>
+                            </select>
+                        </span>
+                    </div>
+                    
+                    <div class='query'>
+                        <label for="totalProp">Total Proponents:</label>
+                        <span>
+                            <input type="text" id="totalProp" name='totalProp' autocomplete='off' min='1' max='9' value=0 disabled style='width: 80%'>
+                            <input type='button' name='generate' value='Add' onclick='addRow();' style='width: 18%'></button>
+                        </span>
+                    </div>
+                    
+                    <div id="cont"></div>
+                    <button id='submit' name='submit'>Submit</button>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class='display_grid'>
-        {% if groups %}
-            {% for group in groups %}
-                <div class='box'
-                    <p>ID: {{group.id}}</p>
-                    <p>Group Name: {{group.name}}</p>
-                    <p>Project Title: {{ group.project_title }}</p>
-                    <p>Program: {{group.program}}</p>
-                    <p>Members:</p>
-                    <ul>
-                        {% for member in group.members %}
-                            <li>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</li>
-                        {% endfor%}
-                    </ul>
-                    
-                    <p>Defenses:</p>
-                    <ul>
-                        {% for defense in group.defenses %}
-                            <li>{{ defense.id }} - {{ defense.start_date }} </li>
-                        {% endfor%}
-                    </ul>
-                    
-                    <a href="/edit_group/{{group.id}}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="/delete_group/{{group.id}}">
-                        <button>Delete</button>
-                    </a>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
-    
-
     
     <script>
         var arrValues = new Array();

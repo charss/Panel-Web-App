@@ -1,14 +1,5 @@
-{% extends "admin.html" %}
-{% block title %}Home Page{% endblock %}
-{% block pagename %}
-    Panelists
-{% endblock %}
-{% block button %}
-<a href="/new_panel/">
-    <button>Create New Panelist</button>
-</a>
-{% endblock %}
-{% block content %}
+{% extends "panelists/panelist.html" %}
+{% block overlay %}
     <div id="overlay">
         <div id="text">
             <div id='close_button' onclick="off()">
@@ -25,36 +16,5 @@
                 </form>
             </div>
         </div>
-    </div>
-
-    <div class='display_grid'>
-        {% if panels %}
-            {% for panel in panels %}
-                <div class='box'>
-                    <p>ID: {{ panel.id }}</p>
-                    <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-                    <p>School: {{ panel.school }}</p>
-                    <p>Defenses:</p>
-                    
-                    {% if panel.defenses %} 
-                        <ul>
-                            {% for defense in panel.defenses %}
-                                <li>{{ defense.group.name }} - {{ defense.start_date }}</li>
-                            {% endfor %}
-                        </ul>
-                        
-                    {% else %}
-                        <p>NOTHING SCHEDULED</p>
-                    {% endif %}
-                    <br>
-                    <a href="/edit_panel/{{panel.id}}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="/delete_panel/{{panel.id}}">
-                        <button>Delete</button>
-                    </a>
-                </div>
-            {% endfor %}
-        {% endif %}
     </div>
 {% endblock %}
