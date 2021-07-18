@@ -1,7 +1,49 @@
 {% extends "admin.html" %}
 {% block title %}Home Page{% endblock %}
 {% block pagename %}
-Dashboard
+    Dashboard
+{% endblock %}
+{% block button %}
 {% endblock %}
 {% block content %}
+    <div class='display_grid'>
+        {% if defenses %}
+            {% for defense in defenses %}
+                <div class='box'>
+                    <p>ID: {{ defense.id }}</p>
+                    <p>Group Name: {{ defense.group.name }} </p>
+                    <p>Panels:</p>
+                    <ul>
+                        {% for panel in defense.panels %}
+                            {% if panel.id == defense.head_panel_id: %}
+                                <li>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. - HP</li>
+                            {% else: %}
+                                <li>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                    <p>Defense Date: {{ defense.start_date}}</p>
+                    <a href="">
+                        <button>Open Individual Gradesheet</button>
+                    </a>
+                    <br>
+                    <br>
+                    <a href="">
+                        <button>Open Group Gradesheet</button>
+                    </a>
+                    <br>
+                    <br>
+                    <a href="">
+                        <button>Open Grade Summary</button>
+                    </a>
+                    <br>
+                    <br>
+                    <a href="">
+                        <button>Open Comment Summary</button>
+                    </a>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    
 {% endblock %}

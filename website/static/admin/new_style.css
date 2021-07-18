@@ -174,13 +174,13 @@ main .content {
     top: 50%;
     left: 50%;
     font-size: 20px;
-    color: white;
+    color: black;
     transform: translate(-50%,-50%);
     -ms-transform: translate(-50%,-50%);
-    background-color: pink;
-    border: 1px;
-    border-color: red;
-    border-style: solid;
+    background-color: white;
+    max-height: 80%;
+    width: 70%;
+    max-width: 70%;
 }
 
 
@@ -200,4 +200,31 @@ input {
 
 .display_grid {
     position: relative;
+}
+
+
+.scrolling {
+    overflow-y: scroll;
+}
+
+.header_div {
+    display: inline-block;
+    width: 100%;
+    background-color: #1b412c;
+    top: 0;
+    position: sticky;
+}
+
+.header_div #header_title {
+    position: relative;
+    float: left;
+}
+
+.header_div #close_button {
+    position: relative;
+    float: right;
+}
+
+.overlay_content {
+    padding: 20px;
 }

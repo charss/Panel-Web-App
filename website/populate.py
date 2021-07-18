@@ -1,4 +1,4 @@
-from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet
+from .models import Group, Student, Panelist, Defense, Rubric
 from datetime import datetime, timedelta, date, time
 import random
 from . import db

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, url_for, request, jsonify, session
 from sqlalchemy.sql.operators import json_getitem_op
 from werkzeug.utils import redirect
-from .models import Group, Student, Panelist, Defense, Rubric, Gradesheet, Template
+from .models import Group, Student, Panelist, Defense, Rubric, Template
 from flask_login import login_required, current_user
 from . import db
 from .populate import *
@@ -13,6 +13,10 @@ admin = Blueprint('admin', __name__, static_folder='static', template_folder='te
 @admin.route("/home/<data>")
 @login_required
 def admin_home(data):
+    obj = 0
+    if db.session.query(Defense).first():
+        obj = db.session.query(Defense).order_by(Defense.id.desc()).first()
+
     if not db.session.query(Group).first():
         populate_group()
 
@@ -28,7 +32,10 @@ def admin_home(data):
     if not db.session.query(Rubric).first():
         populate_rubric()
 
-    return render_template("home.html", rub_type=data)
+    if db.session.query(Defense).first(): 
+        return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1)
+    else:
+        return render_template('home.html', defenses=None, current_id=1)
     
 @admin.route('/groups/', methods=['GET', 'POST'])
 @login_required
@@ -42,9 +49,9 @@ def group():
             pass
     
     if db.session.query(Group).first(): 
-        return render_template('groups.html', groups=Group.query.all(), current_id=obj.id+1)
+        return render_template('groups/groups.html', groups=Group.query.all(), current_id=obj.id+1)
     else:
-        return render_template('groups.html', groups=None, current_id=1)
+        return render_template('groups/groups.html', groups=None, current_id=1)
 
 @admin.route('/new_group/', methods=['GET', 'POST'])
 @login_required
@@ -92,9 +99,9 @@ def new_group():
         return jsonify(data)
 
     if db.session.query(Group).first(): 
-        return render_template('new_group.html', groups=Group.query.all(), current_id=obj.id+1)
+        return render_template('groups/new_group.html', groups=Group.query.all(), current_id=obj.id+1)
     else:
-        return render_template('new_group.html', groups=None, current_id=1)
+        return render_template('groups/new_group.html', groups=None, current_id=1)
 
 @admin.route('/edit_group/<content>', methods=['GET', 'POST'])
 @login_required
@@ -109,7 +116,7 @@ def edit_group(content):
 
         return redirect(url_for('admin.group'))
 
-    return render_template('edit_group.html', groups=Group.query.all(),to_edit=group)
+    return render_template('groups/edit_group.html', groups=Group.query.all(),to_edit=group)
 
 @admin.route('/delete_group/<content>', methods=['GET', 'POST'])
 @login_required
@@ -128,9 +135,9 @@ def delete_group(content):
             return redirect(url_for('admin.group'))
 
     if db.session.query(Group).first(): 
-        return render_template('delete_group.html', groups=Group.query.all(), current_id=obj.id+1)
+        return render_template('groups/delete_group.html', groups=Group.query.all(), current_id=obj.id+1)
     else:
-        return render_template('delete_group.html', groups=None, current_id=1, to_edit=None)
+        return render_template('groups/delete_group.html', groups=None, current_id=1, to_edit=None)
 
 @admin.route('/panelist/', methods=['GET', 'POST'])
 @login_required
@@ -140,9 +147,9 @@ def panelist():
         obj = db.session.query(Panelist).order_by(Panelist.id.desc()).first()
     
     if db.session.query(Panelist).first(): 
-        return render_template('panelist.html', panels=Panelist.query.all(), current_id=obj.id+1)
+        return render_template('panelists/panelist.html', panels=Panelist.query.all(), current_id=obj.id+1)
     else:
-        return render_template('panelist.html', panels=None, current_id=1)
+        return render_template('panelists/panelist.html', panels=None, current_id=1)
 
 @admin.route('/new_panel/', methods=['GET', 'POST'])
 @login_required
@@ -170,9 +177,9 @@ def new_panel():
         return redirect(url_for('admin.panelist'))
 
     if db.session.query(Panelist).first(): 
-        return render_template('new_panel.html', panels=Panelist.query.all(), current_id=obj.id+1)
+        return render_template('panelists/new_panel.html', panels=Panelist.query.all(), current_id=obj.id+1)
     else:
-        return render_template('new_panel.html', panels=None, current_id=1)
+        return render_template('panelists/new_panel.html', panels=None, current_id=1)
 
 @admin.route('/edit_panel/<content>', methods=['GET', 'POST'])
 @login_required
@@ -196,9 +203,9 @@ def edit_panel(content):
         return redirect(url_for('admin.panelist'))
 
     if db.session.query(Panelist).first(): 
-        return render_template('edit_panel.html', panels=Panelist.query.all(), current_id=obj.id+1, to_edit=panel)
+        return render_template('panelists/edit_panel.html', panels=Panelist.query.all(), current_id=obj.id+1, to_edit=panel)
     else:
-        return render_template('edit_panel.html', panels=None, current_id=1)
+        return render_template('panelists/edit_panel.html', panels=None, current_id=1)
 
 
 @admin.route('/delete_panel/<content>', methods=['GET', 'POST'])
@@ -217,17 +224,17 @@ def delete_panel(content):
             return redirect(url_for('admin.panelist'))
 
     if db.session.query(Panelist).first(): 
-        return render_template('delete_panel.html', panels=Panelist.query.all())
+        return render_template('panelists/delete_panel.html', panels=Panelist.query.all())
     else:
-        return render_template('delete_panel.html', panels=None, current_id=1)
+        return render_template('panelists/delete_panel.html', panels=None, current_id=1)
 
 @admin.route('/student/')
 @login_required
 def student():
     if db.session.query(Student).first(): 
-        return render_template('student.html', students=Student.query.all())
+        return render_template('students/student.html', students=Student.query.all())
     else:
-        return render_template('student.html', students=None)
+        return render_template('students/student.html', students=None)
 
 @admin.route('/edit_student/<content>', methods=['GET', 'POST'])
 @login_required
@@ -246,9 +253,9 @@ def edit_student(content):
         return redirect(url_for('admin.student'))
 
     if db.session.query(Student).first(): 
-        return render_template('edit_student.html', students=Student.query.all(), to_edit=student)
+        return render_template('students/edit_student.html', students=Student.query.all(), to_edit=student)
     else:
-        return render_template('edit_student.html', students=None)
+        return render_template('students/edit_student.html', students=None)
 
 @admin.route('/delete_student/<content>', methods=['GET', 'POST'])
 @login_required
@@ -262,9 +269,9 @@ def delete_student(content):
             return redirect(url_for('admin.student'))
 
     if db.session.query(Student).first(): 
-        return render_template('delete_student.html', students=Student.query.all())
+        return render_template('students/delete_student.html', students=Student.query.all())
     else:
-        return render_template('delete_student.html', students=None, current_id=1)
+        return render_template('students/delete_student.html', students=None, current_id=1)
 
 
 @admin.route('/schedule/')
@@ -277,9 +284,9 @@ def schedule():
     
     
     if db.session.query(Defense).first(): 
-        return render_template('schedule.html', defenses=Defense.query.all(), current_id=obj.id+1)
+        return render_template('schedules/schedule.html', defenses=Defense.query.all(), current_id=obj.id+1)
     else:
-        return render_template('schedule.html', defenses=None, current_id=1)
+        return render_template('schedules/schedule.html', defenses=None, current_id=1)
 
 @admin.route('/new_sched/', methods=['GET', 'POST'])
 @login_required
@@ -314,9 +321,9 @@ def new_sched():
         return redirect(url_for('admin.schedule'))
     
     if db.session.query(Defense).first(): 
-        return render_template('new_sched.html', defenses=Defense.query.all(), current_id=obj.id+1, groups=Group.query.all(), panels=Panelist.query.all())
+        return render_template('schedules/new_sched.html', defenses=Defense.query.all(), current_id=obj.id+1, groups=Group.query.all(), panels=Panelist.query.all())
     else:
-        return render_template('new_sched.html', defenses=None, current_id=1, groups=Group.query.all(), panels=Panelist.query.all())
+        return render_template('schedules/new_sched.html', defenses=None, current_id=1, groups=Group.query.all(), panels=Panelist.query.all())
 
 @admin.route('/edit_sched/<content>', methods=['GET', 'POST'])
 @login_required
@@ -350,9 +357,9 @@ def edit_sched(content):
         return redirect(url_for('admin.schedule'))
     
     if db.session.query(Defense).first(): 
-        return render_template('edit_sched.html', defenses=Defense.query.all(), groups=Group.query.all(), panels=Panelist.query.all(), to_edit=defense)
+        return render_template('schedules/edit_sched.html', defenses=Defense.query.all(), groups=Group.query.all(), panels=Panelist.query.all(), to_edit=defense)
     else:
-        return render_template('edit_sched.html', defenses=None, groups=Group.query.all(), panels=Panelist.query.all())
+        return render_template('schedules/edit_sched.html', defenses=None, groups=Group.query.all(), panels=Panelist.query.all())
 
 @admin.route('/delete_sched/<content>', methods=['GET', 'POST'])
 @login_required
@@ -366,9 +373,9 @@ def delete_sched(content):
             return redirect(url_for('admin.schedule'))
 
     if db.session.query(Defense).first(): 
-        return render_template('delete_sched.html', defenses=Defense.query.all(), groups=Group.query.all(), panels=Panelist.query.all())
+        return render_template('schedules/delete_sched.html', defenses=Defense.query.all(), groups=Group.query.all(), panels=Panelist.query.all())
     else:
-        return render_template('delete_sched.html', defenses=None, groups=Group.query.all(), panels=Panelist.query.all())
+        return render_template('schedules/delete_sched.html', defenses=None, groups=Group.query.all(), panels=Panelist.query.all())
 
 @admin.route('/rubrics/')
 @login_required
@@ -378,9 +385,9 @@ def rubrics():
         obj = db.session.query(Rubric).order_by(Rubric.id.desc()).first()
     
     if db.session.query(Rubric).first(): 
-        return render_template('rubrics.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
+        return render_template('rubrics/rubrics.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
     else:
-        return render_template('rubrics.html', rubrics=None, current_id=1)
+        return render_template('rubrics/rubrics.html', rubrics=None, current_id=1)
 
 @admin.route('/new_rubric/', methods=['GET', 'POST'])
 @login_required
@@ -427,9 +434,9 @@ def new_rubric():
         # return redirect(url_for('admin.rubrics'))
    
     if db.session.query(Rubric).first(): 
-        return render_template('new_rubric.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
+        return render_template('rubrics/new_rubric.html', rubrics=Rubric.query.all(), current_id=obj.id+1)
     else:
-        return render_template('new_rubric.html', rubrics=None, current_id=1)
+        return render_template('rubrics/new_rubric.html', rubrics=None, current_id=1)
 
 
 @admin.route('/edit_rubric/<content>', methods=['GET', 'POST'])
@@ -451,7 +458,7 @@ def edit_rubric(content):
         db.session.commit()
         return redirect(url_for('admin.rubrics'))
     
-    return render_template('edit_rubric.html', rubrics=Rubric.query.all(), to_edit=rubric)
+    return render_template('rubrics/edit_rubric.html', rubrics=Rubric.query.all(), to_edit=rubric)
 
 @admin.route('/delete_rubric/<content>', methods=['GET', 'POST'])
 @login_required
@@ -465,9 +472,9 @@ def delete_rubric(content):
             return redirect(url_for('admin.rubrics'))
 
     if db.session.query(Defense).first(): 
-        return render_template('delete_rubric.html', rubrics=Rubric.query.all())
+        return render_template('rubrics/delete_rubric.html', rubrics=Rubric.query.all())
     else:
-        return render_template('delete_rubric.html', rubrics=None)
+        return render_template('rubrics/delete_rubric.html', rubrics=None)
 
 @admin.route('/gradesheets/')
 @login_required
@@ -483,9 +490,9 @@ def gradesheets():
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
     
     if db.session.query(Template).first(): 
-        return render_template('gradesheet.html', templates=Template.query.all(), current_id=obj.id+1)
+        return render_template('gradesheets/gradesheet.html', templates=Template.query.all(), current_id=obj.id+1)
     else:
-        return render_template('gradesheet.html', templates=None, current_id=1)
+        return render_template('gradesheets/gradesheet.html', templates=None, current_id=1)
 
 
 @admin.route('/new_sheet/', defaults={'data' : 'None'}, methods=['GET', 'POST'])
@@ -523,9 +530,9 @@ def new_sheet(data):
         return redirect(url_for('admin.confirm_sheet', contents=contents, rubrics=Rubric.query.all()))
 
     if db.session.query(Template).first():
-        return render_template('new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=obj.id+1, rub_type=data)
+        return render_template('gradesheets/new_sheet.html', rubrics=Rubric.query.all(), templates=Template.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=obj.id+1, rub_type=data)
     else:
-        return render_template('new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=1, rub_type=data)
+        return render_template('gradesheets/new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=1, rub_type=data)
 
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
@@ -567,7 +574,7 @@ def edit_sheet(content):
         
         return redirect(url_for('admin.c_edit_sheet'))
 
-    return render_template('edit_sheet.html', to_edit=template, templates=Template.query.all(), rubrics=Rubric.query.all())
+    return render_template('gradesheets/edit_sheet.html', to_edit=template, templates=Template.query.all(), rubrics=Rubric.query.all())
 
 @admin.route('/c_edit_sheet/', methods=['GET', 'POST'])
 @login_required
@@ -629,12 +636,15 @@ def confirm_sheet():
         return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=1)
 
 
+@admin.route('/assign_indiv/', methods=['GET', 'POST'])
+@login_required
+def assign_indiv():
+    return render_template('assign_indiv.html', defenses=Defense.query.all())
+    
 
 @admin.route('/parse_data/', methods=['GET', 'POST'])
 def parse_data():
     if request.method == "POST":
         data = request.get_json()
         print(data['key'])
-        # return redirect(url_for('admin.admin_home', data=data['key']))
         return jsonify(data)
-        render_template('home.html', data=data['key'])
