@@ -16,6 +16,8 @@ title_font1 {
 }
 
 table{
+	margin-left: auto;
+	margin-right: auto;
 	width: 100%;
 	border: 1px solid green;
 }
@@ -25,20 +27,16 @@ table{
 	float: right;
 }
 
-tr:nth-child(even) {
-	background-color: #FAFAD2;
-}
-tr:nth-child(odd) {
-	background-color: #FFFF99;
-}
 	
 th{
-	background: green;
-	color: white;
-	padding: 10px;
+	background: 	green;
+	color: black;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
-
 td{
+	border-top: 5px;
+	border: 1px dotted #ddd;
 	padding: 5px;
 }
 
@@ -56,6 +54,10 @@ td{
 
 .sep_fifty{
 	width: 25%;
+}
+
+.sep_20{
+	width: 20%;
 }
 
 .but{
@@ -142,8 +144,7 @@ td{
   background-color: #04AA6D;
   color: white;
 }
-.div1 { grid-area: 2 / 1 /  auto / 21; 
-	border-width: 0px 0px;	
+.div1 { grid-area: 2 / 1 /  auto / 21; 	
 }
 .div2 { grid-area: 3 / 1 /  auto / 21;
 	padding-top: 10px;

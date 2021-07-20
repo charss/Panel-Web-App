@@ -5,7 +5,7 @@
 {% endblock %}
 {% block button %}
 	<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
 	</head>
 <a href="/new_group/">
     <button>Create New Group</button>
@@ -33,7 +33,9 @@
 						<tr>
 						<ul>
 							{% for member in group.members %}
-								<td colspan = "2">{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
+								
+								<th class = "no_border"> Member #{{ member.stud_no }}</th>
+								<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
 								<tr>
 							{% endfor%}
 						</ul>

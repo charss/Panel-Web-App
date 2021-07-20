@@ -5,7 +5,7 @@
 {% endblock %}
 {% block button %}
 	<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
 	</head>
 <a href="/new_panel/">
     <button>Create New Panelist</button>
@@ -18,20 +18,26 @@
                 <div class='div1'>
 					<table>
 						<th class = "tb_desc">ID:</th>
-						<td>{{ panel.id }}</td>
+						<td colspan = "2">{{ panel.id }}</td>
 						<tr>
 						<th class = "tb_desc">Name:</th> 
-						<td>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
+						<td colspan = "2">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
 						<tr>
 						<th class = "tb_desc">School:</th> 
-						<td>{{ panel.school }}</td>
+						<td colspan = "2">{{ panel.school }}</td>
 						<tr>
-						<th colspan = "2">Defenses:</th>
+						<th colspan = "3">Defenses:</th>
+						<tr>
+						<th class = "green_bg"></th>
+						<th> Group </th>
+						<th class ="no_border"> Date: </th>
 						<tr>
 						{% if panel.defenses %} 
 							<ul>
 								{% for defense in panel.defenses %}
-									<td colspan = "2">{{ defense.group.name }} - {{ defense.start_date }}</td>
+									<th class = "no_border">  </th>
+									<td> {{ defense.group.name }} </td>
+									<td> {{ defense.start_date }}</td>
 									<tr>
 								{% endfor %}
 							</ul>
@@ -43,7 +49,7 @@
 					<table>
 						<th>
 							<a href="/edit_panel/{{panel.id}}">
-								<button class = "but2">Edit</button>
+								<button class = "but2 ">Edit</button>
 							</a>
 						</th>
 						<th>

@@ -1,0 +1,98 @@
+body {
+  background-color: gray;
+  
+}
+h1 {
+  color: green;
+  font-size: 40px;
+}
+
+
+table{
+	margin-left: auto;
+	margin-right: auto;
+	width: 1500px;
+	border: 2px solid green;
+}
+
+
+th{
+	background: 	#E0E0E0;
+	border-left:  10px solid green; 
+	color: black;
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+td{
+	border-top: 5px;
+	border: 1px dotted #ddd;
+	padding: 5px;
+}
+
+.tb_title{
+	width: 9%;
+}
+
+.tb_desc{
+	width: 15%;
+}
+
+
+.sep_fifty{
+	width: 25%;
+}
+
+.right_align{
+	float: left;
+}
+
+.sep_20{
+	width: 20%;
+} 
+
+.no_border{
+	border: 0px;
+}
+
+.green_bg{
+	background: green;
+}
+
+.hd_text{
+	color: white;
+	padding: 0px;
+}
+
+.but2 {
+	width: 100%;
+	
+	border-radius: 0px;
+	border: none;
+	background-color: white; 
+	color: black; 
+	background-color: #E0E0E0;
+	border: 2px solid #E0E0E0;
+	cursor: pointer;
+}
+
+.but2:hover {
+	background-color: white;
+}
+
+
+.div1 { grid-area: 2 / 1 /  auto / 21; 	
+}
+.div2 { grid-area: 3 / 1 /  auto / 21;
+	padding-top: 10px;
+	padding-bottom: 10px;  
+	border-width: 0px;
+}
+.div3 { grid-area: 4 / 1 /  auto / 21;
+}
+
+.div4 { grid-area: 8 / 1 /  auto / 21; 
+	}
+.div5 { grid-area: 13 / 1 / auto / 21;
+}
+.div6 { grid-area: 14 / 1 / auto / 21; 
+}
