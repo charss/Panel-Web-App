@@ -78,6 +78,10 @@ td{
 	box-shadow: 10px 10px 15px rgba(0,0,0,0.05);
 }
 
+.gray_bg{
+	background: #E0E0E0;
+}
+
 .yellow_bg{
 	background-color: gold;
 	text-align: center;
@@ -86,6 +90,14 @@ td{
 
 .lyellow_bg{
 	background-color: #FAFAD2;
+}
+
+.left_gborder{
+	border-left:  10px solid green;
+}
+
+.left_yborder{
+	border-left:  10px solid gold;
 }
 
 .parent {
