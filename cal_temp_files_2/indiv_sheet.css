@@ -61,12 +61,6 @@ td{
 	height: 50px;
 }
 
-.but2 {
-	border-radius: 0px;
-	width: 100%;
-	height: 100%;
-}
-
 .green_bg{
 	background-color: green;
 	text-align: center;
@@ -107,15 +101,6 @@ td{
   
 }
 
-.text{
-  resize: none;
-  outline: none;
-  width: 100%;
-  border: none;
-  height: 400px;
-}
-
-
 .topnav {
   overflow: hidden;
   background-color: #333;
@@ -140,7 +125,7 @@ td{
   color: white;
 }
 .div1 { grid-area: 2 / 1 /  auto / 21; 
-	border-width: 0px 0px;	
+border-width: 0px 0px;
 }
 .div2 { grid-area: 3 / 1 /  auto / 21;
 	padding-top: 10px;

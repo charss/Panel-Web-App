@@ -4,6 +4,9 @@
     Panelists
 {% endblock %}
 {% block button %}
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+	</head>
 <a href="/new_panel/">
     <button>Create New Panelist</button>
 </a>

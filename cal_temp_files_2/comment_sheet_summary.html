@@ -1,0 +1,86 @@
+<html>
+	<head>
+        <link rel='stylesheet' href="comm_sheet_summary.css">
+		
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+	</head>
+	<style>
+		.temp_id {
+			padding-right: 10px;
+		}
+
+	</style>
+	<body>
+		{% set x = 0 %}
+		<form method='POST'>
+			<div class="topnav">
+				<a class="active" href="#back">Back</a>
+				<a href="#indiv">Individual</a>
+				<a href="#grp">Group</a>
+				<a href="#cmt">Comment</a>
+				<p class='temp_id'>Template ID: {{ template.id }}</p>
+			</div>
+			<div class="parent">
+				<div class="div1"> 
+					<h1>FEU ALABANG</h1>
+				</div>
+				<div class="div2 green_bg"> 
+					<title_font1>ORAL DEFENSE</title_font1>
+					<title_font1><br>INDIVIDUAL GRADE SHEET</title_font1>
+				</div>
+				<div class="div3"> 
+					<table>
+						<td class=" yellow_bg ">GROUP NAME:</td>
+						<td class=" lyellow_bg " colspan = "3">G R O U P D E T A I L S</td>
+						<tr>
+						<td class=" yellow_bg ">PROJECT TITLE:</td>
+						<td class=" lyellow_bg "colspan = "3" >P R O J E C T D E T A I L S</td>
+						<tr>
+						<td class=" yellow_bg " rowspan ="2">ORAL DEFENSE: <br> SCHEDULE: </td>
+						<td class=" yellow_bg ">DATE:</td>
+						<td class=" yellow_bg ">TIME:</td>
+						<td class=" yellow_bg ">ROOMS:</td>
+						<tr>
+						<td class=" lyellow_bg ">DATE DETAILS</td>
+						<td class=" lyellow_bg ">TIME DETAILS</td>
+						<td class=" lyellow_bg ">ROOMS DETAILS</td>
+					</table>
+					
+				</div>
+				<div class="div4"> 
+					<table>
+						<th colspan = "4">PROPONENT NAME(LN,FN, MI.)</th>
+						<tr>
+						<td class=" yellow_bg ">PROPONENT 1:</td>
+						<td class=" lyellow_bg ">PROPONENT D E T A I L S</td>
+						<td class=" yellow_bg ">PROPONENT 2:</td>
+						<td>PROPONENT D E T A I L S</td>
+						<tr class=" lyellow_bg ">
+						<td class=" yellow_bg ">PROPONENT 3:</td>
+						<td class=" lyellow_bg ">PROPONENT D E T A I L S</td>
+						<td class=" yellow_bg ">PROPONENT 4:</td>
+						<td class=" lyellow_bg ">PROPONENT D E T A I L S</td>
+						<tr>
+					</table>
+			
+				</div>
+				<div class = "div5">
+					<table>
+						<th colspan = "2"> COMMENTS SHEET </th>
+						<tr>
+						<td> Panelist: </td>
+						<td> Panelist name</td>
+						<tr>
+						<td colspan = "2"> TEST </TD>
+					</table>
+				</div>
+				<div class="div6"> 
+					<button type="submit" class="but" id="button_inp" name="button_inp" disabled>SUBMIT</button>
+				</div>
+			</div>
+		</form>
+	</body>
+
+
+</html>
