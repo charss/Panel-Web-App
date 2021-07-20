@@ -45,24 +45,30 @@
 						<th class = "tb_desc">Defense Date:</th>
 						<td colspan = "4"> {{ defense.start_date}} </td>
 						<tr>
-						<a href="/assign_indiv/">
-							<th><button class = "but2" >Assign Individual Gradesheet</button></th>
-						</a>
-						<br>
-						<br>
-						<a href="">
-							<th><button class = "but2" >Assign Group Gradesheet</button></th>
-						</a>
-						<br>
-						<br>
-						<a href="/edit_sched/{{ defense.id }}">
-							<th><button class = "but2" >Edit</button></th>
-						</a>
-						
-						<a href="/delete_sched/{{ defense.id }}">
-							<th><button class = "but2" >Delete</button></th>
-						</a>
 					</table>
+					<table>
+						<th class = "sep_fifty" >
+							<a href="/assign_indiv/">
+								<button class = "but2" >Assign Individual Gradesheet</button>
+							</a>
+						</th>
+						<th class = "sep_fifty">
+							<a href="">
+								<button class = "but2" >Assign Group Gradesheet</button>
+							</a>
+						</th>
+						<th class = "sep_fifty">
+							<a href="/edit_sched/{{ defense.id }}">
+								<button class = "but2" >Edit</button>
+							</a>
+						</th>
+						<th class = "sep_fifty">
+							<a href="/delete_sched/{{ defense.id }}">
+								<button class = "but2" >Delete</button>
+							</a>
+						</th>
+					</table>
+					<br>
                 </div>
                 
             {% endfor %}

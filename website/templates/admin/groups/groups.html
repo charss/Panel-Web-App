@@ -4,6 +4,9 @@
     Groups
 {% endblock %}
 {% block button %}
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+	</head>
 <a href="/new_group/">
     <button>Create New Group</button>
 </a>
@@ -12,31 +15,50 @@
     <div class='display_grid'>
         {% if groups %}
             {% for group in groups %}
-                <div class='box'
-                    <p>ID: {{group.id}}</p>
-                    <p>Group Name: {{group.name}}</p>
-                    <p>Project Title: {{ group.project_title }}</p>
-                    <p>Program: {{group.program}}</p>
-                    <p>Members:</p>
-                    <ul>
-                        {% for member in group.members %}
-                            <li>{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</li>
-                        {% endfor%}
-                    </ul>
-                    
-                    <p>Defenses:</p>
-                    <ul>
-                        {% for defense in group.defenses %}
-                            <li>{{ defense.id }} - {{ defense.start_date }} </li>
-                        {% endfor%}
-                    </ul>
-                    
-                    <a href="/edit_group/{{group.id}}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="/delete_group/{{group.id}}">
-                        <button>Delete</button>
-                    </a>
+                <div class='div1'>
+					<table>
+						<th class = "tb_desc">ID:</th> 
+						<td>{{group.id}}</td>
+						<tr>
+						<th class = "tb_desc">Group Name:</th> 
+						<td>{{group.name}}</td>
+						<tr>
+						<th class = "tb_desc">Project Title:</th>
+						<td>{{ group.project_title }}</td>
+						<tr>
+						<th class = "tb_desc">Program:</th> 
+						<td>{{group.program}}</td>
+						<tr>
+						<th colspan = "2">Members:</th>
+						<tr>
+						<ul>
+							{% for member in group.members %}
+								<td colspan = "2">{{ member.stud_no }} - {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
+								<tr>
+							{% endfor%}
+						</ul>
+						
+						<th colspan = "2">Defenses:</th>
+						<tr>
+						<ul>
+							{% for defense in group.defenses %}
+								<td colspan = "2">{{ defense.id }} - {{ defense.start_date }} </td>
+								<tr>
+							{% endfor%}
+						</ul>
+                    </table>
+					<table>
+						<th>
+							<a href="/edit_group/{{group.id}}">
+								<button class = "but2">Edit</button>
+							</a>
+						</th>
+						<th>
+							<a href="/delete_group/{{group.id}}">
+								<button class = "but2">Delete</button>
+							</a>
+						</th>
+					</table>
                 </div>
             {% endfor %}
         {% endif %}

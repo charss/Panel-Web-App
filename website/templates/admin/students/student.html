@@ -23,6 +23,8 @@ Students
 						<th class = "tb_desc">Group:</th> 
 						<td>{{ student.group_id }} - {{ student.group.name }}</td>
 						<tr>
+					</table>
+					<table>
 						<th>
 							<a href="/edit_student/{{ student.stud_no }}">
 								<button class = "but2">Edit</button>
@@ -35,6 +37,7 @@ Students
 						</th>
 						<tr>
 					</table>
+					<br>
                 </div>
                 
             {% endfor %}

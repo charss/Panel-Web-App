@@ -4,6 +4,9 @@
 Gradesheets
 {% endblock %}
 {% block button %}
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+	</head>
 <a href="/new_sheet/">
     <button>Create New Template</button>
 </a>
@@ -12,26 +15,39 @@ Gradesheets
     <div class='display_grid'>
         {% if templates %}
             {% for template in templates %}
-                <div class='box'>
-                    <p>ID: {{ template.id }}</p>
-                    <p>Gradesheet Type: {{ template.sheet_type }}</p>
-                    <p>Rubrics:</p>
-                    <ul>
-                        {% for rubric in template.rubric %}
-                            <li>{{ rubric.desc }}</li>
-                        {% endfor %}
-                    </ul>
-                    
-                    <a href="/view_sheet/{{ template.id }}">
-                        <button>View</button>
-                    </a>
-
-                    <a href="/edit_sheet/{{ template.id }}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="">
-                        <button>Delete</button>
-                    </a>
+                <div class='div1'>
+					<table>
+						<th class = "tb_desc">ID:</th> 
+						<td  colspan = "2">{{ template.id }}</td>
+						<tr>
+						<th>Gradesheet Type:</th> 
+						<td colspan = "2">{{ template.sheet_type }}</td>
+						<tr>
+						<th colspan = "3">Rubrics:</th>
+						<tr>
+						<ul>
+							{% for rubric in template.rubric %}
+								<td colspan = "3">{{ rubric.desc }}</td><tr>
+							{% endfor %}
+						</ul>
+					</table>
+					<table>
+						<th>
+							<a href="/view_sheet/{{ template.id }}">
+								<button class = "but2">View</button>
+							</a>
+						</th>
+						<th>
+							<a href="/edit_sheet/{{ template.id }}">
+								<button class = "but2">Edit</button>
+							</a>
+						</th>
+						<th>
+							<a href="">
+								<button class = "but2">Delete</button>
+							</a>
+						</th>
+					</table>
                 </div>
             {% endfor %}
         {% endif %}

@@ -15,29 +15,44 @@
     <div class='display_grid'>
         {% if panels %}
             {% for panel in panels %}
-                <div class='box'>
-                    <p>ID: {{ panel.id }}</p>
-                    <p>Name: {{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</p>
-                    <p>School: {{ panel.school }}</p>
-                    <p>Defenses:</p>
-                    
-                    {% if panel.defenses %} 
-                        <ul>
-                            {% for defense in panel.defenses %}
-                                <li>{{ defense.group.name }} - {{ defense.start_date }}</li>
-                            {% endfor %}
-                        </ul>
-                        
-                    {% else %}
-                        <p>NOTHING SCHEDULED</p>
-                    {% endif %}
-                    <br>
-                    <a href="/edit_panel/{{panel.id}}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="/delete_panel/{{panel.id}}">
-                        <button>Delete</button>
-                    </a>
+                <div class='div1'>
+					<table>
+						<th class = "tb_desc">ID:</th>
+						<td>{{ panel.id }}</td>
+						<tr>
+						<th class = "tb_desc">Name:</th> 
+						<td>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
+						<tr>
+						<th class = "tb_desc">School:</th> 
+						<td>{{ panel.school }}</td>
+						<tr>
+						<th colspan = "2">Defenses:</th>
+						<tr>
+						{% if panel.defenses %} 
+							<ul>
+								{% for defense in panel.defenses %}
+									<td colspan = "2">{{ defense.group.name }} - {{ defense.start_date }}</td>
+									<tr>
+								{% endfor %}
+							</ul>
+							
+						{% else %}
+							<td colspan = "2">NOTHING SCHEDULED</td>
+						{% endif %}
+					</table>
+					<table>
+						<th>
+							<a href="/edit_panel/{{panel.id}}">
+								<button class = "but2">Edit</button>
+							</a>
+						</th>
+						<th>
+							<a href="/delete_panel/{{panel.id}}">
+								<button class = "but2">Delete</button>
+							</a>
+						</th>
+					</table>
+					<br>
                 </div>
             {% endfor %}
         {% endif %}
