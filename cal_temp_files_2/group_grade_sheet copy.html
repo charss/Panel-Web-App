@@ -1,6 +1,6 @@
 <html>
 	<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+        <link rel='stylesheet' href="indiv_sheet.css">
 		
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <title>{% block title %}{% endblock %}</title>
@@ -14,20 +14,20 @@
 	<body>
 		{% set x = 0 %}
 		<form method='POST'>
-			<!-- <div class="topnav">
+			<div class="topnav">
 				<a class="active" href="#back">Back</a>
 				<a href="#indiv">Individual</a>
 				<a href="#grp">Group</a>
 				<a href="#cmt">Comment</a>
 				<p class='temp_id'>Template ID: {{ template.id }}</p>
-			</div> -->
+			</div>
 			<div class="parent">
 				<div class="div1"> 
 					<h1>FEU ALABANG</h1>
 				</div>
 				<div class="div2 green_bg"> 
 					<title_font1>ORAL DEFENSE</title_font1>
-					<title_font1><br>INDIVIDUAL GRADE SHEET</title_font1>
+					<title_font1><br>GROUP GRADE SHEET</title_font1>
 				</div>
 				<div class="div3"> 
 					<table>
@@ -67,6 +67,9 @@
 				</div>
 				<div class = "div5">
 					<table>
+						<th colspan = "7" class = "yellow_bg"> DOCUMENTATION(50) </th>
+						<tr>
+
 						<th rowspan="2">CRITERIA AND WEIGHT</th>
 						<th>5</th>
 						<th>4</th>
@@ -81,9 +84,11 @@
 							<th>NEEDS IMPROVEMENT</th>
 							<th>POOR</th>
 						</tr>
+							<th colspan = "7" class = "yellow_bg"> CHAPTER 1 </th>
+						<tr>
 						{% for rubric in rubrics %}
 							<tr>
-								<td class = "tb_title left_gborder">
+								<td class = "tb_title left_yborder gray_bg">
 									{{ rubric.desc }}
 									<br>
 									(x{{ rubric.weight }})
@@ -120,11 +125,15 @@
 						{% endfor %}	
 					</table>
 					<table class = "two" >
-						<th class="tb_jatot green_bg ">TOTAL</th>
-						{% for _ in range(3) %}
-							<td class="yellow_bg ">0</td>
-						{% endfor %}						
+						<th class="tb_jatot green_bg ">TOTAL</th>		
 						<td class=" yellow_bg ">0</td>
+					</table>
+					<table>
+						<th> TEST </th>
+						<th> Overall </th>
+						<tr>
+						<td> 0 </td>
+						<td> 0 </td>
 					</table>
 				</div>
 				<div class="div6"> 

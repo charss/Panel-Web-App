@@ -62,6 +62,20 @@
 								</th>
 							</div>
 							<tr>
+							<tr>		
+							<div class='query'>
+								<th>
+									<label for="group">Group:</label>
+								</th>
+								<th class = "no_border">
+									<select class='dropdown_fill' name='group' id='group'>
+										{% for group in groups %}
+											<option value='{{ group.id }}' {% if to_edit.group_id == group.id %}selected{% endif %}>{{ group.id }} - {{ group.name }}</option>
+										{% endfor %}
+									</select>
+								</th>
+							</div>
+							<tr>
 							<th colspan = "2">
 								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
 							</th>

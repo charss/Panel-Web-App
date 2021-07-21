@@ -3,7 +3,7 @@
     <style>
         .container {
             width: fit-content;
-            
+            height: fit-content;
         }
     </style>
 
@@ -22,8 +22,8 @@
 
             <div class='content_div'>
                 <div class='form_div'>
-
-						<div class='query'>
+                    <form method='POST'>
+                        <div class='query'>
 							<label for="groupCode">Group Code:</label>
 							<span>
 								<input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
@@ -58,22 +58,33 @@
 							</span>
 						</div>
 						
-						<div class='query'>
-							<label for="totalProp">Total Proponents:</label>
-							<span>
-								<input type="text" id="totalProp" name='totalProp' autocomplete='off' min='1' max='9' value=0 disabled style='width: 80%'>
-								<input type='button' name='generate' value='Add' onclick='addRow();' style='width: 18%'></button>
-							</span>
-						</div>
-						
-						<div id="cont"></div>
-						<button id='submit' name='submit'>Submit</button>	
+						<div id="cont">
+                            <table>
+                                <tr>
+                                    <th>Student Number</th>
+                                    <th>Last Name</th>
+                                    <th>First Name</th>
+                                    <th>Middle Initial</th>
+                                </tr>
+                                {% for x in range(1, 5) %}
+                                <tr>
+                                    <td><input type='text' name='stud_num{{ x }}'></td>
+                                    <td><input type='text' name='stud_last{{ x }}'></td>
+                                    <td><input type='text' name='stud_first{{ x }}'></td>
+                                    <td><input type='text' name='stud_mid{{ x }}'></td>
+                                </tr>
+                                {% endfor %}
+                            </table>
+                        </div>
+						<button type='submit' id='submit' name='submit'>Submit</button>
+                    </form>
+							
                 </div>
             </div>
         </div>
     </div>
     
-    <script>
+    <!-- <script>
         var arrValues = new Array();
         var arrHead = new Array();
         var dict = {}
@@ -187,5 +198,5 @@
                 });
             });
         });
-    </script>
+    </script> -->
 {% endblock %}

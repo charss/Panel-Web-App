@@ -5,44 +5,72 @@ from . import db
 
 
 def populate_group():
-    new_group = Group(name='OHRCa', 
-                      project_title='Maria', 
+    new_group = Group(name='TECH-9', 
+                      project_title='LAKBAY: A 3D Philippine Mythological Beat ‘em Up Mobile Game', 
+                      program='BSIT-AGD')
+    db.session.add(new_group)
+    new_group = Group(name='Technopunk', 
+                      project_title='Sanity: A 3D Psychological Horror Mystery Adventure PC Game', 
+                      program='BSIT-AGD')
+    db.session.add(new_group)
+    new_group = Group(name='SADISTICS', 
+                      project_title='Tales of Ibong Adarna: A Philippine Literature RPG Hack n Slash PC Game', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='Sagip', 
-                      project_title='Sagip', 
+    new_group = Group(name='FBF Technologies', 
+                      project_title='E.S.C. Key: A Detective Escape Room 3D Video Game for PC', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='Game Balancing', 
-                      project_title='Game Balancing', 
+    new_group = Group(name='ILM', 
+                      project_title='Adventures of Tammy: Play your stories, An Interactive Storytelling Mobile Game with Augmented Reality Story Playback', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='Sign Language', 
-                      project_title='Sign Language', 
+    new_group = Group(name='BRY', 
+                      project_title='Tela Nobela: A 2D Filipiniana Dress Up Game and Interactive Storybook of Filipino Fairy Tales', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='Pose Estimation', 
-                      project_title='Post Estimation', 
+    new_group = Group(name='B Lancer', 
+                      project_title='iBuild: A Game Development using 3D Menu Base Game Simulator', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='KYON', 
-                      project_title='KYON', 
+    new_group = Group(name='Archi-Tech', 
+                      project_title='Odditiseum: A Virtual Reality Point-and-Click Exploration PC Game', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='BISKWIT', 
-                      project_title='BISKWIT', 
+    new_group = Group(name='SADdle', 
+                      project_title='Pipeline A Web-based PC Hardware and Peripheral Data-driven price Comparison', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='CryptoBank', 
-                      project_title='CryptoBank', 
+    new_group = Group(name='Sleep Deprived', 
+                      project_title='Stratics: A Web-Based Churn Analytics Platform for Strategic Decision Making of Telecommunications Companies', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='Data Analysis', 
-                      project_title='Data Analysis', 
+    new_group = Group(name='LinkodPinas', 
+                      project_title='StarTouch: The Transition to an Inventory System with Digitized Ordering for Starlite Ferries.', 
                       program='BSCS')
     db.session.add(new_group)
-    new_group = Group(name='TV Commercials', 
-                      project_title='TV Commercials', 
+    new_group = Group(name='BLACK-CHEVY', 
+                      project_title='MedList: Development of Sales and Inventory Management System for Drug Store using Descriptive Analytics', 
+                      program='BSCS')
+    db.session.add(new_group)
+    new_group = Group(name='The Backyardigans', 
+                      project_title='Enhancing Customer Experience through E-Commerce Sentiment Analysis', 
+                      program='BSCS')
+    db.session.add(new_group)
+    new_group = Group(name='HouseMates', 
+                      project_title='Profit Optimization using a web-based sales and Inventory Dashboard for Small Enterprises', 
+                      program='BSCS')
+    db.session.add(new_group)
+    new_group = Group(name='UPTECH', 
+                      project_title='CryptSim: A Mobile Application with Advanced Cryptocurrency Trading Simulaton', 
+                      program='BSCS')
+    db.session.add(new_group)
+    new_group = Group(name='SAD Devs', 
+                      project_title='Game Credits PH: An E-loading Website for Mobile and Computer Games', 
+                      program='BSCS')
+    db.session.add(new_group)
+    new_group = Group(name='Business Bros', 
+                      project_title='BeFit: A Web and Mobile-Based Marketplace for Integrated Fitness & Wellness.', 
                       program='BSCS')
     db.session.add(new_group)
     db.session.commit()

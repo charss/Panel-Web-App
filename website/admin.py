@@ -36,7 +36,7 @@ def admin_home(data):
     #     return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1)
     # else:
     #     return render_template('home.html', defenses=None, current_id=1)
-    return render_template('overlay.html')
+    return render_template('home.html')
     
 @admin.route('/groups/', methods=['GET', 'POST'])
 @login_required
@@ -64,32 +64,27 @@ def new_group():
 
     if request.method == 'POST':
         if type(obj) == int:
-            temp = 0
+            temp = 1
         else:
-            temp = obj.id
-        data = request.json
-        groupName = data['group_name']
-        projectTitle = data['project_title']
-        program = data['program']
+            temp = obj.id + 1
+
+        groupName = request.form['groupName']
+        projectTitle = request.form['projectTitle']
+        program = request.form['program']
         i = 0
-        for prop in data['proponents']:
-            if i == 0:
-                studNo = prop
-            elif i == 1:
-                lastName = prop
-            elif i == 2:
-                firstName = prop
-            elif i == 3:
-                middleI = prop
+        for x in range(1, 5):
+            studNo = request.form[f'stud_num{x}']
+            lastName = request.form[f'stud_last{x}']
+            firstName = request.form[f'stud_first{x}']
+            middleI = request.form[f'stud_mid{x}']
+            if '' not in (studNo, lastName, firstName, middleI):
                 new_student = Student(stud_no=studNo, 
-                                      last_name=lastName, 
-                                      first_name=firstName,
-                                      middle_in=middleI,
-                                      group_id=temp)
+                                        last_name=lastName, 
+                                        first_name=firstName,
+                                        middle_in=middleI,
+                                        group_id=temp)
                 db.session.add(new_student)
                 db.session.commit()
-                i = -1
-            i += 1
 
 
         new_group = Group(name=groupName, 
@@ -97,7 +92,7 @@ def new_group():
                           program=program)
         db.session.add(new_group)
         db.session.commit()
-        return jsonify(data)
+        return redirect(url_for("admin.group"))
 
     if db.session.query(Group).first(): 
         return render_template('groups/new_group.html', groups=Group.query.all(), current_id=obj.id+1)
@@ -246,17 +241,16 @@ def edit_student(content):
         student.last_name = request.form['lastName']
         student.first_name = request.form['firstName']
         student.middle_in = request.form['middleIn']
-        student.school = request.form['school']
-        student.group_id = request.form['groupID']
+        student.group_id = request.form['group']
 
 
         db.session.commit()
         return redirect(url_for('admin.student'))
 
     if db.session.query(Student).first(): 
-        return render_template('students/edit_student.html', students=Student.query.all(), to_edit=student)
+        return render_template('students/edit_student.html', students=Student.query.all(), to_edit=student, groups=Group.query.all())
     else:
-        return render_template('students/edit_student.html', students=None)
+        return render_template('students/edit_student.html', students=None, groups=Group.query.all())
 
 @admin.route('/delete_student/<content>', methods=['GET', 'POST'])
 @login_required
