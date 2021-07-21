@@ -97,6 +97,8 @@ td{
 	font-size: 40px;
 }
 
+
+
 .but2 {
 	width: 100%;
 	border-radius: 0px;
@@ -111,7 +113,6 @@ td{
 .but2:hover {
 	background-color: white;
 }
-
 
 .div1 { grid-area: 2 / 1 /  auto / 21;
 }
