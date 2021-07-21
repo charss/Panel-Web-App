@@ -25,7 +25,7 @@ Gradesheets
         <div class='container'>
             <div class='header_div'>
                 <div class='header_title'>
-                    <p>Create New Template</p>
+                    <p class = "header_white">Create New Template</p>
                 </div>
                 <div class='close_button'>
                     <a href='/gradesheets/'>
@@ -80,14 +80,14 @@ Gradesheets
 							</th>
 							<tr>
 							<th colspan = "2" class ="no_border">
-								<select class = "sep_fifty" id="rubrics" name='rubrics' multiple required disabled>
+								<select class = "dropdown_fill center_text" id="rubrics" name='rubrics' multiple required disabled>
 									{% for rubric in rubrics %}
 										{% if rubric.rubric_type == data %}
 											{% set x = rubric.id|string %}
-											<option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+											<option class = "small_bottom_margin" value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
 										{% elif rubric.pbl_lvl == data %}
 											{% set x = rubric.id|string %}
-											<option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+											<option class = "small_bottom_margin" value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
 										{% endif %}
 									{% endfor %}
 								</select>

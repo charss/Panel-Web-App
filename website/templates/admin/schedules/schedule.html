@@ -37,9 +37,11 @@
 						<tr>
 							{% for panel in defense.panels %}
 								{% if panel.id == defense.head_panel_id: %}
-									<td colspan = "4">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. - HP</td><tr>
+									<th class = "no_border"> Head Panelist </th>
+									<td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. </td><tr>
 								{% else: %}
-									<td  colspan = "4">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td><tr>
+									<th class = "no_border"> Co-Panelist </th>
+									<td  colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td><tr>
 								{% endif %}
 							{% endfor %}
 						<th class = "tb_desc">Defense Date:</th>
@@ -48,22 +50,22 @@
 					</table>
 					<table>
 						<td class = "no_border sep_20">
-						<th class = "sep_20" >
+						<th class = "sep_10" >
 							<a href="/assign_indiv/">
 								<button class = "but2" >Assign Individual Gradesheet</button>
 							</a>
 						</th>
-						<th class = "sep_20">
+						<th class = "sep_10">
 							<a href="">
 								<button class = "but2" >Assign Group Gradesheet</button>
 							</a>
 						</th>
-						<th class = "sep_20">
+						<th class = "sep_10">
 							<a href="/edit_sched/{{ defense.id }}">
 								<button class = "but2" >Edit</button>
 							</a>
 						</th>
-						<th class = "sep_20">
+						<th class = "sep_10">
 							<a href="/delete_sched/{{ defense.id }}">
 								<button class = "but2" >Delete</button>
 							</a>

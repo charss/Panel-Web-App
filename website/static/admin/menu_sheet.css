@@ -1,3 +1,8 @@
+* {
+	font-family: Verdena;
+	font-size: 20px;
+}
+
 body {
   background-color: gray;
   
@@ -54,6 +59,10 @@ td{
 	width: 20%;
 } 
 
+.sep_10{
+	width: 10%;
+}
+
 .no_border{
 	border: 0px;
 }
@@ -75,6 +84,19 @@ td{
 	height: 80px;
 }
 
+.center_text{
+	text-align: center;
+}
+
+.small_bottom_margin{
+	margin-bottom: 3px;
+}
+
+.header_white{
+	color: white;
+	font-size: 40px;
+}
+
 .but2 {
 	width: 100%;
 	border-radius: 0px;
@@ -91,7 +113,7 @@ td{
 }
 
 
-.div1 { grid-area: 2 / 1 /  auto / 21; 	
+.div1 { grid-area: 2 / 1 /  auto / 21;
 }
 .div2 { grid-area: 3 / 1 /  auto / 21;
 	padding-top: 10px;
