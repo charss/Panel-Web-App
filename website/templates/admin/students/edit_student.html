@@ -17,34 +17,55 @@
             <div class='content_div'>
                 <form method='POST'>
                     <div class='form_div'>
-                        <div class='query'>
-                            <label for="userCode">User Code:</label>
-                            <span>
-                                <input type='text' id='userCode' name='userCode' value ="{{ to_edit.stud_no }}" disabled>
-                            </span>
-                        </div>
-
-                        <div class='query'>
-                            <label for="lastName">Last Name</label>
-                            <span>
-                                <input type='text' id='lastName' name='lastName' value="{{ to_edit.last_name }}">
-                            </span>
-                        </div>
-
-                        <div class='query'>
-                            <label for="firstName">First Name</label>
-                            <span>
-                                <input type='text' id='firstName' name='firstName' value="{{ to_edit.first_name }}">
-                            </span>
-                        </div>
-
-                        <div class='query'>
-                            <label for="middleIn">Middle Initial</label>
-                            <span>
-                                <input type='text' id='middleIn' name='middleIn' value="{{ to_edit.middle_in }}">
-                            </span>
-                        </div>
-                        <button type='submit' id='submit' name='submit'>Submit</button>
+						<table class = "tableS">
+							<div class='query'>
+								<th>
+									<label for="userCode">User Code:</label>
+								</th>
+								<th class = "no_border">
+									<span>
+										<input type='text' id='userCode' name='userCode' value ="{{ to_edit.stud_no }}" disabled>
+									</span>
+								</th>
+							</div>
+							<tr>
+							<div class='query'>
+								<th>
+									<label for="lastName">Last Name</label>
+								</th>
+								<th class = "no_border">
+									<span>
+										<input type='text' id='lastName' name='lastName' value="{{ to_edit.last_name }}">
+									</span>
+								</th>
+							</div>
+							<tr>
+							<div class='query'>
+								<th>
+									<label for="firstName">First Name</label>
+								</th>
+								<th class = "no_border">
+									<span>
+										<input class ="dropdown_fill" type='text' id='firstName' name='firstName' value="{{ to_edit.first_name }}">
+									</span>
+								</th>
+							</div>
+							<tr>		
+							<div class='query'>
+								<th>
+									<label for="middleIn">Middle Initial</label>
+								</th>
+								<th class = "no_border">
+									<span>
+										<input class ="dropdown_fill" type='text' id='middleIn' name='middleIn' value="{{ to_edit.middle_in }}">
+									</span>
+								</th>
+							</div>
+							<tr>
+							<th colspan = "2">
+								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+							</th>
+						</table>
                     </div>
                     
                 </form>

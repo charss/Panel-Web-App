@@ -44,6 +44,7 @@ nav .top .pic_div .profile_pic {
 
 nav .top .profile_info {
     flex-grow: 1;
+	color: white;
     overflow-x: hidden;
 }
 
@@ -66,7 +67,7 @@ nav .bottom a {
     text-decoration: none;
     font-size: 20px;
     font-style: italic;
-    color: black;
+    color: white;
     padding: 20px;
     padding-left: 30px;
 }

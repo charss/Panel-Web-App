@@ -4,27 +4,39 @@
     Rubrics
 {% endblock %}
 {% block button %}
+ <head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/delete_style.css') }}">
+		<link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
+</head>
 <a href="/new_rubric/">
     <button>Create New Rubric</button>
 </a>
 {% endblock %}
 {% block content %}
-    <div id="overlay">
-        <div id="text">
-            <div id='close_button' onclick="off()">
-                <a href='/rubrics'>
-                    <img src="{{ url_for('static', filename='close.png') }}">
-                </a>
-            </div>
 
-            <div>
-                <p>Are you sure you?</p>
-                <form method='POST'>
-                    <button id='submit' name='submit' value='yes'>Yes</button>
-                    <button id='submit' name='submit' values='no'>No</button>
-                </form>
-            </div>
-        </div>
+
+    <div id="overlay">
+		<div class='container2'>
+            <div class='header_div'>
+				<div id="text">
+					<div>
+						<table class = "sml_tbl">
+						<th colspan = "2" class = "no_border">Are you sure?</th>
+						</th>
+						<tr>
+						<form method='POST'>
+							<th class = "no_border">
+								<button id='submit' name='submit' value='yes'>Yes</button>
+							</th>
+							<th class = "no_border">
+								<button id='submit' name='submit' values='no'>No</button>
+							</th>
+						</form>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 
     <div class='display_grid'>
