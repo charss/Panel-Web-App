@@ -115,10 +115,11 @@ Rubrics
 								<tr>
 								{% for x in range(5, 0, -1) %}
 									<div class='query'>
-										<th>
+										<th colspan = "2">
 											<label for='rate{{ x }}'>Rate {{ x }}:</label>
 										</th>
-										<th class = "no_border">
+										<tr>
+										<th class = "no_border" colspan = "2">
 											<span> 
 												<textarea class = "min_txt_size" id='rate{{ x }}' name='rate{{ x }}' required></textarea>
 											</span>

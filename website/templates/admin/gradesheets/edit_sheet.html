@@ -4,9 +4,13 @@
 Gradesheets
 {% endblock %}
 {% block button %}
+<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
+</head>
 <a href="">
     <button>Create New Template</button>
 </a>
+
 {% endblock %}
 {% block content %}
 <body onload='check()'>
@@ -28,38 +32,52 @@ Gradesheets
             <div class='content_div'>
                 <form method='POST'>
                     <div class='form_div'>
-                        <div class='query'>
-                            <label for="sheetCode">Gradesheet Code:</label>
-                            <span>
-                                <input type='text' id='sheetCode' name='sheetCode' value ="{{ to_edit.id }}" disabled>
-                            </span>
-                        </div>
-                        
-                        {% if to_edit.sheet_type == 'Group' %}
-                            <label for="pblLvl">PBL Level:</label>
-                            <span>
-                                <input onchange='pbl_level();' type="radio" id="pbl1" name="pblLvl" value="PBL1" required>
-                                <label for="pbl1">PBL1</label>
-                                <input onchange='pbl_level(); 'type="radio" id="pbl2" name="pblLvl" value="PBL2">
-                                <label for="pbl2">PBL2</label>
-                                <input onchange='pbl_level();' type="radio" id="pbl3" name="pblLvl" value="PBL3">
-                                <label for="pbl3">PBL3</label>
-                                <input onchange='pbl_level(); 'type="radio" id="pbl4" name="pblLvl" value="PBL4">
-                                <label for="pbl4">PBL4</label>
-                            </span>
-                        {% endif %}
-                        
-                        
-                        <label>Select Rubric(s) Below</label>
-                        <select id="test" name='rubrics', multiple required>
-                            {% for rubric in rubrics %}
-                                {% if rubric.rubric_type == rub_type %}
-                                    <option value="{{ rubric.id }}"{% if rubric in to_edit.rubric %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-
-                        <button type='submit' id='submit' name='submit'>Submit</button>
+						<table class = "tableS">	
+							<div class='query'>
+								<th class = "sep_fifty">
+									<label for="sheetCode">Gradesheet Code:</label>
+								</th>
+								<th class = "no_border">
+									<span>
+										<input type='text' id='sheetCode' name='sheetCode' value ="{{ to_edit.id }}" disabled>
+									</span>
+								</th>
+							</div>
+							<tr>
+							{% if to_edit.sheet_type == 'Group' %}
+								
+									<label for="pblLvl">PBL Level:</label>
+								
+								<span>
+									<input onchange='pbl_level();' type="radio" id="pbl1" name="pblLvl" value="PBL1" required>
+									<label for="pbl1">PBL1</label>
+									<input onchange='pbl_level(); 'type="radio" id="pbl2" name="pblLvl" value="PBL2">
+									<label for="pbl2">PBL2</label>
+									<input onchange='pbl_level();' type="radio" id="pbl3" name="pblLvl" value="PBL3">
+									<label for="pbl3">PBL3</label>
+									<input onchange='pbl_level(); 'type="radio" id="pbl4" name="pblLvl" value="PBL4">
+									<label for="pbl4">PBL4</label>
+								</span>
+							{% endif %}
+							
+							<th colspan = "2">
+								<label>Select Rubric(s) Below</label>
+							</th>
+							<tr>
+							<th class = "no_border" colspan = "2">
+								<select id="test" name='rubrics', multiple required>
+									{% for rubric in rubrics %}
+										{% if rubric.rubric_type == rub_type %}
+											<option value="{{ rubric.id }}"{% if rubric in to_edit.rubric %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</th>
+							<tr>
+							<th colspan = "2">
+								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+							</th>
+						</table>
                     </div>
                     
                 </form>
