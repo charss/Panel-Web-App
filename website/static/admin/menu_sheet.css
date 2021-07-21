@@ -25,16 +25,18 @@ table{
 	align-items: center;
 }
 
-
 th{
+	min-height: 10px;
 	background: #E0E0E0;
 	border-left:  10px solid green; 
 	color: black;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	
 }
 td{
 	border: 1px dotted #ddd;
+	height: 100%;
 	padding: 5px;
 }
 
@@ -98,11 +100,11 @@ td{
 }
 
 
-
-.but2 {
+.but2{
+	padding: 0px;
 	width: 100%;
+	height: 100%;
 	border-radius: 0px;
-	border: none;
 	background-color: white; 
 	color: black; 
 	background-color: #E0E0E0;
@@ -111,6 +113,8 @@ td{
 }
 
 .but2:hover {
+	width: 100%;
+	height: 100%;
 	background-color: white;
 }
 
