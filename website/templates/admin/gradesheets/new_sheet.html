@@ -4,6 +4,9 @@
 Gradesheets
 {% endblock %}
 {% block button %}
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
+	</head>
 <a href="">
     <button>Create New Template</button>
 </a>
@@ -34,47 +37,66 @@ Gradesheets
             <div class='content_div'>
                 <form method='POST'>
                     <div class='form_div'>
-                        <div class='query'>
-                            <label for="sheetCode">Gradesheet Code:</label>
-                            <span>
-                                <input type='text' id='sheetCode' name='sheetCode' value ="{{ current_id }}" disabled>
-                            </span>
-                        </div>
-
-                        <label for="rubType">Rubric Type:</label>
-                        <span>
-                            <input onchange="sheet_type(); check()" type="radio" id="group" name="rubType" value="Group" required>
-                            <label for="group">Group</label>
-                            <input onchange="sheet_type(); check()" type="radio" id="individual" name="rubType" value="Individual">
-                            <label for="individual">Individual</label>
-                        </span>
-                        
-                        <label for="pblLvl">PBL Level:</label>
-                        <span>
-                            <input onchange='pbl_level();' type="radio" id="pbl1" name="pblLvl" value="PBL1" required>
-                            <label for="pbl1">PBL1</label>
-                            <input onchange='pbl_level(); 'type="radio" id="pbl2" name="pblLvl" value="PBL2">
-                            <label for="pbl2">PBL2</label>
-                            <input onchange='pbl_level();' type="radio" id="pbl3" name="pblLvl" value="PBL3">
-                            <label for="pbl3">PBL3</label>
-                            <input onchange='pbl_level(); 'type="radio" id="pbl4" name="pblLvl" value="PBL4">
-                            <label for="pbl4">PBL4</label>
-                        </span>
-                        
-                        <label>Select Rubric(s) Below</label>
-                        <select id="rubrics" name='rubrics' multiple required disabled>
-                            {% for rubric in rubrics %}
-                                {% if rubric.rubric_type == data %}
-                                    {% set x = rubric.id|string %}
-                                    <option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
-                                {% elif rubric.pbl_lvl == data %}
-                                    {% set x = rubric.id|string %}
-                                    <option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
-                                {% endif %}
-                            {% endfor %}
-                        </select>
-
-                        <button type='submit' id='submit' name='submit'>Submit</button>
+						<table class = "tableS">
+							<th  colspan = "2"> 
+								<div class='query'>
+									<label for="sheetCode">Gradesheet Code:</label>
+									<span>
+										<input type='text' id='sheetCode' name='sheetCode' value ="{{ current_id }}" disabled>
+									</span>
+								</div>
+							</th>
+							<tr>
+							<th>
+								<label for="rubType" class ="tb_desc">Rubric Type:</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<input onchange="sheet_type(); check()" type="radio" id="group" name="rubType" value="Group" required>
+									<label for="group">Group</label>
+									<input onchange="sheet_type(); check()" type="radio" id="individual" name="rubType" value="Individual">
+									<label for="individual">Individual</label>
+								</span>
+							</th>
+							<tr>
+							<th>
+								<label for="pblLvl" class = "tb_desc">PBL Level:</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<input onchange='pbl_level();' type="radio" id="pbl1" name="pblLvl" value="PBL1" required>
+									<label for="pbl1">PBL1</label>
+									<input onchange='pbl_level(); 'type="radio" id="pbl2" name="pblLvl" value="PBL2">
+									<label for="pbl2">PBL2</label>
+									<input onchange='pbl_level();' type="radio" id="pbl3" name="pblLvl" value="PBL3">
+									<label for="pbl3">PBL3</label>
+									<input onchange='pbl_level(); 'type="radio" id="pbl4" name="pblLvl" value="PBL4">
+									<label for="pbl4">PBL4</label>
+								</span>
+							</th>
+							<tr>
+							<th colspan = "2">
+								<label>Select Rubric(s) Below</label>
+							</th>
+							<tr>
+							<th colspan = "2" class ="no_border">
+								<select class = "sep_fifty" id="rubrics" name='rubrics' multiple required disabled>
+									{% for rubric in rubrics %}
+										{% if rubric.rubric_type == data %}
+											{% set x = rubric.id|string %}
+											<option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+										{% elif rubric.pbl_lvl == data %}
+											{% set x = rubric.id|string %}
+											<option value="{{ rubric.id }}" {% if x in back_arr %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</th>
+							<tr>
+							<th colspan = "2">
+								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+							</th>
+						</table>
                     </div>
                     
                 </form>
