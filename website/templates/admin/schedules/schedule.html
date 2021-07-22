@@ -75,24 +75,28 @@
 							<th colspan = "2">Group:</th>
 						</tr>
 						<tr>
+							<td colspan = "2">Gradesheet ID: {{ defense.i_sheet_id }}</td>
+							<td colspan = "2">Gradesheet ID: {{ defense.g_sheet_id }}</td>
+						</tr>
+						<tr>
 							<td>
-								<a href="/assign_indiv/">
+								<a href="/assign_sheet/Individual/{{ defense.id }}">
 									<button>Assign Individual Gradesheet</button>
 								</a>
 							</td>
 							<td>
-								<a href="/assign_indiv/">
-									<button>View Individual Gradesheet</button>
+								<a href="/view_sheet/{{ defense.i_sheet_id }}/sched">
+									<button {% if not defense.i_sheet_id %}disabled{% endif %}>View Individual Gradesheet</button>
 								</a>
 							</td>
 							<td>
-								<a href="/assign_indiv/">
-									<button>Assign Individual Gradesheet</button>
+								<a href="/assign_/Group/{{ defense.id }}">
+									<button>Assign Group Gradesheet</button>
 								</a>
 							</td>
 							<td>
-								<a href="/assign_indiv/">
-									<button>View Individual Gradesheet</button>
+								<a href="/view_sheet/{{ defense.g_sheet_id }}/sched">
+									<button {% if not defense.g_sheet_id %}disabled{% endif %}>View Group Gradesheet</button>
 								</a>
 							</td>
 						</tr>
@@ -112,7 +116,6 @@
 					</table>
 					<br>
                 </div>
-                
             {% endfor %}
         {% endif %}
     </div>

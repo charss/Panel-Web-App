@@ -4,7 +4,7 @@
     <div class='container' style='z-index: 2;'>
         <div class='header_div'>
             <div class='header_title'>
-                <p class = "header_white">Assign Individual Gradesheet</p>
+                <p class = "header_white">Assign {{ sheet_type }} Gradesheet</p>
             </div>
             <div class='close_button'>
                 <a href='/schedule/'>
@@ -14,11 +14,11 @@
         </div>
 
         <div class='content_div'>
-            <form method='POST'>
                 <div class='form_div'>
+                    <p>Defense ID: {{ to_sched.id }}</p>
                     {% if templates %}
                         {% for template in templates %}
-                            {% if template.sheet_type == 'Individual' %}
+                            {% if template.sheet_type == sheet_type %}
                                 <div class='box'>
                                     <p>ID: {{ template.id }}</p>
                                     <p>Gradesheet Type: {{ template.sheet_type }}</p>
@@ -28,11 +28,11 @@
                                             <li>{{ rubric.desc }}</li>
                                         {% endfor %}
                                     </ul>
-                                    <a href="">
-                                        <button>Assign</button>
-                                    </a>
+                                    <form method='POST'>
+                                        <button class="but2" type='submit' id='submit' name='assign' value='{{ template.id }}'>Assign</button>
+                                    </form>
 
-                                    <a href="">
+								    <a href="/view_sheet/{{ template.id }}/to_sched/{{ sheet_type }}/{{ to_sched.id }}">
                                         <button>View</button>
                                     </a>
                                 </div>
@@ -40,7 +40,6 @@
                         {% endfor %}
                     {% endif %}
                 </div>
-            </form>
         </div>
     </div>
 </div>
