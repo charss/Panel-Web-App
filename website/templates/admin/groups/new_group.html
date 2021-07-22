@@ -17,63 +17,85 @@
 
             <div class='content_div'>
                 <div class='form_div'>
-                    <form method='POST'>
-                        <div class='query'>
-							<label for="groupCode">Group Code:</label>
-							<span>
-								<input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
-							</span>
-						</div>
-				
-						<div class='query'>
-							<label for="groupName">Group Name:</label>
-							<span>
-								<input type='text' id='groupName' name='groupName'>
-							</span>
-						</div>
-							
-						<div class='query'>
-							<label for="projectTitle">Project Title:</label>
-							<span>
-                                <textarea class="min_txt_size" id='projectTitle' name='projectTitle' required></textarea>
-							</span>
-						</div>
-
-						<div class='query'>
-							<label for="program">Program:</label>
-							<span>
-								<select name="program" id='program'>
-									<option value='BSIT-AGD'>BSIT-AGD</option>
-									<option value='BSIT-DA'>BSIT-DA</option>
-									<option value='BSIT-SMBA'>BSIT-SMBA</option>
-									<option value='BSIT-WMA'>BSIT-WMA</option>
-									<option value='BSCS'>BSCS</option>
-									<option value='BMA'>BMA</option>
-								</select>
-							</span>
-						</div>
-						
-						<div id="cont">
-                            <table>
-                                <tr>
-                                    <th>Student Number</th>
-                                    <th>Last Name</th>
-                                    <th>First Name</th>
-                                    <th>Middle Initial</th>
-                                </tr>
-                                {% for x in range(1, 5) %}
-                                <tr>
-                                    <td><input type='text' name='stud_num{{ x }}'></td>
-                                    <td><input type='text' name='stud_last{{ x }}'></td>
-                                    <td><input type='text' name='stud_first{{ x }}'></td>
-                                    <td><input type='text' name='stud_mid{{ x }}'></td>
-                                </tr>
-                                {% endfor %}
-                            </table>
-                        </div>
-						<button type='submit' id='submit' name='submit'>Submit</button>
-                    </form>
-							
+					<table class = "tableS">
+						<form method='POST'>
+							<div class='query'>
+								<th>
+									<label for="groupCode">Group Code:</label>
+								</th>
+								<th class = "no_border">
+									<span>
+										<input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
+									</span>
+								</th>
+							</div>
+							<tr></tr>
+							<div class='query'>
+								<th>
+									<label for="groupName">Group Name:</label>
+								</th>
+								<th class = "no_border">
+								<span>
+									<input type='text' id='groupName' name='groupName'>
+								</span>
+								</th>
+							</div>
+							<tr></tr>	
+							<div class='query'>
+								<th>
+									<label for="projectTitle">Project Title:</label>
+								</th>
+								<th class ="no_border">
+									<span>
+										<textarea class="min_txt_size" id='projectTitle' name='projectTitle' required></textarea>
+									</span>
+								</th>
+							</div>
+							<tr></tr>
+							<div class='query'>
+								<th>
+									<label for="program">Program:</label>
+								</th>
+								<th class ="no_border">
+									<span>
+										<select class = "dropdown_fill" name="program" id='program'>
+											<option value='BSIT-AGD'>BSIT-AGD</option>
+											<option value='BSIT-DA'>BSIT-DA</option>
+											<option value='BSIT-SMBA'>BSIT-SMBA</option>
+											<option value='BSIT-WMA'>BSIT-WMA</option>
+											<option value='BSCS'>BSCS</option>
+											<option value='BMA'>BMA</option>
+										</select>
+									</span>
+								</th>
+							</div>
+							<tr></tr>							
+							<div id="cont">
+								<td colspan = "2">
+									<table>
+										<tr>
+											<th>Student Number</th>
+											<th>Last Name</th>
+											<th>First Name</th>
+											<th>Middle Initial</th>
+										</tr>
+										{% for x in range(1, 5) %}
+										<tr>
+											<td><input type='text' name='stud_num{{ x }}'></td>
+											<td><input type='text' name='stud_last{{ x }}'></td>
+											<td><input type='text' name='stud_first{{ x }}'></td>
+											<td><input type='text' name='stud_mid{{ x }}'></td>
+										</tr>
+										{% endfor %}
+									</table>
+								</td>
+							</div>
+							<tr></tr>	
+							<th class = "no_border" colspan = "2">
+								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+							</th>
+						</form>
+					</table>		
                 </div>
             </div>
         </div>

@@ -35,12 +35,20 @@
         {% if defenses %}
             {% for defense in defenses %}
                 <div class='div1'>
-					<table>
-						<th class = "tb_desc">ID:</th>
-						<td colspan = "3"> {{ defense.id }}</td>
+					<table class = "">
+						<th>
+							ID:
+						</th>
+						<td colspan = "3"> 
+							{{ defense.id }}
+						</td>
 						<tr>
-							<th class = "tb_desc">Group Name:</th>
-							<td colspan = "3"> {{ defense.group.name }} </td>
+						<th>
+							Group Name:
+						</th>
+						<td colspan = "3"> 
+							{{ defense.group.name }} 
+						</td>
 						</tr>
 						<tr>
 							<th colspan = "4">Panels:</th>
@@ -52,23 +60,25 @@
 									<td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. </td><tr>
 								{% else: %}
 									<th class = "no_border"> Co-Panelist </th>
-									<td  colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td><tr>
+									<td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td><tr>
 								{% endif %}
 							{% endfor %}
-						<th class = "tb_desc">Defense Date:</th>
-						<td colspan = "4"> {{ defense.start_date}} </td>
+						<th>Defense Date:</th>
+						<td colspan = "3"> {{ defense.start_date}} </td>
 						<tr>
 							<th colspan = "4">Gradesheet:</th>
 						</tr>
 						<tr>
-							<th>Individual:</th>
-							<th>Group:</th>
+							<th colspan = "2">Individual:</th>
+							<th colspan = "2">Group:</th>
 						</tr>
 						<tr>
 							<td>
 								<a href="/assign_indiv/">
 									<button>Assign Individual Gradesheet</button>
 								</a>
+							</td>
+							<td>
 								<a href="/assign_indiv/">
 									<button>View Individual Gradesheet</button>
 								</a>
@@ -77,6 +87,8 @@
 								<a href="/assign_indiv/">
 									<button>Assign Individual Gradesheet</button>
 								</a>
+							</td>
+							<td>
 								<a href="/assign_indiv/">
 									<button>View Individual Gradesheet</button>
 								</a>
