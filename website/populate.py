@@ -1,4 +1,4 @@
-from .models import Group, Student, Panelist, Defense, Rubric
+from .models import Group, Student, Panelist, Defense, Rubric, Template
 from datetime import datetime, timedelta, date, time
 import random
 from . import db
@@ -1244,3 +1244,37 @@ def populate_rubric():
 
     db.session.commit()
 
+def populate_gradesheet():
+    rubric = Rubric.query.all()
+    new_template = Template(sheet_type='Individual')
+    new_template.rubric.append(rubric[0])
+    new_template.rubric.append(rubric[1])
+    new_template.rubric.append(rubric[2])
+    new_template.rubric.append(rubric[3])
+    new_template.rubric.append(rubric[4])
+    db.session.add(new_template)
+
+
+    new_template = Template(sheet_type='Group')
+    new_template.rubric.append(rubric[5])
+    new_template.rubric.append(rubric[6])
+    new_template.rubric.append(rubric[7])
+    db.session.add(new_template)
+    
+    new_template = Template(sheet_type='Group')
+    new_template.rubric.append(rubric[8])
+    new_template.rubric.append(rubric[9])
+    new_template.rubric.append(rubric[10])
+    new_template.rubric.append(rubric[11])
+    new_template.rubric.append(rubric[12])
+    new_template.rubric.append(rubric[13])
+    new_template.rubric.append(rubric[14])
+    new_template.rubric.append(rubric[15])
+    new_template.rubric.append(rubric[16])
+    new_template.rubric.append(rubric[17])
+    new_template.rubric.append(rubric[18])
+    new_template.rubric.append(rubric[19])
+    new_template.rubric.append(rubric[20])
+    db.session.add(new_template)
+
+    db.session.commit()
