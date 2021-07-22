@@ -232,8 +232,6 @@ input {
     padding: 20px;
 }
 
-
-
 .container .content_div .form_div {
     display: inline-flex;
     flex-direction: column;
@@ -275,6 +273,11 @@ table{
 
 .tableS{
 	width: 90%;
+	align-items: center;
+}
+
+.tableM{
+	width: 300px;
 	align-items: center;
 }
 

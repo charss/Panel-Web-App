@@ -18,7 +18,7 @@
                 <form method='POST'>
                     <div class='form_div'>
 						<table class = "tableS">
-							<div class='query'>
+							<tr>
 								<th>
 									<label for="groupCode">Group Code:</label>
 								</th>
@@ -27,9 +27,8 @@
 										<input type='text' id='groupCode' name='groupCode' value ="{{ to_edit.id }}" disabled><br>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<div class='query'>
+							</tr>
+							<tr>
 								<th>
 									<label for="groupName">Group Name:</label>
 								</th>
@@ -38,9 +37,8 @@
 										<input type='text' id='groupName' name='groupName' value='{{ to_edit.name }}'>
 									</span>
 								</th>
-							</div>
-							<tr></tr>	
-							<div class='query'>
+							</tr>	
+							<tr>
 								<th>
 									<label for="projectTitle">Project Title:</label>
 								</th>
@@ -49,9 +47,8 @@
 										<textarea class="min_txt_size" id='projectTitle' name='projectTitle' required>{{ to_edit.project_title }}</textarea>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<div class='query'>
+							</tr>				
+							<tr>
 								<th>
 									<label for="program">Program:</label>
 								</th>
@@ -67,9 +64,8 @@
 										</select>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<div class='query'>
+							</tr>	
+							<tr>
 								<th>
 									<label for="program">Mentor:</label>
 								</th>
@@ -82,11 +78,12 @@
 										</select>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<th colspan = "2" class = "no_border">
-								<button id='submit' name='submit'>Submit</button>
-							</th>
+							</tr>
+							<tr>
+								<th colspan = "2" class = "no_border">
+									<button id='submit' name='submit'>Submit</button>
+								</th>
+							</tr>
 						</table>
                     </div>
                 </form>

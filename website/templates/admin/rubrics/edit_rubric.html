@@ -50,7 +50,7 @@ Rubrics
                     <form method='POST'>
                         <div class='form_div'>
 							<table class = "tableS">
-								<div class='query'>
+								<tr>
 									<th class = "sep_fifty">
 										<label for="rubricCode">Rubric Code:</label>
 									</th>
@@ -59,12 +59,11 @@ Rubrics
 											<input type='text' id='rubricCode' name='rubricCode' value ="{{ to_edit.id }}" disabled><br>
 										</span>
 									</th>
-								</div>
-								<tr>
+								</tr>
 
 								<input type='hidden' value='{{ to_edit.rubric_type }}' id='hidden_type'>
 
-								<div class='query'>
+								<tr>
 									<th>
 										<label for="rubType">Rubric Type:</label>
 									</th>
@@ -73,8 +72,8 @@ Rubrics
 											<input type='text' id='rubricType' name='rubricType' value ="{{ to_edit.rubric_type }}" disabled><br>
 										</span>
 									</th>
-								</div>
 								<tr>
+						<!-- table automation -->
 								{% if to_edit.rubric_type == 'Group' %}
 									<th colspan = "2">
 										<label for="pblLvl">PBL Level:</label>
@@ -91,8 +90,8 @@ Rubrics
 									</th>
 									<tr>
 								{% endif %}
-
-								<div class='query'>
+						<!-- table automation -->
+								<tr>
 									<th>
 										<label for="category">Category:</label>
 									</th>
@@ -101,23 +100,21 @@ Rubrics
 											<input class="dropdown_fill" type='text' id='category' name='category' style='text-align: left;' required value='{{ to_edit.category }}'>
 										</span>
 									</th>
-								</div>
+								</tr>
 								<tr>
-
-								<div class='query'>
 									<th colspan = "2">
 										<label for="desc">Description:</label>
 									</th>
-									<tr>
+								</tr>
+								<tr>
 									<th colspan = "2" class = "no_border">
 										<span>
 											<input class="min_txt_size"  type='text' id='desc' name='desc' style='text-align: left;' value='{{ to_edit.desc }}' required>
 										</span>
 									</th>
-								</div>
-								<tr>
+								</tr>
 
-								<div class='query'>
+								<tr>
 									<th colspan = "2">
 										<label for='rate5'>Rate 5:</label>
 									</th>
@@ -127,10 +124,8 @@ Rubrics
 											<textarea class = "min_txt_size"  id='rate5' name='rate5' required>{{ to_edit.rate5 }}</textarea>
 										</span>
 									</th>
-								</div>
 								<tr>
-
-								<div class='query'>
+								<tr>
 									<th colspan = "2">
 										<label for='rate4'>Rate 4:</label>
 									</th>
@@ -140,10 +135,8 @@ Rubrics
 											<textarea class = "min_txt_size" id='rate4' name='rate4' required>{{ to_edit.rate4 }}</textarea>
 										</span>
 									</th>
-								</div>
+								</tr>
 								<tr>
-
-								<div class='query'>
 									<th colspan = "2">
 										<label for='rate3'>Rate 3:</label>
 									</th>
@@ -153,10 +146,9 @@ Rubrics
 											<textarea class = "min_txt_size" id='rate3' name='rate3' required>{{ to_edit.rate3 }}</textarea>
 										</span>
 									</th>
-								</div>
-								<tr>
+								</tr>
 
-								<div class='query'>
+								<tr>
 									<th colspan = "2">
 										<label for='rate2'>Rate 2:</label>
 									</th>
@@ -166,10 +158,9 @@ Rubrics
 											<textarea class = "min_txt_size" id='rate2' name='rate2' required>{{ to_edit.rate2 }}</textarea>
 										</span>
 									</th>
-								</div>
-								<tr>
+								</tr>
 
-								<div class='query'>
+								<tr>
 									<th colspan = "2">
 										<label for='rate1'>Rate 1:</label>
 									</th>
@@ -179,10 +170,9 @@ Rubrics
 											<textarea class = "min_txt_size" id='rate1' name='rate1' required>{{ to_edit.rate1 }}</textarea>
 										</span>
 									</th>
-								</div>
 								<tr>
 
-								<div class='query'>
+								<tr>
 									<th>
 										<label for="weight">Weight</label>
 									</th>
@@ -191,11 +181,12 @@ Rubrics
 											<input type="number" id="weight" name='weight' autocomplete='off' min='1' max='9' value='{{ to_edit.weight }}' onkeydown='return false;'>
 										</span>
 									</th>
-								</div>
+								</tr>
 								<tr>
-								<th colspan = "2">
-									<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
-								</th>
+									<th colspan = "2">
+										<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+									</th>
+								</tr>
 							</table>
                         </div>
                     </form>

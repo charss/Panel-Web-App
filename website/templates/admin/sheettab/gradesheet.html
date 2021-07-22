@@ -17,34 +17,39 @@ Gradesheets
             {% for template in templates %}
                 <div class='div1'>
 					<table>
-						<th class = "tb_desc">ID:</th> 
-						<td  colspan = "2">{{ template.id }}</td>
 						<tr>
-						<th>Gradesheet Type:</th> 
-						<td colspan = "2">{{ template.sheet_type }}</td>
+							<th class = "tb_desc">ID:</th> 
+							<td  colspan = "2">{{ template.id }}</td>
+						</tr>
+						<tr>
+							<th>Gradesheet Type:</th> 
+							<td colspan = "2">{{ template.sheet_type }}</td>
+						</tr>
 						<tr>
 						<th colspan = "3">Rubrics:</th>
-						<tr>
+						</tr>
 						<ul>
 							{% for rubric in template.rubric %}
-								<td colspan = "3">{{ rubric.desc }}</td><tr>
+								<tr>
+									<td colspan = "3">{{ rubric.desc }}</td>
+								</tr>
 							{% endfor %}
 						</ul>
 					</table>
-					<table>
+					<table class = "no_border">
 						<td class = "no_border sep_20">
 						<td class = "no_border sep_20">
-						<th>
+						<th class = "no_border">
 							<a href="/view_sheet/{{ template.id }}">
 								<button class = "but2">View</button>
 							</a>
 						</th>
-						<th>
+						<th class = "no_border">
 							<a href="/edit_sheet/{{ template.id }}">
 								<button class = "but2">Edit</button>
 							</a>
 						</th>
-						<th>
+						<th class = "no_border">
 							<a href="/delete_sheet/{{ template.id }}">
 								<button class = "but2">Delete</button>
 							</a>

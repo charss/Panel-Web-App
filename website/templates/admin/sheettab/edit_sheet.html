@@ -32,8 +32,8 @@ Gradesheets
             <div class='content_div'>
                 <form method='POST'>
                     <div class='form_div'>
-						<table class = "tableS">	
-							<div class='query'>
+						<table class = "tableS">
+							<tr>
 								<th class = "sep_fifty">
 									<label for="sheetCode">Gradesheet Code:</label>
 								</th>
@@ -42,26 +42,28 @@ Gradesheets
 										<input type='text' id='sheetCode' name='sheetCode' value ="{{ to_edit.id }}" disabled>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							
-							<th colspan = "2">
-								<label>Select Rubric(s) Below</label>
-							</th>
+								<th colspan = "2">
+									<label>Select Rubric(s) Below</label>
+								</th>
+							</tr>
 							<tr>
-							<th class = "no_border" colspan = "2">
-								<select id="test" name='rubrics', multiple required>
-									{% for rubric in rubrics %}
-										{% if rubric.rubric_type == rub_type %}
-											<option value="{{ rubric.id }}"{% if rubric in to_edit.rubric %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
-										{% endif %}
-									{% endfor %}
-								</select>
-							</th>
+								<th class = "no_border" colspan = "2">
+									<select id="test" name='rubrics', multiple required>
+										{% for rubric in rubrics %}
+											{% if rubric.rubric_type == rub_type %}
+												<option value="{{ rubric.id }}"{% if rubric in to_edit.rubric %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</th>
+							</tr>
 							<tr>
-							<th colspan = "2">
-								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
-							</th>
+								<th colspan = "2">
+									<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+								</th>
+							</tr>
 						</table>
                     </div>
                     

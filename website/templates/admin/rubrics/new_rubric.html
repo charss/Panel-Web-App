@@ -50,7 +50,7 @@ Rubrics
                     <form method='POST'>
                         <div class='div1'>
 							<table class = "tableS">
-								<div class='query'>
+								<tr>
 									<th>
 										<label for="rubricCode">Rubric Code:</label>
 									</th>
@@ -59,38 +59,40 @@ Rubrics
 											<input type='text' id='rubricCode' name='rubricCode' value ="{{ current_id }}" disabled><br>
 										</span>
 									</th>
-								</div>
+								</tr>
 								<tr>
-								<th>
-									<label for="rubType">Rubric Type:</label>
-								</th>
-								<th class = "no_border">
-									<span>
-										<input onclick="check()" type="radio" id="group" name="rubType" value="Group" checked>
-										<label for="group">Group</label>
-										<input onclick="check()" type="radio" id="individual" name="rubType" value="Individual">
-										<label for="individual">Individual</label>
-									</span>
-								</th>
+									<th>
+										<label for="rubType">Rubric Type:</label>
+									</th>
+									<th class = "no_border">
+										<span>
+											<input onclick="check()" type="radio" id="group" name="rubType" value="Group" checked>
+											<label for="group">Group</label>
+											<input onclick="check()" type="radio" id="individual" name="rubType" value="Individual">
+											<label for="individual">Individual</label>
+										</span>
+									</th>
+								</tr>
 								<tr>
-								<th colspan = "2">
-									<label for="pblLvl">PBL Level:</label>
-								</th>
+									<th colspan = "2">
+										<label for="pblLvl">PBL Level:</label>
+									</th>
+								</tr>
 								<tr>
-								<th class = "no_border" colspan = "2">
-									<span>
-										<input type="radio" id="pbl1" name="pblLvl" value="PBL1" checked>
-										<label for="pbl1">PBL1</label>
-										<input type="radio" id="pbl2" name="pblLvl" value="PBL2">
-										<label for="pbl2">PBL2</label>
-										<input type="radio" id="pbl3" name="pblLvl" value="PBL3">
-										<label for="pbl3">PBL3</label>
-										<input type="radio" id="pbl4" name="pblLvl" value="PBL4">
-										<label for="pbl4">PBL4</label>
-									</span>
-								</th>
+									<th class = "no_border" colspan = "2">
+										<span>
+											<input type="radio" id="pbl1" name="pblLvl" value="PBL1" checked>
+											<label for="pbl1">PBL1</label>
+											<input type="radio" id="pbl2" name="pblLvl" value="PBL2">
+											<label for="pbl2">PBL2</label>
+											<input type="radio" id="pbl3" name="pblLvl" value="PBL3">
+											<label for="pbl3">PBL3</label>
+											<input type="radio" id="pbl4" name="pblLvl" value="PBL4">
+											<label for="pbl4">PBL4</label>
+										</span>
+									</th>
+								</tr>
 								<tr>
-								<div class='query'>
 									<th>
 										<label for="category">Category:</label>
 									</th>
@@ -99,9 +101,8 @@ Rubrics
 											<input class = "dropdown_fill" type='text' id='category' name='category' style='text-align: left;' required >
 										</span>
 									</th>
-								</div>
+								</tr>
 								<tr>
-								<div class='query'>
 									<th colspan = "2">
 										<label for="desc">Description:</label>
 									</th>
@@ -111,8 +112,8 @@ Rubrics
 										<input class = "min_txt_size" type='text' id='desc' name='desc' style='text-align: left;' required>
 									</span>
 									</th>
-								</div>
-								<tr>
+								</tr>
+					<!-- TABLE AUTOMATION -->
 								{% for x in range(5, 0, -1) %}
 									<div class='query'>
 										<th colspan = "2">
@@ -127,8 +128,8 @@ Rubrics
 										<tr>
 									</div>
 								{% endfor %}
-
-								<div class='query'>
+					<!-- TABLE AUTOMATION -->
+								<tr>
 									<th>
 										<label for="weight">Weight</label>
 									</th>
@@ -136,15 +137,15 @@ Rubrics
 										<span>
 											<input class = "dropdown_fill" type="number" id="weight" name='weight' autocomplete='off' min='1' max='9' value=1 onkeydown='return false;'>
 										</span>
-									</th>
-								</div>
+									</th>									
+								</tr>
 								<tr>
-								<th colspan = "2">
-									<button class ="but2" type='submit' id='submit' name='submit'>Submit</button>
-								</th>
+									<th colspan = "2">
+										<button class ="but2" type='submit' id='submit' name='submit'>Submit</button>
+									</th>
+								</tr>
 							</table>
-                        </div>
-                        
+                        </div>                        
                     </form>
                 </div>
             </div>
