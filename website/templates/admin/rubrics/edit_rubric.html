@@ -7,9 +7,6 @@ Rubrics
 <a href="/new_rubric/">
     <button>Create New Rubric</button>
 </a>
-<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
-</head>
 {% endblock %}
 {% block content %}
     <style>
@@ -49,7 +46,7 @@ Rubrics
                 <div class='content_div'>
                     <form method='POST'>
                         <div class='form_div'>
-							<table class = "tableS">
+							<table class = "tableL">
 								<tr>
 									<th class = "sep_fifty">
 										<label for="rubricCode">Rubric Code:</label>
