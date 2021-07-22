@@ -5,26 +5,21 @@
 </head>
 
     <div id="overlay">
-		<div class='container2'>
-            <div class='header_div'>
-				<div id="text">
-					<div>
-						<table class = "sml_tbl">
-						<th colspan = "2" class = "no_border">Are you sure?</th>
+		<div id="text">
+			<table class = "sml_tbl">
+				<th colspan = "2" class = "no_border">Are you sure?</th>
+				<tr>
+					<form method='POST'>
+						<th class = "no_border">
+							<button id='submit' name='submit' value='yes'>Yes</button>
 						</th>
-						<tr>
-						<form method='POST'>
-							<th class = "no_border">
-								<button id='submit' name='submit' value='yes'>Yes</button>
-							</th>
-							<th class = "no_border">
-								<button id='submit' name='submit' values='no'>No</button>
-							</th>
-						</form>
-						</table>
-					</div>
-				</div>
-			</div>
+						<th class = "no_border">
+							<button id='submit' name='submit' values='no'>No</button>
+						</th>
+					</form>
+				</tr>
+				
+			</table>
 		</div>
     </div>
 {% endblock %}

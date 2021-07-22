@@ -33,6 +33,8 @@ def admin_home(data):
     if not db.session.query(Rubric).first():
         populate_rubric()
 
+    if not db.session.query(Template).first():
+        populate_gradesheet()
     # if db.session.query(Defense).first(): 
     #     return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1)
     # else:
@@ -550,7 +552,6 @@ def confirm_sheet():
             temp = db.session.query(Rubric).filter_by(id=rubric).first()
             category_list.setdefault(temp.category, [])
             category_list[temp.category].append(temp)
-        print(category_list)
     if request.method == 'POST':
         if request.form.get('button_inp'):
             return redirect(url_for('admin.new_sheet'))
@@ -558,9 +559,13 @@ def confirm_sheet():
             new_template = Template(sheet_type=session['trial']['rubric_type'])
             db.session.add(new_template)
 
-
-            for rubric in rubric_list:
-                new_template.rubric.append(rubric)
+            if session['trial']['rubric_type'] == 'Individual':
+                for rubric in rubric_list:
+                    new_template.rubric.append(rubric)
+            else:
+                for category in category_list:
+                    for rubric in category_list[category]:
+                        new_template.rubric.append(rubric)
 
             db.session.commit()
             session.pop('trial')
@@ -642,7 +647,6 @@ def c_edit_sheet():
 def assign_indiv():
     return render_template('schedules/assign_indiv.html', templates=Template.query.all())
     
-
 @admin.route('/parse_data/', methods=['GET', 'POST'])
 def parse_data():
     if request.method == "POST":
