@@ -15,7 +15,7 @@
 		{% set x = 0 %}
 		<form method='POST'>
 			<div class="topnav">
-				<a class="" href="#back">Back</a>
+				<a class="" href="/user_home">Back</a>
 				<a href="/grading/indiv/{{ defense.id }}">Individual</a>
 				<a href="/grading/group/{{ defense.id }}">Group</a>
 				<a href class='active'>Comment</a>
@@ -88,8 +88,7 @@
 						<th> COMMENTS SHEET </th>
 						<tr>
 						<td> 
-							<textarea class="text" id="comments_inp" name="comments_inp" style='text-align: left;'>
-							</textarea>
+							<textarea class="text" id="comments_inp" name="comments_inp" style='text-align: left;'></textarea>
 						</td>
 					</table>
 				</div>
