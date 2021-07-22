@@ -1028,7 +1028,7 @@ def populate_rubric():
         weight=8,
         rubric_type='Group',
         category='None',
-        pbl_lvl='1'
+        pbl_lvl='PBL1'
     )
     db.session.add(temp)
 
@@ -1042,7 +1042,7 @@ def populate_rubric():
         weight=5,
         rubric_type='Group',
         category='None',
-        pbl_lvl='1'
+        pbl_lvl='PBL1'
     )
     db.session.add(temp)
 
@@ -1056,7 +1056,189 @@ def populate_rubric():
         weight=7,
         rubric_type='Group',
         category='None',
-        pbl_lvl='1'
+        pbl_lvl='PBL1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Background and Raionale of the Study',
+        rate5='All pertinent information on the project was provided and explained well.',
+        rate4='All pertinent information on the project was provided',
+        rate3='Relevant information on the project was provided',
+        rate2='Some information on the project was provided',
+        rate1='No related information on the project was given',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 1',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Project Overview',
+        rate5='Project overview is clearly explained',
+        rate4='Project overview is adequately explained',
+        rate3='Project overview is somehow explained',
+        rate2='Project overview is not clearly explained',
+        rate1='There is no project overview',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 1',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Relativeness of the Literature',
+        rate5='All literature supports the study',
+        rate4='Most literature supports the study',
+        rate3='Some literature supports the study',
+        rate2='Few literatures support the study',
+        rate1='No literature supports the study',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 2',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Synthesis',
+        rate5='The synthesis provides excellent analysis of the literature',
+        rate4='The synthesis provides very good analysis of the literature',
+        rate3='The synthesis provides good analysis of the literature',
+        rate2='The synthesis provides impartial analysis of the literature',
+        rate1='The synthesis provides poor analysis of the literature',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 2',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Feasibility',
+        rate5='The requirement analysis strongly supports the feasibility of the study',
+        rate4='The requirement analysis suitably supports the feasibility of the study',
+        rate3='The requirement analysis justly supports the feasibility of the study',
+        rate2='Requirement analysis somehow supports the feasibility of the study',
+        rate1='Requirement analysis poorly supports the feasibility of the study',
+        weight=2,
+        rubric_type='Group',
+        category='Chapter 3',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Project Development Model',
+        rate5='The project development model perfectly fits to the project design',
+        rate4='The project development model acceptably fits to the project design',
+        rate3='The project development model fairly fits to the project design',
+        rate2='The project development model somewhat fits to the project design',
+        rate1='The project development model does not fit to the project design',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 3',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Technicality',
+        rate5='The project design provides highly technical solution to the research problem',
+        rate4='The project design provides very technical solution to the research problem',
+        rate3='The project design provides technical solution to the research problem',
+        rate2='The project design provides minimal technical solution to the research problem',
+        rate1='The project design provides poor technical solution to the research problem',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 3',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Project Design',
+        rate5='The solution provided is excellent ',
+        rate4='The solution provided is very good',
+        rate3='The solution provided is fair',
+        rate2='The solution provided is insufficient',
+        rate1='The solution provided is poor',
+        weight=1,
+        rubric_type='Group',
+        category='Chapter 3',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Formatting and Supporting Documents',
+        rate5='The document is well-formatted and presents complete supporting documents',
+        rate4='The document is formatted with few blunders and presents almost complete supporting documents',
+        rate3='The document is formatted with some blunders and presents some supporting documents',
+        rate2='The document is formatted with many blunders and presents few supporting documents',
+        rate1='The document is formatted poorly and presents no supporting documents',
+        weight=1,
+        rubric_type='Group',
+        category='Others',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Presented of Proposal Materials',
+        rate5='The materials used in the presentation such as tables, charts, and visualization were explained very well.',
+        rate4='The materials used in the presentation such as tables, charts, and visualization were explained well.',
+        rate3='The materials used in the presentation such as tables, charts, and visualization were explained fairly.',
+        rate2='The materials used in the presentation such as tables, charts, and visualization need more explanation.',
+        rate1='The materials used in the presentation such as tables, charts, and visualization were explained poorly.',
+        weight=2,
+        rubric_type='Group',
+        category='Design',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Precision and Accuracy of Design',
+        rate5='The tables, charts, and visualization were very accurate and precise.',
+        rate4='The tables, charts, and visualization were almost accurate and precise.',
+        rate3='The tables, charts, and visualization were fair',
+        rate2='The tables, charts, and visualization need improvement',
+        rate1='The tables, charts, and visualization need overhaul',
+        weight=2,
+        rubric_type='Group',
+        category='Design',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Consistency with the Documentation',
+        rate5='All contents of the presentation clearly match the concise thought of the documentation',
+        rate4='Most contents of the presentation clearly match the concise thought of the documentation',
+        rate3='Some contents of the presentation clearly match the concise thought of the documentation',
+        rate2='Few contents of the presentation clearly match the concise thought of the documentation',
+        rate1='No contents of the presentation clearly match the concise thought of the documentation',
+        weight=3,
+        rubric_type='Group',
+        category='Presentation',
+        pbl_lvl='PBL2'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Flow and Group Dynamics',
+        rate5='The presentation is smooth and continuous',
+        rate4='The presentation is smooth and continuous minimal interruptions',
+        rate3='The group presentation is average',
+        rate2='The group presentation needs improvement',
+        rate1='The group presentation is unacceptable',
+        weight=3,
+        rubric_type='Group',
+        category='Presentation',
+        pbl_lvl='PBL2'
     )
     db.session.add(temp)
 

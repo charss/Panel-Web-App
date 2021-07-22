@@ -529,6 +529,39 @@ def new_sheet(data=None):
     else:
         return render_template('gradesheets/new_sheet.html', templates=None, rubrics=Rubric.query.all(), back_arr=back_arr, back_rub=back_rub, current_id=1, data=data)
 
+@admin.route('/confirm_sheet/', methods=['GET', 'POST'])
+@login_required
+def confirm_sheet():
+    obj = 0
+    if db.session.query(Template).first():
+        obj = db.session.query(Template).order_by(Template.id.desc()).first()
+
+    rubric_list = []
+    for rubric in session['trial']['rubrics']:
+        rubric_list.append(db.session.query(Rubric).filter_by(id=rubric).first())
+
+    if request.method == 'POST':
+        if request.form.get('button_inp'):
+            return redirect(url_for('admin.new_sheet'))
+        else:
+            print('SUBMITTING')
+            print(session['trial']['rubric_type'])
+            new_template = Template(sheet_type=session['trial']['rubric_type'])
+            db.session.add(new_template)
+
+
+            for rubric in rubric_list:
+                new_template.rubric.append(rubric)
+
+            db.session.commit()
+            session.pop('trial')
+            return redirect(url_for('admin.gradesheets'))
+
+
+    if db.session.query(Template).first():
+        return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=obj.id+1)
+    else:
+        return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=1)
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
 @login_required
@@ -594,39 +627,7 @@ def c_edit_sheet():
 
     return render_template('gradesheet/individual2.html', rubrics=new_rubrics)
 
-@admin.route('/confirm_sheet/', methods=['GET', 'POST'])
-@login_required
-def confirm_sheet():
-    obj = 0
-    if db.session.query(Template).first():
-        obj = db.session.query(Template).order_by(Template.id.desc()).first()
 
-    rubric_list = []
-    for rubric in session['trial']['rubrics']:
-        rubric_list.append(db.session.query(Rubric).filter_by(id=rubric).first())
-
-    if request.method == 'POST':
-        if request.form.get('button_inp'):
-            return redirect(url_for('admin.new_sheet'))
-        else:
-            print('SUBMITTING')
-            print(session['trial']['rubric_type'])
-            new_template = Template(sheet_type=session['trial']['rubric_type'])
-            db.session.add(new_template)
-
-
-            for rubric in rubric_list:
-                new_template.rubric.append(rubric)
-
-            db.session.commit()
-            session.pop('trial')
-            return redirect(url_for('admin.gradesheets'))
-
-
-    if db.session.query(Template).first():
-        return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=obj.id+1)
-    else:
-        return render_template('gradesheet/individual.html', rubrics=rubric_list, current_id=1)
 
 
 @admin.route('/assign_indiv/', methods=['GET', 'POST'])
