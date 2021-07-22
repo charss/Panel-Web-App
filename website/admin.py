@@ -108,11 +108,12 @@ def edit_group(content):
         group.name = request.form['groupName']
         group.project_title = request.form['projectTitle']
         group.program = request.form['program']
+        group.mentor_id = request.form['mentor']
         db.session.commit()
 
         return redirect(url_for('admin.group'))
 
-    return render_template('groups/edit_group.html', groups=Group.query.all(),to_edit=group)
+    return render_template('groups/edit_group.html', groups=Group.query.all(), to_edit=group, mentors=Panelist.query.all())
 
 @admin.route('/delete_group/<content>', methods=['GET', 'POST'])
 @login_required

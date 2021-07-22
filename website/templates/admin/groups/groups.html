@@ -12,6 +12,21 @@
 </a>
 {% endblock %}
 {% block content %}
+	<style>
+        .container {
+            width: fit-content;
+            height: fit-content;
+        }
+        textarea {
+            height: 30px;
+            width: 100%;
+            transition: all 0.5s ease;
+        }
+
+        textarea:focus {
+            height: 5em;
+        }
+    </style>
     <div class='display_grid'>
         {% if groups %}
             {% for group in groups %}

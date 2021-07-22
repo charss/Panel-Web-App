@@ -1,11 +1,6 @@
 {% extends "groups/groups.html" %}
 {% block overlay %}
-    <style>
-        .container {
-            width: fit-content;
-            height: fit-content;
-        }
-    </style>
+    
 
     <div id="overlay">
         <div class='container'>
@@ -40,7 +35,7 @@
 						<div class='query'>
 							<label for="projectTitle">Project Title:</label>
 							<span>
-								<input type='text' id='projectTitle' name='projectTitle'><br>
+                                <textarea class="min_txt_size" id='projectTitle' name='projectTitle' required></textarea>
 							</span>
 						</div>
 
