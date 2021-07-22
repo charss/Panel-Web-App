@@ -7,71 +7,88 @@ from . import db
 def populate_group():
     new_group = Group(name='TECH-9', 
                       project_title='LAKBAY: A 3D Philippine Mythological Beat ‘em Up Mobile Game', 
-                      program='BSIT-AGD')
+                      program='BSIT-AGD',
+                      mentor_id=15)
     db.session.add(new_group)
     new_group = Group(name='Technopunk', 
                       project_title='Sanity: A 3D Psychological Horror Mystery Adventure PC Game', 
-                      program='BSIT-AGD')
+                      program='BSIT-AGD',
+                      mentor_id=15)
     db.session.add(new_group)
     new_group = Group(name='SADISTICS', 
                       project_title='Tales of Ibong Adarna: A Philippine Literature RPG Hack n Slash PC Game', 
-                      program='BSCS')
+                      program='BSIT-AGD',
+                      mentor_id=15)
     db.session.add(new_group)
     new_group = Group(name='FBF Technologies', 
                       project_title='E.S.C. Key: A Detective Escape Room 3D Video Game for PC', 
-                      program='BSCS')
+                      program='BSIT-AGD',
+                      mentor_id=15)
     db.session.add(new_group)
     new_group = Group(name='ILM', 
                       project_title='Adventures of Tammy: Play your stories, An Interactive Storytelling Mobile Game with Augmented Reality Story Playback', 
-                      program='BSCS')
+                      program='BSIT-DA',
+                      mentor_id=2)
     db.session.add(new_group)
     new_group = Group(name='BRY', 
                       project_title='Tela Nobela: A 2D Filipiniana Dress Up Game and Interactive Storybook of Filipino Fairy Tales', 
-                      program='BSCS')
+                      program='BSIT-DA',
+                      mentor_id=9)
     db.session.add(new_group)
     new_group = Group(name='B Lancer', 
                       project_title='iBuild: A Game Development using 3D Menu Base Game Simulator', 
-                      program='BSCS')
+                      program='BSIT-AGD',
+                      mentor_id=3)
     db.session.add(new_group)
     new_group = Group(name='Archi-Tech', 
                       project_title='Odditiseum: A Virtual Reality Point-and-Click Exploration PC Game', 
-                      program='BSCS')
+                      program='BSIT-AGD',
+                      mentor_id=15)
     db.session.add(new_group)
     new_group = Group(name='SADdle', 
                       project_title='Pipeline A Web-based PC Hardware and Peripheral Data-driven price Comparison', 
-                      program='BSCS')
+                      program='BSIT-SMBA',
+                      mentor_id=5)
     db.session.add(new_group)
     new_group = Group(name='Sleep Deprived', 
                       project_title='Stratics: A Web-Based Churn Analytics Platform for Strategic Decision Making of Telecommunications Companies', 
-                      program='BSCS')
+                      program='BSIT-SMBA',
+                      mentor_id=8)
     db.session.add(new_group)
-    new_group = Group(name='LinkodPinas', 
+    new_group = Group(name='LingkodPinas', 
                       project_title='StarTouch: The Transition to an Inventory System with Digitized Ordering for Starlite Ferries.', 
-                      program='BSCS')
+                      program='BSIT-MBA',
+                      mentor_id=5)
     db.session.add(new_group)
     new_group = Group(name='BLACK-CHEVY', 
                       project_title='MedList: Development of Sales and Inventory Management System for Drug Store using Descriptive Analytics', 
-                      program='BSCS')
+                      program='BSIT-SMBA',
+                      mentor_id=3)
     db.session.add(new_group)
     new_group = Group(name='The Backyardigans', 
                       project_title='Enhancing Customer Experience through E-Commerce Sentiment Analysis', 
-                      program='BSCS')
+                      program='BSIT-SMBA',
+                      mentor_id=8)
     db.session.add(new_group)
     new_group = Group(name='HouseMates', 
                       project_title='Profit Optimization using a web-based sales and Inventory Dashboard for Small Enterprises', 
-                      program='BSCS')
+                      program='BSIT-SMBA',
+                      mentor_id=8)
     db.session.add(new_group)
     new_group = Group(name='UPTECH', 
                       project_title='CryptSim: A Mobile Application with Advanced Cryptocurrency Trading Simulaton', 
-                      program='BSCS')
+                      program='BSIT-WMA',
+                      mentor_id=6)
     db.session.add(new_group)
     new_group = Group(name='SAD Devs', 
                       project_title='Game Credits PH: An E-loading Website for Mobile and Computer Games', 
-                      program='BSCS')
+                      program='BSIT-WMA',
+                      mentor_id=6)
     db.session.add(new_group)
     new_group = Group(name='Business Bros', 
                       project_title='BeFit: A Web and Mobile-Based Marketplace for Integrated Fitness & Wellness.', 
-                      program='BSCS')
+                      program='BSIT-WMA',
+                      mentor_id=3)
     db.session.add(new_group)
     db.session.commit()
 
@@ -80,19 +97,23 @@ def populate_students():
     student1 = Student(last_name='Lora', 
                        first_name='Cedric James',
                        middle_in='S',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811305)
     student2 = Student(last_name='Balisalisa', 
                        first_name='Joseph Charles',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811950)
     student3 = Student(last_name='Fabian', 
                        first_name='Julian Erick Pixel',
                        middle_in='S',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811809)
     student4 = Student(last_name='Gonzales', 
                        first_name='Patrick',
                        middle_in='G',
-                       group_id=x)
+                       group_id=x,
+                       stud_no='201811122')
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -103,19 +124,23 @@ def populate_students():
     student1 = Student(last_name='Carmona', 
                        first_name='Josh',
                        middle_in='B',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811920)
     student2 = Student(last_name='Aguilar', 
                        first_name='Jaro Alexander',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810797)
     student3 = Student(last_name='Dapitan', 
                        first_name='Dominic',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811943)
     student4 = Student(last_name='Quesada', 
                        first_name='Maynard',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811944)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -126,19 +151,23 @@ def populate_students():
     student1 = Student(last_name='Avila', 
                        first_name='Josiah Ariel',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811377)
     student2 = Student(last_name='Yun', 
                        first_name='Jae Young',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811766)
     student3 = Student(last_name='Bustamante', 
                        first_name='Christian Paul',
                        middle_in='',
-                       group_id=x)
-    student3 = Student(last_name='Matushita', 
+                       group_id=x,
+                       stud_no=201810044)
+    student3 = Student(last_name='Matshshita', 
                        first_name='Kenichi',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812166)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -149,19 +178,23 @@ def populate_students():
     student1 = Student(last_name='Quijano', 
                        first_name='Jonas Matthew',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810046)
     student2 = Student(last_name='Osugui', 
                        first_name='Vianni Tetsuya',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810050)
     student3 = Student(last_name='Garcia', 
                        first_name='Trisha Ghael',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811915)
     student4 = Student(last_name='Masaya', 
                        first_name='Jhan Jethrix',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810092)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -172,19 +205,23 @@ def populate_students():
     student1 = Student(last_name='Nuñez', 
                        first_name='LA',
                        middle_in='D',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811747)
     student2 = Student(last_name='Camaña', 
                        first_name='Gia Fiel',
                        middle_in='O',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811183)
     student3 = Student(last_name='Libunao', 
                        first_name='Christian Arvee',
                        middle_in='R',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811844)
     student3 = Student(last_name='Vasquez', 
                        first_name='Jash Mhaynard',
                        middle_in='M',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812122)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -195,19 +232,23 @@ def populate_students():
     student1 = Student(last_name='Espela', 
                        first_name='Ysabelle Beatrice',
                        middle_in='L',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811065)
     student2 = Student(last_name='Castro', 
                        first_name='Ryan James',
                        middle_in='D',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811446)
     student3 = Student(last_name='Mijares', 
                        first_name='Jasmine Fay',
                        middle_in='O',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810556)
     student4 = Student(last_name='Salas', 
                        first_name='Arianne',
                        middle_in='J',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811118)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -218,19 +259,23 @@ def populate_students():
     student1 = Student(last_name='Garcia', 
                        first_name='Kyle Joseph Edward',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811654)
     student2 = Student(last_name='Arquelita', 
                        first_name='Francis Charles',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810064)
     student3 = Student(last_name='Rueda', 
                        first_name='Lance Gabriel',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201899991)
     student4 = Student(last_name='Biteng', 
                        first_name='Judi Lionie',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201899992)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -241,19 +286,23 @@ def populate_students():
     student1 = Student(last_name='Galos', 
                        first_name='Aaron David',
                        middle_in='D',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810998)
     student2 = Student(last_name='Sevilla', 
                        first_name='Mario Gabriel',
                        middle_in='Q',
-                       group_id=x)
-    student3 = Student(last_name='Pilapit,', 
+                       group_id=x,
+                       stud_no=201811640)
+    student3 = Student(last_name='Pilapil', 
                        first_name='Keene Lester',
                        middle_in='A',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810557)
     student4 = Student(last_name='Poon', 
                        first_name='Ron Edward',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201899993)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -264,19 +313,23 @@ def populate_students():
     student1 = Student(last_name='Cacanindin', 
                        first_name='Marbien',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810061)
     student2 = Student(last_name='Bueneventura', 
                        first_name='Juwon Zeht',
                        middle_in='B',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811976)
     student3 = Student(last_name='Amor', 
                        first_name='Nicholas James',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811485)
     student4 = Student(last_name='Torres', 
                        first_name='Eugene',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811450)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -287,19 +340,23 @@ def populate_students():
     student1 = Student(last_name='Sancon', 
                        first_name='Deinielle',
                        middle_in='M',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811815)
     student2 = Student(last_name='Delos Santos', 
                        first_name='Alyssa Kirsten',
                        middle_in='S',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812036)
     student3 = Student(last_name='Malapit', 
                        first_name='Shandon France',
                        middle_in='R',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201899994)
     student4 = Student(last_name='Solis', 
                        first_name='Amirah Faye',
                        middle_in='B',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201899995)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -310,19 +367,23 @@ def populate_students():
     student1 = Student(last_name='Sabbun', 
                        first_name='Stephen John',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810728)
     student2 = Student(last_name='Germina', 
                        first_name='Chester Lord',
                        middle_in='S',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811080)
     student3 = Student(last_name='Mercado', 
                        first_name='Ewen Kyle',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811868)
     student4 = Student(last_name='Alcantara', 
                        first_name='Joshua',
                        middle_in='H',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811608)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -330,22 +391,26 @@ def populate_students():
     db.session.commit()
     x += 1
     
-    student1 = Student(last_name='Argana IV', 
-                       first_name='Edgardo Rommel',
+    student1 = Student(last_name='Argana', 
+                       first_name='Edgardo Rommel IV',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810505)
     student2 = Student(last_name='Mariquit', 
                        first_name='Lorenz',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811764)
     student3 = Student(last_name='Custodio', 
                        first_name='Emil',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810567)
     student4 = Student(last_name='Lantacon', 
                        first_name='John Lemuel',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811558)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -356,19 +421,23 @@ def populate_students():
     student1 = Student(last_name='Yason', 
                        first_name='Maria Darlene',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812059)
     student2 = Student(last_name='Consulta', 
                        first_name='Carle Anette',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812196)
     student3 = Student(last_name='Manansala', 
                        first_name='Joseph Enrico Paolo',
                        middle_in='E',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812164)
     student4 = Student(last_name='Ponsones', 
                        first_name='Jose Miguel',
                        middle_in='R',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811401)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -379,19 +448,23 @@ def populate_students():
     student1 = Student(last_name='Jarme', 
                        first_name='Anne Raphaelle',
                        middle_in='O',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811135)
     student2 = Student(last_name='Hernandez', 
                        first_name='Ezra',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812033)
     student3 = Student(last_name='Labandera', 
                        first_name='Ivan',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201812087)
     student4 = Student(last_name='Sarte', 
                        first_name='Clarence Grendel',
                        middle_in='M',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201899996)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -402,19 +475,23 @@ def populate_students():
     student1 = Student(last_name='Monis', 
                        first_name='Camille',
                        middle_in='L',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810649)
     student2 = Student(last_name='Galay', 
                        first_name='Isaiah Thomas',
                        middle_in='A',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811046)
     student3 = Student(last_name='Narag', 
                        first_name='Charles Dominic',
                        middle_in='R',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811952)
     student4 = Student(last_name='Paje', 
                        first_name='Micahel John',
                        middle_in='D.V.',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810018)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -425,19 +502,23 @@ def populate_students():
     student1 = Student(last_name='Yu', 
                        first_name='Daniel Edison',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201810032)
     student2 = Student(last_name='Carubio', 
                        first_name='Kenneth Christian',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811497)
     student3 = Student(last_name='Fenol', 
                        first_name='Lance Mark',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811273)
     student4 = Student(last_name='Lugay', 
                        first_name='Miguel',
                        middle_in='',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811771)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -448,19 +529,23 @@ def populate_students():
     student1 = Student(last_name='Ferreria', 
                        first_name='Elijah Rei',
                        middle_in='A',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811214)
     student2 = Student(last_name='Goyon', 
                        first_name='Michael Joseph',
                        middle_in='F',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811420)
     student3 = Student(last_name='Lustre', 
                        first_name='Nikko Andre',
                        middle_in='C',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811883)
     student4 = Student(last_name='Uy', 
                        first_name='Patrick Jerome',
                        middle_in='A',
-                       group_id=x)
+                       group_id=x,
+                       stud_no=201811708)
     db.session.add(student1)
     db.session.add(student2)
     db.session.add(student3)
@@ -586,6 +671,15 @@ def populate_panelist():
                          password='ricafrentemichael',
                          first_name='Michael',
                          middle_in='R',
+                         school='FEU Alabang')
+    db.session.add(new_panel)
+
+
+    new_panel = Panelist(last_name='Aldana',
+                         username='Aldana_a',
+                         password='aldanaresty',
+                         first_name='Resty',
+                         middle_in='F',
                          school='FEU Alabang')
     db.session.add(new_panel)
 
@@ -853,31 +947,6 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    # for x in range(1, 11):
-    #     if x == 7:
-    #         date_temp  = date.fromisoformat('2021-07-14')
-    #         time_temp  = time.fromisoformat('15:00:00')
-    #     arr = []
-    #     while len(arr) != 3:
-    #         panel = db.session.query(Panelist).filter_by(id=random.randint(1, 5)).first()
-    #         if panel not in arr:
-    #             arr.append(panel)
-    #     start_date = datetime.combine(date_temp, time_temp)
-    #     end_date = start_date + timedelta(hours=1)
-    #     time_temp = time.fromisoformat(end_date.strftime('%H:%M:%S'))
-
-    #     new_defense = Defense(
-    #         group_id=x, 
-    #         start_date=start_date, 
-    #         end_date=end_date, 
-    #         head_panel_id=random.choice(arr).id
-    #     )
-    #     db.session.add(new_defense)
-    #     new_defense.panels.append(arr[0])
-    #     new_defense.panels.append(arr[1])
-    #     new_defense.panels.append(arr[2])
-    #     db.session.commit()
-
 def populate_rubric():
     temp = Rubric(
         desc='Subject Mastery',
@@ -946,6 +1015,48 @@ def populate_rubric():
         rubric_type='Individual',
         category='None',
         pbl_lvl='None'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Context Relevance to the Field of Study',
+        rate5='Provided a highly critical projects context that provides a potentially relevant investigation',
+        rate4='Delivered a good context that provides potentially relevant investigation',
+        rate3='Provided an acceptable project context worthy of research',
+        rate2='Presented project context somewhat related to the field of study',
+        rate1='Project context presented is not relevant to the field of study',
+        weight=8,
+        rubric_type='Group',
+        category='None',
+        pbl_lvl='1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Concept & Ideas',
+        rate5='Presented project concepts are excellent',
+        rate4='Presented project concepts are good',
+        rate3='Projects concepts are acceptable',
+        rate2='Project concepts are average with some recommendation',
+        rate1='Project concepts lack substantial details.',
+        weight=5,
+        rubric_type='Group',
+        category='None',
+        pbl_lvl='1'
+    )
+    db.session.add(temp)
+
+    temp = Rubric(
+        desc='Feasibility',
+        rate5='Project concepts are attainable, measurable and presented with complete evidences',
+        rate4='Presented project concepts are attainable, measurable but presented with almost complete evidences',
+        rate3='Presented project concepts are either attainable or measurable with some evidences',
+        rate2='Presented project concepts are either attainable or measurable with few evidences',
+        rate1='The project concepts presented are not feasible',
+        weight=7,
+        rubric_type='Group',
+        category='None',
+        pbl_lvl='1'
     )
     db.session.add(temp)
 

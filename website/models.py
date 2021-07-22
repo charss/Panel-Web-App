@@ -27,6 +27,7 @@ class Group(db.Model):
     name          = db.Column(db.String(150), nullable=False)
     project_title = db.Column(db.String(150), nullable=False)
     program       = db.Column(db.String(150), nullable=False)
+    mentor_id     = db.Column(db.Integer, db.ForeignKey('panelist.id'))
     members       = db.relationship('Student', backref='group', uselist=True)
     defenses      = db.relationship('Defense', backref='group', uselist=True)
     
@@ -49,6 +50,7 @@ class Panelist(db.Model, UserMixin):
     middle_in  = db.Column(db.String(10))
     school     = db.Column(db.String(150))
     header     = db.relationship('Defense', backref='head')
+    mentee     = db.relationship('Group', backref='mentor')
     paneling   = db.relationship(
         'Defense',
         secondary=defense_panel_score,

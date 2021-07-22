@@ -17,28 +17,37 @@
             {% for group in groups %}
                 <div class='div1'>
 					<table>
-						<th class = "tb_desc ">ID:</th> 
-						<td>{{group.id}}</td>
+							<th class = "tb_desc ">ID:</th> 
+							<td>{{group.id}}</td>
 						<tr>
-						<th class = "tb_desc">Group Name:</th> 
-						<td>{{group.name}}</td>
+							<th class = "tb_desc">Group Name:</th> 
+							<td>{{group.name}}</td>
+						</tr>
 						<tr>
-						<th class = "tb_desc">Project Title:</th>
-						<td>{{ group.project_title }}</td>
+							<th class = "tb_desc">Project Title:</th>
+							<td>{{ group.project_title }}</td>
+						</tr>
 						<tr>
-						<th class = "tb_desc">Program:</th> 
-						<td>{{group.program}}</td>
+							<th class = "tb_desc">Program:</th> 
+							<td>{{group.program}}</td>
+						</tr>
 						<tr>
-						<th colspan = "2">Members:</th>
+							<th class = "tb_desc">Mentor:</th> 
+							<td>{{ group.mentor.last_name }}, {{ group.mentor.first_name }}</td>
+						</tr>
 						<tr>
-						<ul>
-							{% for member in group.members %}
-								
-								<th class = "no_border"> Member #{{ member.stud_no }}</th>
-								<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
-								<tr>
-							{% endfor%}
-						</ul>
+							<th colspan = "2">Members:</th>
+						</tr>
+						<tr>
+							<ul>
+								{% for member in group.members %}
+									
+									<th class = "no_border"> Member #{{ member.stud_no }}</th>
+									<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
+									<tr>
+								{% endfor%}
+							</ul>
+						</tr>
 						
 						<th colspan = "2">Defenses:</th>
 						<tr>
@@ -50,8 +59,8 @@
 						</ul>
                     </table>
 					<table class = "no_border">
-						<td class = "no_border sep_20">
-						<td class = "no_border sep_20">
+						<td class = "no_border sep_20"></td>
+						<td class = "no_border sep_20"></td>
 						<td class = "no_border sep_20">
 						<th class = "no_border sep_10">
 							<a href="/edit_group/{{group.id}}">
