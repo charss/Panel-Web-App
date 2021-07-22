@@ -16,6 +16,8 @@ templates = db.Table('templates',
          db.Column('rubric_id', db.Integer, db.ForeignKey('rubric.id')),
 )
 
+
+
 # class User(db.Model):
 #     id         = db.Column(db.Integer, primary_key=True)
 #     email      = db.Column(db.String(150), unique=True)
@@ -72,6 +74,10 @@ class Defense(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
     group_id      = db.Column(db.Integer, db.ForeignKey('group.id'))
     head_panel_id = db.Column(db.Integer, db.ForeignKey('panelist.id'))
+    g_sheet_id    = db.Column(db.Integer, db.ForeignKey('template.id'))
+    group_sheet   = db.relationship("Template", backref='group_sheet', uselist=False, foreign_keys=[g_sheet_id])
+    indiv_sheet   = db.relationship("Template", backref='indiv_sheet', uselist=False, foreign_keys=[g_sheet_id])
+    i_sheet_id    = db.Column(db.Integer, db.ForeignKey('template.id'))
     start_date    = db.Column(db.DateTime)
     end_date      = db.Column(db.DateTime)
     paneling      = db.relationship(
@@ -81,10 +87,10 @@ class Defense(db.Model):
     )
     
 class Template(db.Model):
-    id         = db.Column(db.Integer, primary_key=True)
-    sheet_type = db.Column(db.String(50), nullable=False)
-    pbl_level  = db.Column(db.String(50), nullable=True),
-    template   = db.relationship(
+    id          = db.Column(db.Integer, primary_key=True)
+    sheet_type  = db.Column(db.String(50), nullable=False)
+    pbl_level   = db.Column(db.String(50), nullable=True),
+    template    = db.relationship(
         'Defense',
         secondary=defense_panel_score,
         backref=db.backref('template')
