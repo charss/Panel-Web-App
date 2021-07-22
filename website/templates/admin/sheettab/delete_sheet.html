@@ -1,0 +1,23 @@
+{% extends "sheettab/gradesheet.html" %}
+{% block overlay %}
+	<head>
+		<link rel='stylesheet' href="{{ url_for('static', filename ='admin/delete_style.css') }}">
+	</head>
+    <div id="overlay">
+		<div id="text">
+			<table class = "sml_tbl">
+			<th colspan = "2" class = "no_border">Are you sure?</th>
+			</th>
+			<tr>
+			<form method='POST'>
+				<th class = "no_border">
+					<button id='submit' name='submit' value='yes'>Yes</button>
+				</th>
+				<th class = "no_border">
+					<button id='submit' name='submit' values='no'>No</button>
+				</th>
+			</form>
+			</table>
+		</div>
+    </div>
+{% endblock %}

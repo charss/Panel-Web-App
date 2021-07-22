@@ -588,12 +588,16 @@ def confirm_sheet():
 def view_sheet(content):
 
     template = db.session.query(Template).filter_by(id=content).first()
-    rubrics = []
 
-    for rubric in template.rubric:
-        rubrics.append(rubric.id)
+    if template.sheet_type == 'Individual':
+        return render_template('gradesheet/view_indiv.html', template=template, rubrics=template.rubric)
+    else:
+        category_list = {}
+        for rubric in template.rubric:
+            category_list.setdefault(rubric.category, [])
+            category_list[rubric.category].append(rubric)
+        return render_template('gradesheet/view_group.html', template=template, categories=category_list)
 
-    return render_template('gradesheet/view_sheet.html', template=template, rubrics=template.rubric)
 
 @admin.route('/edit_sheet/<content>/<pbl>', methods=['GET', 'POST'])
 @admin.route('/edit_sheet/<content>/', methods=['GET', 'POST'])
@@ -640,12 +644,23 @@ def c_edit_sheet():
 
     return render_template('gradesheet/individual2.html', rubrics=new_rubrics)
 
+@admin.route('/delete_sheet/<content>', methods=['GET', 'POST'])
+@login_required
+def delete_sheet(content):
+    if request.method == 'POST':
+        if request.form['submit'] == 'yes':
+            db.session.query(Template).filter_by(id=content).delete()
+            db.session.commit()
+            return redirect(url_for('admin.gradesheets'))
+        else:
+            return redirect(url_for('admin.gradesheets'))
 
+    return render_template('sheettab/delete_sheet.html', templates=Template.query.all())
 
 @admin.route('/assign_indiv/', methods=['GET', 'POST'])
 @login_required
 def assign_indiv():
-    return render_template('schedules/assign_indiv.html', templates=Template.query.all())
+    return render_template('schedules/assign_indiv.html', templates=Template.query.all(), defenses=Defense.query.all())
     
 @admin.route('/parse_data/', methods=['GET', 'POST'])
 def parse_data():

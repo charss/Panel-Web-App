@@ -44,21 +44,6 @@ Gradesheets
 								</th>
 							</div>
 							<tr>
-							{% if to_edit.sheet_type == 'Group' %}
-								
-									<label for="pblLvl">PBL Level:</label>
-								
-								<span>
-									<input onchange='pbl_level();' type="radio" id="pbl1" name="pblLvl" value="PBL1" required>
-									<label for="pbl1">PBL1</label>
-									<input onchange='pbl_level(); 'type="radio" id="pbl2" name="pblLvl" value="PBL2">
-									<label for="pbl2">PBL2</label>
-									<input onchange='pbl_level();' type="radio" id="pbl3" name="pblLvl" value="PBL3">
-									<label for="pbl3">PBL3</label>
-									<input onchange='pbl_level(); 'type="radio" id="pbl4" name="pblLvl" value="PBL4">
-									<label for="pbl4">PBL4</label>
-								</span>
-							{% endif %}
 							
 							<th colspan = "2">
 								<label>Select Rubric(s) Below</label>
