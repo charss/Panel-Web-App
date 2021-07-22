@@ -1061,7 +1061,7 @@ def populate_rubric():
     db.session.add(temp)
 
     temp = Rubric(
-        desc='Background and Raionale of the Study',
+        desc='Background and Rationale of the Study',
         rate5='All pertinent information on the project was provided and explained well.',
         rate4='All pertinent information on the project was provided',
         rate3='Relevant information on the project was provided',

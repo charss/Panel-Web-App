@@ -439,17 +439,19 @@ def new_rubric():
 @login_required
 def edit_rubric(content):
     rubric = db.session.query(Rubric).filter_by(id=content).first()
-    
+    print(rubric)
     if request.method == 'POST':
-        desc = request.form['desc']
-        rate5 = request.form['rate5']
-        rate4 = request.form['rate4']
-        rate3 = request.form['rate3']
-        rate2 = request.form['rate2']
-        rate1 = request.form['rate1']
-        weight = int(request.form['weight'])
-        rubric_type = request.form['rubType']
-        pbl_lvl = request.form['pblLvl']
+        rubric.desc = request.form['desc']
+        rubric.rate5 = request.form['rate5']
+        rubric.rate4 = request.form['rate4']
+        rubric.rate3 = request.form['rate3']
+        rubric.rate2 = request.form['rate2']
+        rubric.rate1 = request.form['rate1']
+        rubric.weight = int(request.form['weight'])
+        try:
+            rubric.pbl_lvl = request.form['pblLvl']
+        except: 
+            pass
 
         db.session.commit()
         return redirect(url_for('admin.rubrics'))
@@ -510,9 +512,11 @@ def new_sheet(data=None):
         obj = db.session.query(Template).order_by(Template.id.desc()).first()
 
     if request.method == 'POST':
+        pbl_level = 'None'
         multiselect = request.form.getlist('rubrics')
         rubric_type = request.form['rubType']
-        pbl_level = request.form['pblLvl']
+        if rubric_type == 'Group':
+            pbl_level = request.form['pblLvl']
         contents = {
             'rubric_type': rubric_type,
             'pbl_level': pbl_level,

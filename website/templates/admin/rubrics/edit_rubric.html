@@ -75,21 +75,22 @@ Rubrics
 									</th>
 								</div>
 								<tr>
-								
-								<th colspan = "2">
-									<label for="pblLvl">PBL Level:</label>
-								</th>
-								<tr>
-								<th colspan = "2" class = "no_border">
-									<span>
-										{% for x in range(1, 5) %}
-											{% set temp = to_edit.pbl_lvl[3] | int %}
-											<input type="radio" id="pbl{{ x }}" name="pblLvl" value="PBL{{ x }}" {% if temp == x %}checked {% endif %}>
-											<label for="pbl{{ x }}">PBL{{ x }}</label>
-										{% endfor %}
-									</span>
-								</th>
-								<tr>
+								{% if to_edit.rubric_type == 'Group' %}
+									<th colspan = "2">
+										<label for="pblLvl">PBL Level:</label>
+									</th>
+									<tr>
+									<th colspan = "2" class = "no_border">
+										<span>
+											{% for x in range(1, 5) %}
+												{% set temp = to_edit.pbl_lvl[3] | int %}
+												<input type="radio" id="pbl{{ x }}" name="pblLvl" value="PBL{{ x }}" {% if temp == x %}checked {% endif %}>
+												<label for="pbl{{ x }}">PBL{{ x }}</label>
+											{% endfor %}
+										</span>
+									</th>
+									<tr>
+								{% endif %}
 
 								<div class='query'>
 									<th>
@@ -197,38 +198,65 @@ Rubrics
 								</th>
 							</table>
                         </div>
-                        
                     </form>
                 </div>
             </div>
         </div>
 
         <div class='display_grid'>
-            {% if rubrics %}
-                {% for rubric in rubrics %}
-                    <div class='box'>
-                        <p>ID: {{ rubric.id }}</p>
-                        <p>Description: {{ rubric.desc }}</p>
-                        <p>Rate 5: {{ rubric.rate5 }}</p>
-                        <p>Rate 4: {{ rubric.rate4 }}</p>
-                        <p>Rate 3: {{ rubric.rate3 }}</p>
-                        <p>Rate 2: {{ rubric.rate2 }}</p>
-                        <p>Rate 1: {{ rubric.rate1 }}</p>
-                        <p>Weight: x{{ rubric.weight }}</p>
-                        <p>Rubric Type: {{ rubric.rubric_type }}</p>
-                        <p>PBL Level: {{ rubric.pbl_lvl }}</p>
-                        <p>Category: {{ rubric.category }}</p>
-                        <br>
-                        <a href="/edit_rubric/{{ rubric.id }}">
-                            <button>Edit</button>
-                        </a>
-                        <a href="/delete_rubric/ {{ rubric.id }}">
-                            <button>Delete</button>
-                        </a>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
+			{% if rubrics %}
+				{% for rubric in rubrics %}
+					<div class='div1'>
+						<table>
+							<th>ID:</th>
+							<td colspan = "4">{{ rubric.id }}</td>
+							<tr>
+							<th>Description:</th>
+							<td colspan = "4">{{ rubric.desc }}</td>
+							<tr>
+							<th class = "sep_20 ">Rate 5:</th> 
+							<th class = "sep_20 no_border">Rate 4:</th> 
+							<th class = "sep_20 no_border">Rate 3:</th> 
+							<th class = "sep_20 no_border">Rate 2:</th> 
+							<th class = "sep_20 no_border">Rate 1:</th> 
+							<tr>
+							<td>{{ rubric.rate5 }}</td>
+							<td>{{ rubric.rate4 }}</td>
+							<td>{{ rubric.rate3 }}</td>
+							<td>{{ rubric.rate2 }}</td>
+							<td>{{ rubric.rate1 }}</td>
+							<tr>
+							<th>Weight:</th>
+							<td>x{{ rubric.weight }}</td>
+							<th>Rubric Type:</th> 
+							<td colspan = "2">{{ rubric.rubric_type }}</td>
+							<tr>
+							<th>PBL Level:</th>
+							<td>{{ rubric.pbl_lvl }}</td>
+							<th>Category:</th> 
+							<td colspan = "2">{{ rubric.category }}</td>
+							<tr>
+						</table>
+						<table class = "no_border">
+							<td class = "no_border sep_20">
+							<td class = "no_border sep_20">
+							<td class = "no_border sep_20">
+							<th class = "no_border sep_10">
+								<a href="/edit_rubric/{{ rubric.id }}">
+									<button class = "but2">Edit</button>
+								</a>
+							</th>
+							<th class = "no_border sep_10">
+								<a href="/delete_rubric/ {{ rubric.id }}">
+									<button class = "but2">Delete</button>
+								</a>
+							</th>
+						<table>
+						<br>
+					</div>
+				{% endfor %}
+			{% endif %}
+		</div>
 
         <script>
 

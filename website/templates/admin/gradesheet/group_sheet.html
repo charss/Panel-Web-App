@@ -98,7 +98,11 @@
 							<tr>
 								<td colspan='8' style='color: transparent;'>                asdada             </td>
 							</tr>
-							<th colspan="8" class = "yellow_bg">{{ category }}</th>
+							{% if category != 'None' %}
+								<th colspan="8" class = "yellow_bg">{{ category }}</th>
+							{% else %}
+								<th colspan="8" class = "yellow_bg">Default</th>
+							{% endif %}
 							<tr></tr>
 
 							<th rowspan="2">CRITERIA AND WEIGHT</th>

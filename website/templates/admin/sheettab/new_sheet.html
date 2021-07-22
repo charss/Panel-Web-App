@@ -80,6 +80,7 @@ Gradesheets
 							</th>
 							<tr>
 							<th colspan = "2" class ="no_border">
+                                <p style='font-size:13'>Ctrl + Click to select multiples</p>
 								<select class = "dropdown_fill center_text" id="rubrics" name='rubrics' multiple required disabled>
 									{% for rubric in rubrics %}
 										{% if rubric.rubric_type == data %}
@@ -91,6 +92,7 @@ Gradesheets
 										{% endif %}
 									{% endfor %}
 								</select>
+                                <br>
 							</th>
 							<tr>
 							<th colspan = "2">
