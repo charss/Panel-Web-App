@@ -584,19 +584,21 @@ def confirm_sheet():
 
 
 @admin.route('/view_sheet/<content>', methods=['GET', 'POST'])
+@admin.route('/view_sheet/<content>/<where>', methods=['GET', 'POST'])
+@admin.route('/view_sheet/<content>/<where>/<sheet_type>/<defense>', methods=['GET', 'POST'])
 @login_required
-def view_sheet(content):
+def view_sheet(content, where=None, defense=None, sheet_type=None):
 
     template = db.session.query(Template).filter_by(id=content).first()
 
     if template.sheet_type == 'Individual':
-        return render_template('gradesheet/view_indiv.html', template=template, rubrics=template.rubric)
+        return render_template('gradesheet/view_indiv.html', template=template, rubrics=template.rubric, where=where, def_id=defense, sheet_type=sheet_type)
     else:
         category_list = {}
         for rubric in template.rubric:
             category_list.setdefault(rubric.category, [])
             category_list[rubric.category].append(rubric)
-        return render_template('gradesheet/view_group.html', template=template, categories=category_list)
+        return render_template('gradesheet/view_group.html', template=template, categories=category_list, where=where, def_id=defense, sheet_type=sheet_type)
 
 
 @admin.route('/edit_sheet/<content>/<pbl>', methods=['GET', 'POST'])
@@ -657,13 +659,19 @@ def delete_sheet(content):
 
     return render_template('sheettab/delete_sheet.html', templates=Template.query.all())
 
-@admin.route('/assign_indiv/<content>', methods=['GET', 'POST'])
+@admin.route('/assign_sheet/<sheet_type>/<content>', methods=['GET', 'POST'])
+@admin.route('/assign_sheet/<sheet_type>/<content>', methods=['GET', 'POST'])
 @login_required
-def assign_indiv(content):
+def assign_sheet(sheet_type, content):
     defense = db.session.query(Defense).filter_by(id=content).first()
     if request.method == 'POST':
-        pass
-    return render_template('schedules/assign_indiv.html', templates=Template.query.all(), defenses=Defense.query.all())
+        if sheet_type == 'Individual':
+            defense.i_sheet_id = request.form['assign']
+        elif sheet_type == 'Group':
+            defense.g_sheet_id = request.form['assign']
+        db.session.commit()
+        return redirect(url_for('admin.schedule'))
+    return render_template('schedules/assign_sheet.html', to_sched=defense, templates=Template.query.all(), defenses=Defense.query.all(), sheet_type=sheet_type)
     
 @admin.route('/parse_data/', methods=['GET', 'POST'])
 def parse_data():
