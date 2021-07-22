@@ -18,46 +18,43 @@
                 <form method='POST'>
                     <div class='form_div'>
 						<table class = "tableS">
-							<div class='query'>
+							<tr>
 								<th>
 									<label for="groupCode">Group Code:</label>
 								</th>
 								<th class ="no_border">
 									<span>
-										<input type='text' id='groupCode' name='groupCode' value ="{{ to_edit.id }}" disabled><br>
+										<input class = "dropdown_fill" type='text' id='groupCode' name='groupCode' value ="{{ to_edit.id }}" disabled><br>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<div class='query'>
+							</tr>
+							<tr>
 								<th>
 									<label for="groupName">Group Name:</label>
 								</th>
 								<th class = "no_border">
 									<span>
-										<input type='text' id='groupName' name='groupName' value='{{ to_edit.name }}'>
+										<input class = "dropdown_fill" type='text' id='groupName' name='groupName' value='{{ to_edit.name }}'>
 									</span>
 								</th>
-							</div>
-							<tr></tr>	
-							<div class='query'>
+							</tr>	
+							<tr>
 								<th>
 									<label for="projectTitle">Project Title:</label>
 								</th>
 								<th class = "no_border">
 									<span>
-										<textarea class="min_txt_size" id='projectTitle' name='projectTitle' required>{{ to_edit.project_title }}</textarea>
+										<textarea class="dropdown_fill min_txt_size" id='projectTitle' name='projectTitle' required>{{ to_edit.project_title }}</textarea>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<div class='query'>
+							</tr>				
+							<tr>
 								<th>
 									<label for="program">Program:</label>
 								</th>
 								<th class = "no_border">
 									<span>
-										<select name="program" id='program'>
+										<select class = "dropdown_fill" name="program" id='program'>
 											<option value='BSIT-AGD' {% if to_edit.program == 'BSIT-AGD' %}selected {% endif %}>BSIT-AGD</option>
 											<option value='BSIT-DA' {% if to_edit.program == 'BSIT-DA' %}selected {% endif %}>BSIT-DA</option>
 											<option value='BSIT-SMBA' {% if to_edit.program == 'BSIT-SMBA' %}selected {% endif %}>BSIT-SMBA</option>
@@ -67,26 +64,26 @@
 										</select>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<div class='query'>
+							</tr>	
+							<tr>
 								<th>
 									<label for="program">Mentor:</label>
 								</th>
 								<th class = "no_border">
 									<span>
-										<select name="mentor" id='mentor'>
+										<select class = "dropdown_fill" name="mentor" id='mentor'>
 											{% for mentor in mentors %}
 												<option value='{{ mentor.id }}' {% if to_edit.mentor_id == mentor.id %}selected {% endif %}>{{ mentor.last_name}}, {{ mentor.first_name }}</option>
 											{% endfor %}
 										</select>
 									</span>
 								</th>
-							</div>
-							<tr></tr>
-							<th colspan = "2" class = "no_border">
-								<button id='submit' name='submit'>Submit</button>
-							</th>
+							</tr>
+							<tr>
+								<th colspan = "2" class = "no_border">
+									<button class = "but2" id='submit' name='submit'>Submit</button>
+								</th>
+							</tr>
 						</table>
                     </div>
                 </form>

@@ -14,21 +14,27 @@
             {% for panel in panels %}
                 <div class='div1'>
 					<table>
-						<th class = "tb_desc">ID:</th>
-						<td colspan = "2">{{ panel.id }}</td>
+						<tr>							
+							<th class = "tb_desc">ID:</th>
+							<td colspan = "2">{{ panel.id }}</td>
+						</tr>		
 						<tr>
-						<th class = "tb_desc">Name:</th> 
-						<td colspan = "2">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
+							<th class = "tb_desc">Name:</th> 
+							<td colspan = "2">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
+						</tr>
 						<tr>
-						<th class = "tb_desc">School:</th> 
-						<td colspan = "2">{{ panel.school }}</td>
+							<th class = "tb_desc">School:</th> 
+							<td colspan = "2">{{ panel.school }}</td>
+						</tr>
 						<tr>
-						<th colspan = "3">Defenses:</th>
+							<th colspan = "3">Defenses:</th>
+						</tr>
 						<tr>
-						<th class = "green_bg"></th>
-						<th> Group </th>
-						<th class ="no_border"> Date: </th>
-						<tr>
+							<th class = "green_bg"></th>
+							<th> Group </th>
+							<th class ="no_border"> Date: </th>
+						</tr>
+						<!-- TABLE AUTOMATED -->
 						{% if panel.defenses %} 
 							<ul>
 								{% for defense in panel.defenses %}
@@ -42,6 +48,7 @@
 						{% else %}
 							<td colspan = "2">NOTHING SCHEDULED</td>
 						{% endif %}
+						<!-- AUTOMATED -->
 					</table>
 					<table class = "no_border">
 						<td class = "no_border sep_20">

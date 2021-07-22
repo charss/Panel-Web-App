@@ -17,58 +17,65 @@
             <div class='content_div'>
                 <div class='form_div'>
 					<table class = "tableS">
-						<th>
-						<div class='query'>
-							<label for="groupCode">Group Code:</label>
-							<span>
-								<input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
-							</span>
-						</div>
-						</th>
 						<tr>
-						<th>
-						<div class='query'>
-							<label for="lastName">Last Name:</label>
-							<span>
-								<input type='text' id='lastName' name='lastName'>
-							</span>
-						</div>
-						</th>
+							<th class = "sep_fifty">
+								<label for="groupCode">Group Code:</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<input type='text' id='groupCode' name='groupCode' value ="{{ current_id }}" disabled>
+								</span>
+							</th>
+						</tr>
 						<tr>
-						<th>
-						<div class='query'>
-							<label for="firstName">First Name</label>
-							<span>
-								<input type='text' id='firstName' name='firstName'><br>
-							</span>
-						</div>
-						</th>
+							<th>
+								<label for="lastName">Last Name:</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<input type='text' id='lastName' name='lastName'>
+								</span>
+							</th>
+						</tr>
 						<tr>
-						<th>
-						<div class='query'>
-							<label for="middleIn">Middle Initial</label>
-							<span>
-								<input type='text' id='middleIn' name='middleIn'><br>
-							</span>
-						</div>
-						</th>
+							<th>
+								<label for="firstName">First Name</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<input type='text' id='firstName' name='firstName'><br>
+								</span>
+							</th>
+						</tr>
 						<tr>
-						<th>
-						<div class='query'>
-							<label for="school">School:</label>
-							<span>
-								<select name="school" id='school'>
-									<option value='FEU Alabang'>FEU Alabang</option>
-									<option value='FEU Tech'>FEU Tech</option>
-									<option value='FEU Diliman'>FEU Diliman</option>
-								</select>
-							</span>
-						</div>
-						</th>
+							<th>
+								<label for="middleIn">Middle Initial</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<input type='text' id='middleIn' name='middleIn'><br>
+								</span>
+							</th>
+						</tr>
 						<tr>
-						<th>
-						<button class = "but2" id='submit' name='submit'>Submit</button>
-						</th>
+							<th>
+								<label for="school">School:</label>
+							</th>
+							<th class = "no_border">
+								<span>
+									<select name="school" id='school'>
+										<option value='FEU Alabang'>FEU Alabang</option>
+										<option value='FEU Tech'>FEU Tech</option>
+										<option value='FEU Diliman'>FEU Diliman</option>
+									</select>
+								</span>
+							</th>
+						</tr>
+						<tr>
+							<th class = "no_border" colspan = "2">
+								<button class = "but2" id='submit' name='submit'>Submit</button>
+							</th>
+						</tr>
 					</table>
                 </div>
             </div>

@@ -1,62 +1,29 @@
-{% extends "admin.html" %}
-{% block title %}Home Page{% endblock %}
-{% block pagename %}
-    Rubrics
-{% endblock %}
-{% block button %}
- <head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/delete_style.css') }}">
-		<link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
-</head>
-<a href="/new_rubric/">
-    <button>Create New Rubric</button>
-</a>
-{% endblock %}
-{% block content %}
-
-
-    <div id="overlay">
-        <div id="text">
-            <table class = "sml_tbl">
-                <th colspan = "2" class = "no_border">Are you sure?</th>
-                <tr>
-                    <form method='POST'>
-                        <th class = "no_border">
-                            <button id='submit' name='submit' value='yes'>Yes</button>
-                        </th>
-                        <th class = "no_border">
-                            <button id='submit' name='submit' values='no'>No</button>
-                        </th>
-                    </form>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <div class='display_grid'>
-        {% if rubrics %}
-            {% for rubric in rubrics %}
-                <div class='box'>
-                    <p>ID: {{ rubric.id }}</p>
-                    <p>Description: {{ rubric.desc }}</p>
-                    <p>Rate 5: {{ rubric.rate5 }}</p>
-                    <p>Rate 4: {{ rubric.rate4 }}</p>
-                    <p>Rate 3: {{ rubric.rate3 }}</p>
-                    <p>Rate 2: {{ rubric.rate2 }}</p>
-                    <p>Rate 1: {{ rubric.rate1 }}</p>
-                    <p>Weight: x{{ rubric.weight }}</p>
-                    <p>Rubric Type: {{ rubric.rubric_type }}</p>
-                    <p>PBL Level: {{ rubric.pbl_lvl }}</p>
-                    <p>Category: {{ rubric.category }}</p>
-                    <br>
-                    <a href="/edit_rubric/{{ rubric.id }}">
-                        <button>Edit</button>
-                    </a>
-                    <a href="/delete_rubric/ {{ rubric.id }}">
-                        <button>Delete</button>
-                    </a>
-                </div>
-            {% endfor %}
-        {% endif %}
+{% extends "rubrics/rubrics.html" %}
+{% block overlay %}
+	<head>
+		<link rel='stylesheet' href="{{ url_for('static', filename ='admin/delete_style.css') }}">
+	</head>
+	<div id="overlay">
+		<div class='container2'>
+            <div class='header_div'>
+				<div id="text">
+					<div>
+						<table class = "sml_tbl">
+						<th colspan = "2" class = "no_border">Are you sure?</th>
+						</th>
+						<tr>
+						<form method='POST'>
+							<th class = "no_border">
+								<button id='submit' name='submit' value='yes'>Yes</button>
+							</th>
+							<th class = "no_border">
+								<button id='submit' name='submit' values='no'>No</button>
+							</th>
+						</form>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
     </div>
 {% endblock %}

@@ -14,34 +14,40 @@
             {% for rubric in rubrics %}
                 <div class='div1'>
 					<table>
-						<th>ID:</th>
-						<td colspan = "4">{{ rubric.id }}</td>
 						<tr>
-						<th>Description:</th>
-						<td colspan = "4">{{ rubric.desc }}</td>
+							<th>ID:</th>
+							<td colspan = "4">{{ rubric.id }}</td>
+						</tr>
 						<tr>
-						<th class = "sep_20 ">Rate 5:</th> 
-						<th class = "sep_20 no_border">Rate 4:</th> 
-						<th class = "sep_20 no_border">Rate 3:</th> 
-						<th class = "sep_20 no_border">Rate 2:</th> 
-						<th class = "sep_20 no_border">Rate 1:</th> 
+							<th>Description:</th>
+							<td colspan = "4">{{ rubric.desc }}</td>
+						</tr>
 						<tr>
-						<td>{{ rubric.rate5 }}</td>
-						<td>{{ rubric.rate4 }}</td>
-						<td>{{ rubric.rate3 }}</td>
-						<td>{{ rubric.rate2 }}</td>
-						<td>{{ rubric.rate1 }}</td>
+							<th class = "sep_20 ">Rate 5:</th> 
+							<th class = "sep_20 no_border">Rate 4:</th> 
+							<th class = "sep_20 no_border">Rate 3:</th> 
+							<th class = "sep_20 no_border">Rate 2:</th> 
+							<th class = "sep_20 no_border">Rate 1:</th> 
+						</tr>
 						<tr>
-						<th>Weight:</th>
-						<td>x{{ rubric.weight }}</td>
-						<th>Rubric Type:</th> 
-						<td colspan = "2">{{ rubric.rubric_type }}</td>
+							<td>{{ rubric.rate5 }}</td>
+							<td>{{ rubric.rate4 }}</td>
+							<td>{{ rubric.rate3 }}</td>
+							<td>{{ rubric.rate2 }}</td>
+							<td>{{ rubric.rate1 }}</td>
+						</tr>
 						<tr>
-						<th>PBL Level:</th>
-						<td>{{ rubric.pbl_lvl }}</td>
-						<th>Category:</th> 
-						<td colspan = "2">{{ rubric.category }}</td>
+							<th>Weight:</th>
+							<td>x{{ rubric.weight }}</td>
+							<th>Rubric Type:</th> 
+							<td colspan = "2">{{ rubric.rubric_type }}</td>
+						</tr>
 						<tr>
+							<th>PBL Level:</th>
+							<td>{{ rubric.pbl_lvl }}</td>
+							<th>Category:</th> 
+							<td colspan = "2">{{ rubric.category }}</td>
+						</tr>
 					</table>
 					<table class = "no_border">
 						<td class = "no_border sep_20">

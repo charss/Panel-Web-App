@@ -32,8 +32,8 @@ Gradesheets
             <div class='content_div'>
                 <form method='POST'>
                     <div class='form_div'>
-						<table class = "tableS">	
-							<div class='query'>
+						<table class = "tableS">
+							<tr>
 								<th class = "sep_fifty">
 									<label for="sheetCode">Gradesheet Code:</label>
 								</th>
@@ -42,26 +42,24 @@ Gradesheets
 										<input type='text' id='sheetCode' name='sheetCode' value ="{{ to_edit.id }}" disabled>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							
-							<th colspan = "2">
-								<label>Select Rubric(s) Below</label>
-							</th>
+								<th colspan = "2">
+									<label>Select Rubric(s) Below</label>
+								</th>
+							</tr>
 							<tr>
-							<th class = "no_border" colspan = "2">
-								<select id="test" name='rubrics', multiple required>
-									{% for rubric in rubrics %}
-										{% if rubric.rubric_type == rub_type %}
-											<option value="{{ rubric.id }}"{% if rubric in to_edit.rubric %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
-										{% endif %}
-									{% endfor %}
-								</select>
-							</th>
+								<th class = "no_border" colspan = "2">
+									<select id="test" name='rubrics', multiple required>
+										{% for rubric in rubrics %}
+											{% if rubric.rubric_type == rub_type %}
+												<option value="{{ rubric.id }}"{% if rubric in to_edit.rubric %} selected {% endif %}>{{ rubric.desc }} (x{{ rubric.weight }})</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+								</th>
+							</tr>
 							<tr>
-							<th colspan = "2">
-								<button class="but2" type='submit' id='submit' name='submit'>Submit</button>
-							</th>
 						</table>
                     </div>
                     
@@ -72,28 +70,49 @@ Gradesheets
 
 
 
-    <div class='display_grid'>
+     <div class='display_grid'>
         {% if templates %}
             {% for template in templates %}
-                <div class='box'>
-                    <p>ID: {{ template.id }}</p>
-                    <p>Gradesheet Type: {{ template.sheet_type }}</p>
-                    <p>Rubrics:</p>
-                    <ul>
-                        {% for rubric in template.rubric %}
-                            <li>{{ rubric.desc }}</li>
-                        {% endfor %}
-                    </ul>
-                    <a href="/view_sheet/{{ template.id }}">
-                        <button>View</button>
-                    </a>
-
-                    <a href="">
-                        <button>Edit</button>
-                    </a>
-                    <a href="">
-                        <button>Delete</button>
-                    </a>
+                <div class='div1'>
+					<table>
+						<tr>
+							<th class = "tb_desc">ID:</th> 
+							<td  colspan = "2">{{ template.id }}</td>
+						</tr>
+						<tr>
+							<th>Gradesheet Type:</th> 
+							<td colspan = "2">{{ template.sheet_type }}</td>
+						</tr>
+						<tr>
+						<th colspan = "3">Rubrics:</th>
+						</tr>
+						<ul>
+							{% for rubric in template.rubric %}
+								<tr>
+									<td colspan = "3">{{ rubric.desc }}</td>
+								</tr>
+							{% endfor %}
+						</ul>
+					</table>
+					<table class = "no_border">
+						<td class = "no_border sep_20">
+						<td class = "no_border sep_20">
+						<th class = "no_border">
+							<a href="/view_sheet/{{ template.id }}">
+								<button class = "but2">View</button>
+							</a>
+						</th>
+						<th class = "no_border">
+							<a href="/edit_sheet/{{ template.id }}">
+								<button class = "but2">Edit</button>
+							</a>
+						</th>
+						<th class = "no_border">
+							<a href="/delete_sheet/{{ template.id }}">
+								<button class = "but2">Delete</button>
+							</a>
+						</th>
+					</table>
                 </div>
             {% endfor %}
         {% endif %}

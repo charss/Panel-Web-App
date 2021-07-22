@@ -16,7 +16,7 @@
             <div class='content_div'>
                 <div class='form_div'>
 					<table class = "tableS">
-						<div class='query'>
+						<tr>
 							<th>
 								<label for="groupCode">Group Code:</label>
 							</th>
@@ -25,9 +25,8 @@
 									<input type='text' id='userCode' name='userCode' value ="{{ to_edit.id }}" disabled>
 								</span>
 							</th>
-						</div>
+						</tr>
 						<tr>
-						<div class='query'>
 							<th>
 								<label for="lastName">Last Name:</label>
 							</th>
@@ -36,9 +35,8 @@
 									<input class ="dropdown_fill" type='text' id='lastName' name='lastName' value="{{ to_edit.last_name }}">
 								</span>
 							</th>
-						</div>
+						</tr>
 						<tr>
-						<div class='query'>
 							<th>
 								<label for="firstName">First Name</label>
 							</th>
@@ -47,9 +45,8 @@
 									<input class ="dropdown_fill" type='text' id='firstName' name='firstName' value="{{ to_edit.first_name }}">
 								</span>
 							</th>
-						</div>
+						</tr>
 						<tr>
-						<div class='query'>
 							<th>
 								<label for="middleIn">Middle Initial</label>
 							</th>
@@ -58,9 +55,8 @@
 									<input class ="dropdown_fill" type='text' id='middleIn' name='middleIn' value="{{ to_edit.middle_in }}">
 								</span>	
 							</th>
-						</div>
+						</tr>
 						<tr>
-						<div class='query'>
 							<th>
 								<label for="school">School:</label>
 							</th>
@@ -73,11 +69,12 @@
 									</select>
 								</span>
 							</th>
-						</div>
+						</tr>
 						<tr>
-						<th colspan = "2">
-							<button class = "but2" id='submit' name='submit'>Submit</button>
-						</th>
+							<th colspan = "2">
+								<button class = "but2" id='submit' name='submit'>Submit</button>
+							</th>
+						</tr>
 					</table>
                 </div>
             </div>

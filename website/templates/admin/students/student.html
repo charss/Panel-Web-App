@@ -11,15 +11,17 @@ Students
             {% for student in students %}
                 <div class='div1'>
 					<table>
-						<th class = "tb_desc">Student No.:</th>
-						<td>{{ student.stud_no }}</td>
 						<tr>
-						<th class = "tb_desc">Name:</th> 
-						<td>{{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</td>
+							<th class = "tb_desc">Student No.:</th>
+							<td>{{ student.stud_no }}</td>
+						</tr>
+						<tr>
+							<th class = "tb_desc">Name:</th> 
+							<td>{{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</td>
 						<tr>
 						<th class = "tb_desc">Group:</th> 
 						<td>{{ student.group_id }} - {{ student.group.name }}</td>
-						<tr>
+						</tr>
 					</table>
 					<table class = "no_border">
 						<td class = "no_border sep_20">

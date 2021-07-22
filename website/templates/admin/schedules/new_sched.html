@@ -20,7 +20,7 @@
                 <form method='POST'>
                     <div class='div1'>
 						<table class ="tableS">
-							<div class='query'>
+							<tr>
 								<th class ="sep_fifty">
 									<label for="userCode">Defense Code:</label>
 								</th>
@@ -29,9 +29,8 @@
 										<input type='text' id='userCode' name='userCode' value ="{{ current_id }}" disabled><br>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<div class='query'>
 								<th>
 									<label for="group">Group</label>
 								</th>
@@ -46,9 +45,8 @@
 										</select>
 									</span>
 								</th>
-							</div>
-							<tr>
-							<div class='query'>
+							</tr>
+							<tr>							
 								<th>
 									<label for="selectBox1">Head Panelist</label>
 								</th>
@@ -64,9 +62,8 @@
 										</select>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<div class='query'>
 								<th>
 									<label for="selectBox2">Co-Panelist</label>
 								</th>
@@ -82,9 +79,8 @@
 										</select>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<div class='query'>
 								<th>
 									<label for="selectBox3">Co-Panelist</label>
 								</th>
@@ -100,9 +96,8 @@
 										</select>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<div class='query'>
 								<th>
 									<label for="defense_date">Defense Date:</label>
 								</th>
@@ -111,9 +106,8 @@
 										<input class ="dropdown_fill" type="date" id="defense_date" name="defense_date" required>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<div class='query'>
 								<th>
 									<label for="start_time">Start Time:</label>
 								</th>
@@ -122,10 +116,8 @@
 										<input class = "dropdown_fill" type="time" id="start_time" name="start_time" min="09:00" max='' required>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<div class='query'>
-								
 								<th>
 									<label for="duration">Duration</label>
 								</th>
@@ -138,11 +130,12 @@
 										</select>
 									</span>
 								</th>
-							</div>
+							</tr>
 							<tr>
-							<th colspan = "2">
-								<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
-							</th>
+								<th colspan = "2">
+									<button class = "but2" type='submit' id='submit' name='submit'>Submit</button>
+								</th>
+							</tr>
 						</table>
                     </div>
                     

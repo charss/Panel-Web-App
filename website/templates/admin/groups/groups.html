@@ -29,8 +29,10 @@
             {% for group in groups %}
                 <div class='div1'>
 					<table>
+						<tr>
 							<th class = "tb_desc ">ID:</th> 
 							<td>{{group.id}}</td>
+						</tr>
 						<tr>
 							<th class = "tb_desc">Group Name:</th> 
 							<td>{{group.name}}</td>
@@ -52,22 +54,25 @@
 						</tr>
 						<tr>
 							<ul>
-								{% for member in group.members %}
-									
-									<th class = "no_border"> Student No. #{{ member.stud_no }}</th>
-									<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
-									<tr>
-								{% endfor%}
+							{% for member in group.members %}		
+							<tr>
+							<th class = "no_border"> Student No. #{{ member.stud_no }}</th>
+							<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
+							</tr>
+							{% endfor%}
 							</ul>
 						</tr>
-						
-						<th colspan = "2">Defenses:</th>
 						<tr>
-						<ul>
+							<th colspan = "2">Defenses:</th>
+						</tr>
+						<tr>
+						<ul>							
 							{% for defense in group.defenses %}
-								<td colspan = "2">{{ defense.id }} - {{ defense.start_date }} </td>
-								<tr>
-							{% endfor%}
+							<tr>
+							<td colspan = "2">{{ defense.id }} - {{ defense.start_date }} </td>
+							<tr>
+							{% endfor%}							
+						<tr>
 						</ul>
                     </table>
 					<table class = "no_border">
