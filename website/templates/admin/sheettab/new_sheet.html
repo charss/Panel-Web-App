@@ -132,6 +132,8 @@ Gradesheets
     </div>
 
     <script>
+        console.log(' {{ back_rub }}')
+        console.log(' {{ back_pbl }}')
         function putHere() {
             document.getElementById('invis').value = arr;
         }
@@ -156,7 +158,7 @@ Gradesheets
         function pbl_level() {
             selected_value = $("input[name='pblLvl']:checked").val();
             var clock = {
-                "key": selected_value //say
+                "key": selected_value
             };
             $.ajax({
                 url: '/parse_data/',
@@ -180,6 +182,8 @@ Gradesheets
             } else {
                 temp = '{{ back_rub }}'
             }
+
+            console.log('TEMP ' + temp)
 
             if (temp == 'Individual') {
                 document.getElementById('individual').checked = true;
