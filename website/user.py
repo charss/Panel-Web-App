@@ -4,7 +4,6 @@ from flask_login import login_required, current_user
 from .models import Group, Student, Panelist, Defense
 from . import db
 from .populate import *
-from datetime import datetime, date, time, timedelta
 
 
 user = Blueprint('user', __name__, static_folder='static', template_folder='templates/user')
@@ -29,3 +28,25 @@ def user_panelists():
 @login_required
 def user_students():
     return render_template('students_u.html', user=current_user, students=Student.query.all())
+
+@user.route("/grading/<tab>/<content>")
+@login_required
+def indiv_sheet(tab, content):
+    defense = db.session.query(Defense).filter_by(id=content).first()
+    if tab == 'indiv':
+        return render_template('grading/indiv_sheet.html', defense=defense)
+    elif tab == 'group':
+        category_list = {}
+        for rubric in defense.group_sheet.rubric:
+            print(rubric)
+            temp = db.session.query(Rubric).filter_by(id=rubric.id).first()
+            category_list.setdefault(temp.category, [])
+            category_list[temp.category].append(temp)
+        print(category_list)
+        return render_template('grading/group_sheet.html', defense=defense, categories=category_list)
+    elif tab == 'comment':
+        return render_template('grading/comment_sheet.html', defense=defense)
+
+
+
+

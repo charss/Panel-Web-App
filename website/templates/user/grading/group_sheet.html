@@ -1,6 +1,8 @@
 <html>
 	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='user/indiv_sheet.css') }}">
         <link rel='stylesheet' href="{{ url_for('static', filename ='admin/indiv_sheet.css') }}">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <title>{% block title %}{% endblock %}</title>
 	</head>
 	<style>
@@ -10,17 +12,17 @@
 
 	</style>
 	<body>
-		{% set x = 0 %}
+		<div class="topnav">
+			<a class="" href="/user_home">Back</a>
+			<a href="/grading/indiv/{{ defense.id }}">Individual</a>
+			<a class='active' href="">Group</a>
+			<a href="/grading/comment/{{ defense.id }}">Comment</a>
+		</div>
 		<form method='POST'>
 			<div class="parent">
 				<div class="div23 empty_spc">
-					<form method='POST'>
-						<button type='submit' class="back_but" id="button_inp" name="button_inp" value='back'>BACK</button>
-					</form>
-					</a>
 				</div>
 				<div class="div23two empty_spc right_align"> 
-					<p class='temp_id'>Template ID: {{ current_id }}</p>
 				</div>
 				<div class="div1"> 
 					<h1>FEU ALABANG</h1>
@@ -33,13 +35,13 @@
 					<details_font>GROUP NAME:</details_font>
 				</div>
 				<div class="div4"> 
-					<details_font>G R O U P D E T A I L S</details_font>
+					<details_font>{{ defense.group.name }}</details_font>
 				</div>
 				<div class="div5"> 
 					<details_font>PROJECT TITLE:</details_font>
 				</div>
 				<div class="div6"> 
-					<details_font>P R O J E C T D E T A I L S</details_font>
+					<details_font>{{ defense.group.project_title }}</details_font>
 				</div>
 				<div class="div7"> 
 					<details_font>ORAL DEFENSE:</details_font><br>
@@ -70,31 +72,48 @@
 					<details_font> PROPONENT 1: </details_font>
 				</div>
 				<div class="div16"> 
-					P R O P O N E N T D E T A I L S
+					{% set x = 0 %}
+					{% if defense.group.members|length > x %}
+						{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+						{{ stud_name }}
+					{% endif %}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div17"> 
 					<details_font> PROPONENT 2: </details_font>
 				</div>
 				<div class="div18"> 
-					P R O P O N E N T D E T A I L S
+					{% if defense.group.members|length > x %}
+						{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+						{{ stud_name }}
+					{% endif %}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div19"> 
 					<details_font> PROPONENT 3: </details_font>
 				</div>
-				<div class="div20"> 
-					P R O P O N E N T D E T A I L S
+				<div class="div20">
+					{% if defense.group.members|length > x %}
+						{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+						{{ stud_name }}
+					{% endif %}
+					{% set x = x + 1 %}
 				</div>
 				<div class="div21"> 
 					<details_font> PROPONENT 4: </details_font>
 				</div>
-				<div class="div22"> 
-					P R O P O N E N T D E T A I L S
+				<div class="div22">
+					{% if defense.group.members|length > x %}
+						{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+						{{ stud_name }}
+					{% endif %}
+					{% set x = x + 1 %}
 				</div>
 				<div class = "div36">
 					<table>
 						{% for category in categories %}
 							<tr>
-								<td colspan='8' style='color: transparent;'>                asdada             </td>
+								<td colspan='8' style='color: transparent;'>Placeholder</td>
 							</tr>
 							{% if category != 'None' %}
 								<th colspan="8" class = "yellow_bg">{{ category }}</th>
@@ -186,4 +205,6 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</body>
+
+
 </html>

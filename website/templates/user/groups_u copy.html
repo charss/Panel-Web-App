@@ -1,0 +1,41 @@
+{% extends 'base_user.html' %}
+{% block title %}Home Page{% endblock %}
+{% block functions %}
+{% endblock %}
+
+{% block content %}
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
+	</head>
+    <div class='display_grid'>
+        {% if groups %}
+            {% for group in groups %}
+                <div class='div1'>
+					<table>
+						<th class = "tb_desc">ID:</th> 
+						<td>{{group.id}}</td>
+						<tr>
+						<th>Group Name:</th> 
+						<td>{{group.name}}</td>
+						<tr>
+						<th>Project Title:</th> 
+						<td>{{ group.project_title }}</td>
+						<tr>
+						<th>Program:</th> 
+						<td>{{group.program}}</td>
+						<tr>
+						<th colspan = "2">Members:</th>
+						<tr>
+						{% for member in group.members %}
+							<th> Student no.{{ member.stud_no }} </th>
+							<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
+							<tr>
+						{% endfor%}
+					</table>
+                </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+{% endblock %}
+
+

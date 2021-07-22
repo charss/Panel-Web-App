@@ -1,22 +1,56 @@
 {% extends "base_user.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+    Dashboard
+{% endblock %}
 {% block content %}
     <div class='display_grid'>
         {% for defense in user.defenses %}
-            <div class='box'>
-                <p>{{ defense.id }}</p>
-                <p>{{ defense.group.name }}</p>
-                <p>{{ defense.group.project_title }}</p>
-                <p>{{ defense.start_date }} - {{ defense.end_date }}</p>
-                <p>Members:</p>
-                {% for member in defense.group.members %}
-                    <p>{{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</p>
-                {% endfor%}
-                <a href="">
-                    <button>Score Sheet</button>
-                </a>
+            <div class='div1'>
+                <table class = "">
+                    <th>
+                        ID:
+                    </th>
+                    <td colspan = "3"> 
+                        {{ defense.id }}
+                    </td>
+                    <tr>
+                        <th>
+                            Group Name:
+                        </th>
+                        <td colspan = "3"> 
+                            {{ defense.group.name }} 
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan = "4">Panels:</th>
+                    </tr>
+                    {% for panel in defense.panels %}
+                    <tr>
+                        {% if panel.id == defense.head_panel_id: %}
+                            <th class = "no_border"> Head Panelist </th>
+                            <td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. </td><tr>
+                        {% else: %}
+                            <th class = "no_border"> Co-Panelist </th>
+                            <td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td><tr>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                    <tr>
+                        <th>Defense Date:</th>
+                        <td colspan = "3"> {{ defense.start_date}} </td>
+                    </tr>
+                    
+                </table>
+                <table class="tableButton no_border">
+                    <th class="no_border sep_10" colspan=2>
+                        <a href="/grading/indiv/{{ defense.id }}">
+                            <button class = "but2">Gradesheets</button>
+                        </a>
+                    </th>
+                </table>
+                <br>
             </div>
         {% endfor %}
     </div>
-    
 {% endblock %}

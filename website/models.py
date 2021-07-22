@@ -76,8 +76,8 @@ class Defense(db.Model):
     head_panel_id = db.Column(db.Integer, db.ForeignKey('panelist.id'))
     g_sheet_id    = db.Column(db.Integer, db.ForeignKey('template.id'))
     group_sheet   = db.relationship("Template", backref='group_sheet', uselist=False, foreign_keys=[g_sheet_id])
-    indiv_sheet   = db.relationship("Template", backref='indiv_sheet', uselist=False, foreign_keys=[g_sheet_id])
     i_sheet_id    = db.Column(db.Integer, db.ForeignKey('template.id'))
+    indiv_sheet   = db.relationship("Template", backref='indiv_sheet', uselist=False, foreign_keys=[i_sheet_id])
     start_date    = db.Column(db.DateTime)
     end_date      = db.Column(db.DateTime)
     paneling      = db.relationship(

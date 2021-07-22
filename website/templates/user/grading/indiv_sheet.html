@@ -1,0 +1,165 @@
+<html>
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='user/indiv_sheet.css') }}">
+		
+        <title>{% block title %}{% endblock %}</title>
+	</head>
+	<style>
+		.temp_id {
+			padding-right: 10px;
+		}
+
+	</style>
+	<body>
+		{% set x = 0 %}
+		<form method='POST'>
+			<div class="topnav">
+				<a class="" href="/user_home">Back</a>
+				<a class='active' href="#indiv">Individual</a>
+				<a href="/grading/group/{{ defense.id }}">Group</a>
+				<a href="/grading/comment/{{ defense.id }}">Comment</a>
+			</div>
+			<div class="parent">
+				<div class="div1"> 
+					<h1>FEU ALABANG</h1>
+				</div>
+				<div class="div2 green_bg"> 
+					<title_font1>ORAL DEFENSE</title_font1>
+					<title_font1><br>INDIVIDUAL GRADE SHEET</title_font1>
+				</div>
+				<div class="div3"> 
+					<table>
+						<td class=" yellow_bg ">GROUP NAME:</td>
+						<td class=" lyellow_bg " colspan = "3">{{ defense.group.name }}</td>
+						<tr>
+						<td class=" yellow_bg ">PROJECT TITLE:</td>
+						<td class=" lyellow_bg "colspan = "3" >{{ defense.group.project_title }}</td>
+						<tr>
+						<td class=" yellow_bg " rowspan ="2">ORAL DEFENSE: <br> SCHEDULE: </td>
+						<td class=" yellow_bg ">DATE:</td>
+						<td class=" yellow_bg ">TIME:</td>
+						<td class=" yellow_bg ">ROOMS:</td>
+						<tr>
+						<td class=" lyellow_bg ">DATE DETAILS</td>
+						<td class=" lyellow_bg ">TIME DETAILS</td>
+						<td class=" lyellow_bg ">ROOMS DETAILS</td>
+					</table>
+					
+				</div>
+				<div class="div4">
+					<table>
+						<th colspan = "4">PROPONENT NAME(LN,FN, MI.)</th>
+						<tr>
+							<td class=" yellow_bg ">PROPONENT 1:</td>
+							{% set x = 0 %}
+							{% if defense.group.members|length > x %}
+								{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+								<td class=" lyellow_bg ">{{ stud_name }}</td>
+							{% endif %}
+							{% set x = x + 1 %}
+
+							<td class=" yellow_bg ">PROPONENT 2:</td>
+							{% if defense.group.members|length > x %}
+								{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+								<td class=" lyellow_bg ">{{ stud_name }}</td>
+							{% endif %}
+							{% set x = x + 1 %}
+						<tr class=" lyellow_bg ">
+							<td class=" yellow_bg ">PROPONENT 3:</td>
+							{% if defense.group.members|length > x %}
+								{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+								<td class=" lyellow_bg ">{{ stud_name }}</td>
+							{% endif %}
+							{% set x = x + 1 %}
+
+							<td class=" yellow_bg ">PROPONENT 4:</td>
+							{% if defense.group.members|length > x %}
+								{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+								<td class=" lyellow_bg ">{{ stud_name }}</td>
+							{% endif %}
+							{% set x = x + 1 %}
+						</tr>
+					</table>
+			
+				</div>
+				<div class = "div5">
+					<table>
+						<th rowspan="2">CRITERIA AND WEIGHT</th>
+						<th>5</th>
+						<th>4</th>
+						<th>3</th>
+						<th>2</th>
+						<th>1</th>
+						<th colspan="4" rowspan="2" class="yellow_bg ">STUDENT <br> INDIVIDUAL <br> GRADE</th>
+						<tr>
+							<th>VERY ACCEPTABLE</th>
+							<th>ACCEPTABLE</th>
+							<th>FAIR</th>
+							<th>NEEDS IMPROVEMENT</th>
+							<th>POOR</th>
+						</tr>
+
+						{% for rubric in defense.indiv_sheet.rubric %}
+							<tr>
+								<td class = "tb_title">
+									{{ rubric.desc }}
+									<br>
+									(x{{ rubric.weight }})
+								</td>
+								<td class = "tb_desc">
+									{{ rubric.rate5 }}
+								</td>
+								<td class = "tb_desc">
+									{{ rubric.rate4 }}
+								</td>
+								<td class = "tb_desc">
+									{{ rubric.rate3 }}
+								</td>
+								<td class = "tb_desc">
+									{{ rubric.rate2 }}
+								</td>
+								<td class = "tb_desc">
+									{{ rubric.rate1 }}
+								</td>
+								{% for x in range(1, 5) %}
+									<td>
+										{{ x }} <br> <br>
+										<select name="score" id="score">
+											<option value="five">5</option>
+											<option value="four">4</option>
+											<option value="three">3</option>
+											<option value="two">2</option>
+											<option value="One">1</option>
+										</select>
+									</td>
+								{% endfor %}
+							</tr>
+						{% endfor %}	
+					</table>
+					<table class = "two" >
+						<th class="tb_jatot green_bg ">TOTAL</th>
+						{% for _ in range(3) %}
+							<td class="yellow_bg ">0</td>
+						{% endfor %}						
+						<td class=" yellow_bg ">0</td>
+					</table>
+				</div>
+				<div class="div6"> 
+					<button type="submit" class="but" id="button_inp" name="button_inp" disabled>SUBMIT</button>
+				</div>
+			</div>
+		</form>
+		<script>
+			$(document).ready(function(){
+				$('select').on('click', function(event ) {
+					var prevValue = $(this).data('previous');
+				$('select').not(this).find('option[value="'+prevValue+'"]').show();    
+					var value = $(this).val();
+				$(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+				});
+			});
+		</script>a
+	</body>
+
+
+</html>

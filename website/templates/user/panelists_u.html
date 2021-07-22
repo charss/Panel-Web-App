@@ -1,39 +1,55 @@
 {% extends "base_user.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+    Panelists
+{% endblock %}
+{% block button %}
+<a href="/new_panel/">
+    <button>Create New Panelist</button>
+</a>
+{% endblock %}
 {% block content %}
-	<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
-	</head>
     <div class='display_grid'>
         {% if panels %}
             {% for panel in panels %}
                 <div class='div1'>
 					<table>
-						<th>ID:</th> 
-						<td>{{ panel.id }}</td>
+						<th class = "tb_desc">ID:</th>
+						<td colspan = "2">{{ panel.id }}</td>
 						<tr>
-						<th>Name:</th> 
-						<td>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
+						<th class = "tb_desc">Name:</th> 
+						<td colspan = "2">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
 						<tr>
-						<th>School:</th> 
-						<td>{{ panel.school }}</td>
+						<th class = "tb_desc">School:</th> 
+						<td colspan = "2">{{ panel.school }}</td>
 						<tr>
-						<th colspan = "2">Defenses:</th>
+						<th colspan = "3">Defenses:</th>
+						<tr>
+						<th class = "green_bg"></th>
+						<th> Group </th>
+						<th class ="no_border"> Date: </th>
+						<tr>
 						{% if panel.defenses %} 
-							{% for defense in panel.defenses %}
-								<p>    - {{ defense.group.name }} - {{ defense.start_date }}</p><tr>
-							{% endfor %}
+							<ul>
+								{% for defense in panel.defenses %}
+									<th class = "no_border">  </th>
+									<td> {{ defense.group.name }} </td>
+									<td> {{ defense.start_date }}</td>
+									<tr>
+								{% endfor %}
+							</ul>
+							
 						{% else %}
-							<p>NOTHING SCHEDULED</p><tr>
+							<td colspan = "2">NOTHING SCHEDULED</td>
 						{% endif %}
 					</table>
-                    <br>
+					<table class = "no_border">
+						<td class = "no_border sep_20">
+						<td class = "no_border sep_20">
+					</table>
+					<br>
                 </div>
             {% endfor %}
         {% endif %}
     </div>
-    
-
-    <script>
-    </script>
 {% endblock %}
