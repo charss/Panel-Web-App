@@ -657,9 +657,12 @@ def delete_sheet(content):
 
     return render_template('sheettab/delete_sheet.html', templates=Template.query.all())
 
-@admin.route('/assign_indiv/', methods=['GET', 'POST'])
+@admin.route('/assign_indiv/<content>', methods=['GET', 'POST'])
 @login_required
-def assign_indiv():
+def assign_indiv(content):
+    defense = db.session.query(Defense).filter_by(id=content).first()
+    if request.method == 'POST':
+
     return render_template('schedules/assign_indiv.html', templates=Template.query.all(), defenses=Defense.query.all())
     
 @admin.route('/parse_data/', methods=['GET', 'POST'])
