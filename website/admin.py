@@ -662,7 +662,7 @@ def delete_sheet(content):
 def assign_indiv(content):
     defense = db.session.query(Defense).filter_by(id=content).first()
     if request.method == 'POST':
-
+        pass
     return render_template('schedules/assign_indiv.html', templates=Template.query.all(), defenses=Defense.query.all())
     
 @admin.route('/parse_data/', methods=['GET', 'POST'])
