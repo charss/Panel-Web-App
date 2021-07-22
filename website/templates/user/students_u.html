@@ -1,38 +1,33 @@
 {% extends "base_user.html" %}
 {% block title %}Home Page{% endblock %}
+{% block pagename %}
+	Students
+{% endblock %}
 {% block content %}
-
-	<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
-	</head>
-
     <div class='display_grid'>
         {% if students %}
             {% for student in students %}
                 <div class='div1'>
 					<table>
-						<th>ID:</th> 
+						<th class = "tb_desc">Student No.:</th>
 						<td>{{ student.stud_no }}</td>
 						<tr>
-						<th>Name:</th> 
+						<th class = "tb_desc">Name:</th> 
 						<td>{{ student.last_name }}, {{ student.first_name }} {{ student.middle_in }}.</td>
 						<tr>
-						<th>Group:</th>
-						<td>{{ student.group_id }}</td>
-						<tr>
-						<th>Group Name:
-						<td>{{ student.group.name }}</td>
+						<th class = "tb_desc">Group:</th> 
+						<td>{{ student.group_id }} - {{ student.group.name }}</td>
 						<tr>
 					</table>
-                    <br>
+					<table class = "no_border">
+						<td class = "no_border sep_20">
+						<td class = "no_border sep_20">
+						<td class = "no_border sep_20">	
+					</table>
+					<br>
                 </div>
                 
             {% endfor %}
         {% endif %}
     </div>
-    
-
-    
-    <script>
-    </script>
 {% endblock %}
