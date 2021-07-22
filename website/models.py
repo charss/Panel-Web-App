@@ -7,8 +7,7 @@ from sqlalchemy.sql import func
 
 defense_panel_score = db.Table('defense_panel_score',
          db.Column('panel_id', db.Integer, db.ForeignKey('panelist.id')),
-         db.Column('defense_id', db.Integer, db.ForeignKey('defense.id')),
-         db.Column('template_id', db.Integer, db.ForeignKey('template.id'))
+         db.Column('defense_id', db.Integer, db.ForeignKey('defense.id'))
 )
 
 templates = db.Table('templates',
@@ -16,13 +15,13 @@ templates = db.Table('templates',
          db.Column('rubric_id', db.Integer, db.ForeignKey('rubric.id')),
 )
 
-
-
-# class User(db.Model):
-#     id         = db.Column(db.Integer, primary_key=True)
-#     email      = db.Column(db.String(150), unique=True)
-#     password   = db.Column(db.String(150))
-#     first_name = db.Column(db.String(150))
+class Scores(db.Model):
+    id           = db.Column(db.Integer, primary_key=True)
+    indiv_scores = db.Column(db.String(150))
+    group_score  = db.Column(db.Integer)
+    comment      = db.Column(db.String(1000))
+    defense_id   = db.Column(db.Integer, db.ForeignKey('defense.id'))
+    panel_id     = db.Column(db.Integer, db.ForeignKey('panelist.id'))
 
 class Group(db.Model):
     id            = db.Column(db.Integer, primary_key=True)
@@ -53,6 +52,7 @@ class Panelist(db.Model, UserMixin):
     school     = db.Column(db.String(150))
     header     = db.relationship('Defense', backref='head')
     mentee     = db.relationship('Group', backref='mentor')
+    score      = db.relationship('Scores', backref='panel')
     paneling   = db.relationship(
         'Defense',
         secondary=defense_panel_score,
@@ -80,6 +80,7 @@ class Defense(db.Model):
     indiv_sheet   = db.relationship("Template", backref='indiv_sheet', uselist=False, foreign_keys=[i_sheet_id])
     start_date    = db.Column(db.DateTime)
     end_date      = db.Column(db.DateTime)
+    score         = db.relationship('Scores', backref='defense', uselist=True)
     paneling      = db.relationship(
         'Panelist',
         secondary=defense_panel_score,
@@ -89,12 +90,7 @@ class Defense(db.Model):
 class Template(db.Model):
     id          = db.Column(db.Integer, primary_key=True)
     sheet_type  = db.Column(db.String(50), nullable=False)
-    pbl_level   = db.Column(db.String(50), nullable=True),
-    template    = db.relationship(
-        'Defense',
-        secondary=defense_panel_score,
-        backref=db.backref('template')
-    )
+    pbl_level   = db.Column(db.String(50), nullable=True)
     
 
 class Rubric(db.Model):

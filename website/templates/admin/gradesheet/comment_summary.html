@@ -1,0 +1,111 @@
+<html>
+	<head>
+        <link rel='stylesheet' href="{{ url_for('static', filename ='user/indiv_sheet.css') }}">
+		
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <title>{% block title %}{% endblock %}</title>
+	</head>
+	<style>
+		.temp_id {
+			padding-right: 10px;
+		}
+
+	</style>
+	<body>
+		<div class="parent">
+			<div class="div1"> 
+				<h1>FEU ALABANG</h1>
+			</div>
+			<div class="div2 green_bg"> 
+				<title_font1>ORAL DEFENSE</title_font1>
+				<title_font1><br>INDIVIDUAL GRADE SHEET</title_font1>
+			</div>
+			<div class="div3"> 
+				<table>
+					<td class="left_gborder gray_bg">GROUP NAME:</td>
+					<td class="" colspan = "3">{{ defense.group.name }}</td>
+					<tr>
+					<td class="left_gborder gray_bg">PROJECT TITLE:</td>
+					<td class=""colspan = "3" >{{ defense.group.project_title }}</td>
+					<tr>
+					<td class=" left_gborder gray_bg " rowspan ="2">ORAL DEFENSE: <br> SCHEDULE: </td>
+					<td class=" gray_bg ">DATE:</td>
+					<td class=" gray_bg">TIME:</td>
+					<td class=" gray_bg ">ROOMS:</td>
+					<tr>
+					<td class="">DATE DETAILS</td>
+					<td class="">TIME DETAILS</td>
+					<td class="">ROOMS DETAILS</td>
+				</table>
+				
+			</div>
+			<div class="div4"> 
+				<table>
+				
+					<tr>
+						<th colspan = "4">PROPONENT NAME(LN,FN, MI.)</th>
+					<tr>
+						<td class="left_gborder gray_bg">PROPONENT 1:</td>
+						{% set x = 0 %}
+						{% if defense.group.members|length > x %}
+							{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+							<td class="">{{ stud_name }}</td>
+						{% endif %}
+						{% set x = x + 1 %}
+
+						<td class="left_gborder gray_bg">PROPONENT 2:</td>
+						{% if defense.group.members|length > x %}
+							{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+							<td class="">{{ stud_name }}</td>
+						{% endif %}
+						{% set x = x + 1 %}
+					<tr class=" lyellow_bg ">
+						<td class="left_gborder gray_bg">PROPONENT 3:</td>
+						{% if defense.group.members|length > x %}
+							{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+							<td class="">{{ stud_name }}</td>
+						{% endif %}
+						{% set x = x + 1 %}
+
+						<td class="left_gborder gray_bg">PROPONENT 4:</td>
+						{% if defense.group.members|length > x %}
+							{% set stud_name = defense.group.members[x].last_name + ', ' + defense.group.members[x].first_name + ' ' + defense.group.members[x].middle_in %}
+							<td class="">{{ stud_name }}</td>
+						{% endif %}
+						{% set x = x + 1 %}
+					</tr>
+				</table>
+		
+			</div>
+			<div class = "div5">
+				<table>
+					<th colspan = "2"> COMMENTS SHEET </th>
+					{% for panel in defense.panels %}
+						<tr>
+							<td class = "gray_bg left_gborder"> Panelist: </td>
+							<td>{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}</td>
+						</tr>
+						<tr>
+							<td colspan = "2">
+								{% for score in defense.score %}
+									{% if score.panel_id == panel.id %}
+										{{ score.comment }}
+									{% endif %}
+								{% endfor %}
+							</td>
+						</tr>
+					{% endfor %}
+					
+				</table>
+			</div>
+			<div class="div6"> 
+				<a href='/schedule/'>
+					<button class="but" id="button_inp" name="button_inp">BACK</button>
+
+				</a>
+			</div>
+		</div>
+	</body>
+
+
+</html>

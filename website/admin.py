@@ -672,7 +672,33 @@ def assign_sheet(sheet_type, content):
         db.session.commit()
         return redirect(url_for('admin.schedule'))
     return render_template('schedules/assign_sheet.html', to_sched=defense, templates=Template.query.all(), defenses=Defense.query.all(), sheet_type=sheet_type)
+
+
+@admin.route('/comment_summary/<content>', methods=['GET', 'POST'])
+@login_required
+def comment_summary(content):
+    defense = db.session.query(Defense).filter_by(id=content).first()
     
+    return render_template('gradesheet/comment_summary.html', defense=defense)
+
+@admin.route('/grade_summary/<content>', methods=['GET', 'POST'])
+@login_required
+def grade_summary(content):
+    defense = db.session.query(Defense).filter_by(id=content).first()
+    head_panel = '' 
+    co_panel = []
+
+    for panel in defense.panels:
+        if panel.id == defense.head_panel_id:
+            head_panel = panel
+        else:
+            co_panel.append(panel)
+        print(head_panel)
+        print(co_panel)
+    
+    return render_template('gradesheet/grade_summary.html', defense=defense, head_panel=head_panel, co_panel=co_panel)
+
+
 @admin.route('/parse_data/', methods=['GET', 'POST'])
 def parse_data():
     if request.method == "POST":

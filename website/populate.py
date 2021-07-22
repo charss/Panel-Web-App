@@ -1,4 +1,4 @@
-from .models import Group, Student, Panelist, Defense, Rubric, Template
+from .models import Group, Student, Panelist, Defense, Rubric, Template, Scores
 from datetime import datetime, timedelta, date, time
 import random
 from . import db
@@ -604,8 +604,8 @@ def populate_panelist():
 
     new_panel = Panelist(last_name='Juanatas',
                          username='juanatas_t',
-                         password='juanatasiris',
-                         first_name='Iris',
+                         password='juanatasirish',
+                         first_name='Irish',
                          middle_in='C',
                          school='FEU Tech')
     db.session.add(new_panel)

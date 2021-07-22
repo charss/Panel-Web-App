@@ -159,30 +159,46 @@
 										{{ rubric.rate1 }}
 									</td>
 									<td class="gray_bg">
-										<select name="score" id="score">
-											<option value="five">5</option>
-											<option value="four">4</option>
-											<option value="three">3</option>
-											<option value="two">2</option>
-											<option value="One">1</option>
+										<select name="score" id="category" onchange='solve(this)'>
+											<option value="0">--</option>
+											<option value="{{ rubric.id }}~{{ rubric.weight }}~5">5</option>
+											<option value="{{ rubric.id }}~{{ rubric.weight }}~4">4</option>
+											<option value="{{ rubric.id }}~{{ rubric.weight }}~3">3</option>
+											<option value="{{ rubric.id }}~{{ rubric.weight }}~2">2</option>
+											<option value="{{ rubric.id }}~{{ rubric.weight }}~1">1</option>
 										</select>
 									</td>
 								</tr>
 							{% endfor %}
+								<tr>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<td></td>
+									<th class="tb_jatot green_bg ">TOTAL</th>		
+									<td class=" yellow_bg "><p id='{{ category }}top'>0</p></td>
+								</tr>
+								
 						{% endfor %}
 					</table>
 
 					<br>		
-					<table class = "two" >
-						<th class="tb_jatot green_bg ">TOTAL</th>		
-						<td class=" yellow_bg ">0</td>
-					</table>
 					<table>
-						<th> TEST </th>
-						<th> Overall </th>
 						<tr>
-						<td> 0 </td>
-						<td> 0 </td>
+							{% for category in categories %}
+								<th>{{ category }}</th>
+							{% endfor %}
+							<th>OVERALL</th>
+						</tr>
+						<tr>
+							{% for category in categories %}
+								<td>
+									<p id='{{ category }}bot'>0</p>
+								</td>
+							{% endfor %}
+							<td><input type='text' id='overall' name='overall' value=0 onkeydown="return false"></td>
+						</tr>
 					</table>
 				</div>
 				<div class="div116 drkr_grn"> 
@@ -193,17 +209,45 @@
 			</div>
 		</form>
 		<script>
-			$(document).ready(function(){
-				$('select').on('change', function(event ) {
-					var prevValue = $(this).data('previous');
-				$('select').not(this).find('option[value="'+prevValue+'"]').show();    
-					var value = $(this).val();
-				$(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
-				});
-			});
+			var dict = {}
+			"{% for category in categories %}"
+				dict['{{ category }}'] = {};
+				"{% for rubric in categories[category] %}"
+					dict['{{ category }}']['{{ rubric.id }}'] = 0;
+				"{% endfor%}"
+			"{% endfor%}"
+
+			console.log(dict)
+
+			
+			function solve(selectedObject) {
+				var score  = parseInt(selectedObject.value.slice(-1))
+				var weight = parseInt(selectedObject.value.slice(-3))
+				var rub_id = selectedObject.value.slice(0, -4)
+
+
+				for (category in dict) {
+					if (rub_id in dict[category]) {
+						dict[category][rub_id] = parseInt(score) * weight
+							var sum = 0
+						for (x in dict[category]) {
+							sum += dict[category][x]
+						}
+						console.log(sum)
+						document.getElementById(category+'bot').innerHTML = sum
+						document.getElementById(category+'top').innerHTML = sum
+					}
+				}
+
+				sum = 0
+				for (category in dict) {
+					for (x in dict[category]) {
+						sum += dict[category][x]
+					}
+				}
+				document.getElementById('overall').value = sum
+			}
 		</script>
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</body>
 
 
