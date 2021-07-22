@@ -37,12 +37,14 @@
                 <div class='div1'>
 					<table>
 						<th class = "tb_desc">ID:</th>
-						<td colspan = "3"> {{ defense.id }} </td>
+						<td colspan = "3"> {{ defense.id }}</td>
 						<tr>
-						<th class = "tb_desc">Group Name:</th>
-						<td colspan = "3"> {{ defense.group.name }} </td>
+							<th class = "tb_desc">Group Name:</th>
+							<td colspan = "3"> {{ defense.group.name }} </td>
+						</tr>
 						<tr>
-						<th colspan = "4">Panels:</th>
+							<th colspan = "4">Panels:</th>
+						</tr>
 						<tr>
 							{% for panel in defense.panels %}
 								{% if panel.id == defense.head_panel_id: %}
@@ -56,19 +58,33 @@
 						<th class = "tb_desc">Defense Date:</th>
 						<td colspan = "4"> {{ defense.start_date}} </td>
 						<tr>
+							<th colspan = "4">Gradesheet:</th>
+						</tr>
+						<tr>
+							<th>Individual:</th>
+							<th>Group:</th>
+						</tr>
+						<tr>
+							<td>
+								<a href="/assign_indiv/">
+									<button>Assign Individual Gradesheet</button>
+								</a>
+								<a href="/assign_indiv/">
+									<button>View Individual Gradesheet</button>
+								</a>
+							</td>
+							<td>
+								<a href="/assign_indiv/">
+									<button>Assign Individual Gradesheet</button>
+								</a>
+								<a href="/assign_indiv/">
+									<button>View Individual Gradesheet</button>
+								</a>
+							</td>
+						</tr>
+						<tr>
 					</table>
 					<table class = "tableButton no_border">
-						<td class = "no_border sep_20">
-						<th class = "no_border sep_10" >
-							<a href="/assign_indiv/">
-								<button class = "but2" >Assign Individual Gradesheet</button>
-							</a>
-						</th>
-						<th class = "no_border sep_10">
-							<a href="">
-								<button class = "but2" >Assign Group Gradesheet</button>
-							</a>
-						</th>
 						<th class = "no_border sep_10">
 							<a href="/edit_sched/{{ defense.id }}">
 								<button class = "but2" >Edit</button>
