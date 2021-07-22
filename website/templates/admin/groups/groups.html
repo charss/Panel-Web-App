@@ -4,9 +4,6 @@
     Groups
 {% endblock %}
 {% block button %}
-	<head>
-        <link rel='stylesheet' href="{{ url_for('static', filename ='admin/menu_sheet.css') }}">
-	</head>
 <a href="/new_group/">
     <button>Create New Group</button>
 </a>
@@ -57,7 +54,7 @@
 							<ul>
 								{% for member in group.members %}
 									
-									<th class = "no_border"> Member #{{ member.stud_no }}</th>
+									<th class = "no_border"> Student No. #{{ member.stud_no }}</th>
 									<td> {{ member.last_name }}, {{ member.first_name }} {{ member.middle_in }}.</td>
 									<tr>
 								{% endfor%}
