@@ -35,11 +35,13 @@ def admin_home(data):
 
     if not db.session.query(Template).first():
         populate_gradesheet()
-    # if db.session.query(Defense).first(): 
-    #     return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1)
-    # else:
-    #     return render_template('home.html', defenses=None, current_id=1)
-    return render_template('home.html')
+
+    print(date.today())
+    if db.session.query(Defense).first(): 
+        return render_template('home.html', defenses=Defense.query.all(), current_id=obj.id+1, today=date.today())
+    else:
+        return render_template('home.html', defenses=None, current_id=1, today=date.today())
+    # return render_template('home.html')
     
 @admin.route('/groups/', methods=['GET', 'POST'])
 @login_required

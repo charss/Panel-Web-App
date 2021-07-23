@@ -57,10 +57,10 @@
 				<details_font>ROOMS:</details_font> 
 				</div>
 				<div class="div11"> 
-					DATE DETAILS 
+					{{ defense.start_date.strftime('%B %d, %Y') }}
 				</div>
 				<div class="div12"> 
-					TIME DETAILS
+					{{ defense.start_date.strftime('%I:%M %p') }}
 				</div>
 				<div class="div13"> 
 					ROOM DETAILS

@@ -12,13 +12,16 @@
 
 	</style>
 	<body>
+		<a href='/home/'>
+			<button>BACK</button>
+		</a>
 		<div class="parent">
 			<div class="div1"> 
 				<h1>FEU ALABANG</h1>
 			</div>
 			<div class="div2 green_bg"> 
 				<title_font1>ORAL DEFENSE</title_font1>
-				<title_font1><br>INDIVIDUAL GRADE SHEET</title_font1>
+				<title_font1><br>COMMENT SHEET</title_font1>
 			</div>
 			<div class="div3"> 
 				<table>
@@ -33,8 +36,12 @@
 					<td class=" gray_bg">TIME:</td>
 					<td class=" gray_bg ">ROOMS:</td>
 					<tr>
-					<td class="">DATE DETAILS</td>
-					<td class="">TIME DETAILS</td>
+					<td class="">
+						{{ defense.start_date.strftime('%B %d, %Y') }}
+					</td>
+					<td class="">
+                    	{{ defense.start_date.strftime('%I:%M %p') }}
+					</td>
 					<td class="">ROOMS DETAILS</td>
 				</table>
 				

@@ -12,7 +12,13 @@
 </head>
 
 <body style="background: rgb(245,245,245);"><div class="center-div" id="gold-bg">
-    {% set groupscore = 0 %}
+    <a href='/home/'>
+        <button>BACK</button>
+    </a>
+    {% set score_arr = [] %}
+    {% for score in defense.score %}
+        {% set _ = score_arr.append(score.panel_id) %}
+    {% endfor %}
     <div class="row">
         <div class="col">
             <h1>FEU Alabang</h1>
@@ -59,7 +65,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <p><strong><em>Date Details</em></strong></p>
+                    <p><strong><em>{{ defense.start_date.strftime('%B %d, %Y') }}</em></strong></p>
                 </div>
             </div>
         </div>
@@ -71,7 +77,7 @@
             </div>
             <div class="row">
                 <div class="col">
-                    <p><strong><em>Time Details</em></strong></p>
+                    <p><strong><em>{{ defense.start_date.strftime('%I:%M %p') }}</em></strong></p>
                 </div>
             </div>
         </div>
@@ -168,62 +174,49 @@
             </div>
         </div>
         <div class="col">
-            {% for score in defense.score %}
-                {% if score.panel_id == head_panel.id %}
-                    <p>{{ score.group_score }}</p>
-                {% endif %}
-            {% endfor %}
+            {% if head_panel.id in score_arr %}
+                {% for score in defense.score %}
+                    {% if score.panel_id == head_panel.id %}
+                        {% if score.group_score != None %}
+                            <p name='groupscore'>{{ score.group_score }}</p>
+                        {% else %}
+                            <p name='groupscore'>0</p>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p name='groupscore'>0</p>
+            {% endif %}
         </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 1</b></p>
+        {% for x in range(1, defense.group.members|length + 1) %}
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p><b>Proponent {{ x }}</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {% if head_panel.id in score_arr %}
+                            {% for score in defense.score %}
+                                {% if score.panel_id == head_panel.id %}
+                                    {% if score.indiv_scores != None %}
+                                        <p name='Proponent{{ x }}'>{{ score.indiv_scores.split(',')[x - 1] }}</p>
+                                    {% else %}
+                                        <p name='Proponent{{ x }}'>0</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p name='Proponent{{ x }}'>0</p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 2</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 3</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 4</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
-    <div class="row center-p" style="border-bottom: 1px solid darkgreen">
+
+    <div class="row center-p " style="border-bottom: 1px solid darkgreen">
         <div class="col">
             <div class="row">
                 <div class="col">
@@ -242,60 +235,46 @@
             </div>
         </div>
         <div class="col">
-            {% for score in defense.score %}
-                {% if score.panel_id == co_panel[0].id %}
-                    <p>{{ score.group_score }}</p>
-                {% endif %}
-            {% endfor %}
+            {% if co_panel[0].id in score_arr %}
+                {% for score in defense.score %}
+                    {% if score.panel_id == co_panel[0].id %}
+                        {% if score.group_score != None %}
+                            <p name='groupscore'>{{ score.group_score }}</p>
+                        {% else %}
+                            <p name='groupscore'>0</p>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p name='groupscore'>0</p>
+            {% endif %}
         </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 1</b></p>
+        {% for x in range(1, defense.group.members|length + 1) %}
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p><b>Proponent {{ x }}</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {% if co_panel[0].id in score_arr %}
+                            {% for score in defense.score %}
+                                {% if score.panel_id == co_panel[0].id %}
+                                    {% if score.indiv_scores != None %}
+                                        <p name='Proponent{{ x }}'>{{ score.indiv_scores.split(',')[x - 1] }}</p>
+                                    {% else %}
+                                        <p name='Proponent{{ x }}'>0</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p name='Proponent{{ x }}'>0</p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 2</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 3</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 4</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="row center-p" style="border-bottom: 1px solid darkgreen">
         <div class="col">
@@ -316,60 +295,46 @@
             </div>
         </div>
         <div class="col">
-            {% for score in defense.score %}
-                {% if score.panel_id == co_panel[1].id %}
-                    <p>{{ score.group_score }}</p>
-                {% endif %}
-            {% endfor %}
+           {% if co_panel[1].id in score_arr %}
+                {% for score in defense.score %}
+                    {% if score.panel_id == co_panel[1].id %}
+                        {% if score.group_score != None %}
+                            <p name='groupscore'>{{ score.group_score }}</p>
+                        {% else %}
+                            <p name='groupscore'>0</p>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <p name='groupscore'>0</p>
+            {% endif %}
         </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 1</b></p>
+        {% for x in range(1, defense.group.members|length + 1) %}
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p><b>Proponent {{ x }}</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {% if co_panel[1].id in score_arr %}
+                            {% for score in defense.score %}
+                                {% if score.panel_id == co_panel[1].id %}
+                                    {% if score.indiv_scores != None %}
+                                        <p name='Proponent{{ x }}'>{{ score.indiv_scores.split(',')[x - 1] }}</p>
+                                    {% else %}
+                                        <p name='Proponent{{ x }}'>0</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <p name='Proponent{{ x }}'>0</p>
+                        {% endif %}
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 2</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 3</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 4</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <div class="row center-p" style="border-bottom: 1px solid darkgreen">
         <div class="col">
@@ -380,89 +345,116 @@
             </div>
         </div>
         <div class="col">
-            <p>0.0</p>
+            <p id='totalgroup'>0.0</p>
         </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 1</b></p>
+
+        {% for x in range(1, defense.group.members|length + 1) %}
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p><b>Proponent {{ x }}</b></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p id='total{{ x }}'>0</p>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 2</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 3</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="row">
-                <div class="col">
-                    <p><b>Proponent 4</b></p>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    <p>0</p>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
-</div><div class="center-div">
+    <div class="row center-p" style="border-bottom: 1px solid darkgreen">
+        <div class="col">
+            <div class="row">
+                <div class="col">
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <p>Combined Grade</p>
+        </div>
+        {% for x in range(1, defense.group.members|length + 1) %}
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <p></p>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <p id='combine{{ x }}'>0</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+<div class="center-div">
+    <style>
+        .col-lg-3 {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            border: 1px solid black;
+            margin-left: 50px;
+            margin-right: 10px;
+        }
+
+        .col-lg-3 div {
+            width: 100%;
+        }
+    </style>
     <div class="row">
         <div class="col">
             <p><b><i>Please mark with X: (Automatic based on grade)</i></b></p>
         </div>
     </div>
-    <div class="row">
-        <div class="col-lg-3"><input type="text" /></div>
+        <div class="row"><div class="col-lg-3">
+            <div>
+                <p id='pass'></p>
+            </div>
+        </div>
         <div class="col">
             <p style="color: darkgreen"><b>PASSED</b></p>
         </div>
     </div>
+    
     <div class="row">
-        <div class="col-lg-3"><input type="text" /></div>
+        <div class="col-lg-3">
+            <div>
+                <p id='no_rev'></p>
+            </div>
+        </div>
         <div class="col">
             <p style="color: green"><b>with NO Revisions (97-100) – Completed the Project Requirements</b></p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3"><input type="text" /></div>
+        <div class="col-lg-3">
+            <div>
+                <p id='with_rev'></p>
+            </div>
+        </div>
         <div class="col">
             <p style="color: goldenrod"><b>with Revisions (70-96) – Minimum Project Requirements were met</b></p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3"><input type="text" /></div>
+        <div class="col-lg-3">
+            <div>
+                <p id='re_def'></p>
+            </div>
+        </div>
         <div class="col">
             <p style="color: darkorange"><b>RE-DEFENSE (67-69) – Minimum Project Requirements were not met but project paper was submitted on time.</b></p>
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-3"><input type="text" /></div>
+        <div class="col-lg-3">
+            <div>
+                <p id='failed'></p>
+            </div>
+        </div>
         <div class="col">
             <p style="color: red"><b> FAILED: (Below 70) – Minimum Project Requirements were not met and project paper was not submitted on time.</b></p>
         </div>
@@ -472,7 +464,7 @@
         <div class="col">
             <div class="row">
                 <div class="col">
-                    <p><b>Panel Name</b></p>
+                    <p><b>{{ co_panel[0].first_name }} {{ co_panel[0].last_name }}</b></p>
                 </div>
             </div>
             <div class="row">
@@ -485,7 +477,7 @@
         <div class="col">
             <div class="row">
                 <div class="col">
-                    <p><b>Panel Name</b></p>
+                    <p><b>{{ co_panel[1].first_name }} {{ co_panel[1].last_name }}</b></p>
                 </div>
             </div>
             <div class="row">
@@ -500,7 +492,7 @@
         <div class="col">
             <div class="row">
                 <div class="col">
-                    <p><b>Panel Name</b></p>
+                    <p><b>{{ head_panel.first_name }} {{ head_panel.last_name }}</b></p>
                 </div>
             </div>
             <div class="row">
@@ -513,6 +505,42 @@
     </div>
 </div>
     <script src="assets/bootstrap/js/bootstrap.min.js"></script>
+    <script>
+        "{% for x in range(1, defense.group.members|length + 1) %}"
+            var elms = document.querySelectorAll("[name='Proponent{{ x }}']");
+            var total = 0
+            for(var i = 0; i < elms.length; i++) 
+                total += parseInt(elms[i].innerHTML)
+            document.getElementById('total{{ x }}').innerHTML = Math.round(total / 3)
+        "{% endfor %}"
+        elms = document.querySelectorAll("[name='groupscore']");
+        total = 0
+        for(var i = 0; i < elms.length; i++) {
+            if (i == 0)
+                var weight = 0.40
+            else
+                weight = 0.30
+            total += parseInt(elms[i].innerHTML) * weight
+        }
+        document.getElementById('totalgroup').innerHTML = Math.round(total)
+        if (total >= 70) {
+            document.getElementById('pass').innerHTML = 'X'
+            if (total >= 97 && total <= 100)
+                document.getElementById('no_rev').innerHTML = 'X'
+            else
+                document.getElementById('with_rev').innerHTML = 'X'
+        } else {
+            document.getElementById('failed').innerHTML = 'X'
+            if (total >= 67 && total <= 69)
+                document.getElementById('re_def').innerHTML = 'X'
+        }
+        
+        var group_grade = parseInt(document.getElementById('totalgroup').innerHTML)
+        "{% for x in range(1, defense.group.members|length + 1) %}"
+            var indiv_grade = parseInt(document.getElementById('total{{ x }}').innerHTML);
+            document.getElementById('combine{{ x }}').innerHTML = Math.round(0.7 * group_grade + 0.3 * indiv_grade)
+        "{% endfor %}"
+    </script>
 </body>
 
 </html>

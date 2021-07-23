@@ -29,20 +29,24 @@
 				</div>
 				<div class="div3"> 
 					<table>
-						<td class=" yellow_bg ">GROUP NAME:</td>
-						<td class=" lyellow_bg " colspan = "3">{{ defense.group.name }}</td>
+						<td class="yellow_bg ">GROUP NAME:</td>
+						<td class="lyellow_bg " colspan = "3">{{ defense.group.name }}</td>
 						<tr>
-						<td class=" yellow_bg ">PROJECT TITLE:</td>
-						<td class=" lyellow_bg "colspan = "3" >{{ defense.group.project_title }}</td>
+						<td class="yellow_bg ">PROJECT TITLE:</td>
+						<td class="lyellow_bg "colspan = "3" >{{ defense.group.project_title }}</td>
 						<tr>
-						<td class=" yellow_bg " rowspan ="2">ORAL DEFENSE: <br> SCHEDULE: </td>
-						<td class=" yellow_bg ">DATE:</td>
-						<td class=" yellow_bg ">TIME:</td>
-						<td class=" yellow_bg ">ROOMS:</td>
+						<td class="yellow_bg " rowspan ="2">ORAL DEFENSE: <br> SCHEDULE: </td>
+						<td class="yellow_bg ">DATE:</td>
+						<td class="yellow_bg ">TIME:</td>
+						<td class="yellow_bg ">ROOMS:</td>
 						<tr>
-						<td class=" lyellow_bg ">DATE DETAILS</td>
-						<td class=" lyellow_bg ">TIME DETAILS</td>
-						<td class=" lyellow_bg ">ROOMS DETAILS</td>
+						<td class="lyellow_bg">
+							{{ defense.start_date.strftime('%B %d, %Y') }}
+						</td>
+						<td class="lyellow_bg">
+							{{ defense.start_date.strftime('%I:%M %p') }}
+						</td>
+						<td class="lyellow_bg">ROOMS DETAILS</td>
 					</table>
 					
 				</div>

@@ -812,7 +812,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 14, 8, 00)
+    start_date = datetime(2021, 7, 14, 8, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -827,7 +827,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 14, 9, 00)
+    start_date = datetime(2021, 7, 14, 9, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -842,7 +842,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 14, 10, 00)
+    start_date = datetime(2021, 7, 14, 10, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -857,7 +857,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 14, 11, 00)
+    start_date = datetime(2021, 7, 14, 11, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -872,7 +872,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 14, 13, 00)
+    start_date = datetime(2021, 7, 14, 13, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -887,7 +887,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 14, 14, 00)
+    start_date = datetime(2021, 7, 14, 14, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -902,7 +902,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 16, 15, 00)
+    start_date = datetime(2021, 7, 16, 15, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -917,7 +917,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 16, 15, 00)
+    start_date = datetime(2021, 7, 16, 16, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 
@@ -932,7 +932,7 @@ def populate_defense():
     db.session.commit()
     x += 1
 
-    start_date = datetime(2021, 7, 1, 16, 17, 00)
+    start_date = datetime(2021, 7, 16, 17, 00, 00)
     end_date = start_date + timedelta(hours=1)
     new_defense = Defense(
         group_id=x, 

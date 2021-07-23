@@ -36,14 +36,18 @@
 						<td class="left_gborder gray_bg">PROJECT TITLE:</td>
 						<td class=""colspan = "3" >{{ defense.group.project_title }}</td>
 						<tr>
-						<td class=" left_gborder gray_bg " rowspan ="2">ORAL DEFENSE: <br> SCHEDULE: </td>
-						<td class=" gray_bg ">DATE:</td>
-						<td class=" gray_bg">TIME:</td>
-						<td class=" gray_bg ">ROOMS:</td>
+						<td class="left_gborder gray_bg" rowspan="2">ORAL DEFENSE: <br> SCHEDULE: </td>
+						<td class="gray_bg">DATE:</td>
+						<td class="gray_bg">TIME:</td>
+						<td class="gray_bg">ROOMS:</td>
 						<tr>
-						<td class="">DATE DETAILS</td>
-						<td class="">TIME DETAILS</td>
-						<td class="">ROOMS DETAILS</td>
+						<td>
+							{{ defense.start_date.strftime('%B %d, %Y') }}
+						</td>
+						<td>
+							{{ defense.start_date.strftime('%I:%M %p') }}
+						</td>
+						<td>ROOMS DETAILS</td>
 					</table>
 					
 				</div>
