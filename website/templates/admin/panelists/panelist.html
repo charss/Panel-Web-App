@@ -12,60 +12,50 @@
     <div class='display_grid'>
         {% if panels %}
             {% for panel in panels %}
-                <div class='div1'>
-					<table>
-						<tr>							
-							<th class = "tb_desc">ID:</th>
-							<td colspan = "2">{{ panel.id }}</td>
-						</tr>		
-						<tr>
-							<th class = "tb_desc">Name:</th> 
-							<td colspan = "2">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td>
-						</tr>
-						<tr>
-							<th class = "tb_desc">School:</th> 
-							<td colspan = "2">{{ panel.school }}</td>
-						</tr>
-						<tr>
-							<th colspan = "3">Defenses:</th>
-						</tr>
-						<tr>
-							<th class = "green_bg"></th>
-							<th> Group </th>
-							<th class ="no_border"> Date: </th>
-						</tr>
-						<!-- TABLE AUTOMATED -->
-						{% if panel.defenses %} 
-							<ul>
+                <div class='card'>
+					<div class='left'>
+						<div class='panel_id'>
+							{{ panel.id }}
+						</div>
+						<div class="pic_div">
+							<img src="{{ url_for('static', filename ='img_avatar.png') }}" alt="..." width="65" class="panel_pic">
+						</div>
+						<div class="profile_info">
+							<div class="panel_name center">{{ panel.first_name }} {{ panel.last_name }}</div>
+							<div class="panel_user center">{{ panel.username }}</div>
+							<div class="panel_school center">{{ panel.school }}</div>
+						</div>
+
+					</div>
+					<div class='right'>
+						<a href="/delete_panel/{{panel.id}}">
+							<img src="{{ url_for('static', filename='delete.png') }}" alt="..." width="65" class="delete">
+						</a>	
+						
+
+						<a href="/edit_panel/{{panel.id}}">
+							<img src="{{ url_for('static', filename='edit.png') }}" alt="..." width="65" class="edit">
+						</a>
+						
+						<div class='title'>
+							<h1>Defense Schedule</h1>
+						</div>
+						<div class='sched_container'>
+							{% if panel.defenses %} 
 								{% for defense in panel.defenses %}
-									<th class = "no_border">  </th>
-									<td> {{ defense.group.name }} </td>
-									<td> {{ defense.start_date }}</td>
-									<tr>
+									<div class='panel_sched'>
+										<span class='project_title'>{{ defense.group.project_title }}</span>
+										<span class='group_name'>{{ defense.group.name }}</span>
+										<span class='date'>{{ defense.start_date.strftime('%B %d, %Y - %I:%M %p') }}</span>
+									</div>
 								{% endfor %}
-							</ul>
-							
-						{% else %}
-							<td colspan = "2">NOTHING SCHEDULED</td>
-						{% endif %}
-						<!-- AUTOMATED -->
-					</table>
-					<table class = "no_border">
-						<td class = "no_border sep_20">
-						<td class = "no_border sep_20">
-						<td class = "no_border sep_20">						
-						<th  class = "no_border sep_10">
-							<a href="/edit_panel/{{panel.id}}">
-								<button class = "but2 ">Edit</button>
-							</a>
-						</th>
-						<th  class = "no_border sep_10">
-							<a href="/delete_panel/{{panel.id}}">
-								<button class = "but2">Delete</button>
-							</a>
-						</th>
-					</table>
-					<br>
+							{% else %}
+								NOTHING SCHEDULED
+							{% endif %}
+						</div>
+						
+				
+					</div>
                 </div>
             {% endfor %}
         {% endif %}

@@ -9,124 +9,142 @@
 </a>
 {% endblock %}
 {% block content %}
-    <script>
-        $(document).ready(function(){
-            $('select').on('change', function(event ) {
-                var prevValue = $(this).data('previous');
-            $('select').not(this).find('option[value="'+prevValue+'"]').show();    
-                var value = $(this).val();
-            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
-            });
-        });
+<script>
+	$(document).ready(function(){
+		$('select').on('change', function(event ) {
+			var prevValue = $(this).data('previous');
+		$('select').not(this).find('option[value="'+prevValue+'"]').show();    
+			var value = $(this).val();
+		$(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+		});
+	});
 
-		$(document).ready(function(){
-            $('select').on('click', function(event ) {
-                var prevValue = $(this).data('previous');
-            $('select').not(this).find('option[value="'+prevValue+'"]').show();    
-                var value = $(this).val();
-            $(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
-            });
-        });
-    </script>
-    <div class='display_grid'>
-        {% if defenses %}
-            {% for defense in defenses %}
-                <div class='div1'>
-					<table class = "">
-						<tr>
-							<th>
-								ID:
-							</th>
-							<td colspan = "3"> 
-								{{ defense.id }}
-							</td>
-						</tr>
-						<tr>
-							<th>
-								Group Name:
-							</th>
-							<td colspan = "3"> 
-								{{ defense.group.name }} 
-							</td>
-						</tr>
-						<tr>
-							<th colspan = "4">Panels:</th>
-						</tr>
-						<tr>
+	$(document).ready(function(){
+		$('select').on('click', function(event ) {
+			var prevValue = $(this).data('previous');
+		$('select').not(this).find('option[value="'+prevValue+'"]').show();    
+			var value = $(this).val();
+		$(this).data('previous',value); $('select').not(this).find('option[value="'+value+'"]').hide();
+		});
+	});
+</script>
+<style>
+	.delete {
+		right: 5px;
+	}
+
+	.edit {
+		right: 50px;
+	}
+
+</style>
+<div class='display_grid'>
+	{% set x = 0 %}
+	{% set co_panel = [] %}
+	{% set head_panel = [] %}
+	{% if defenses %}
+		{% for defense in defenses %}
+			<div class='schedule_div'>
+				<div class='time_info'>
+					<div class='defense_date'>
+						{{ defense.start_date.strftime('%B %d, %Y') }}
+					</div>
+					<div class='defense_time'>
+						{{ defense.start_date.strftime('%-I:%M %p') }} - {{ defense.end_date.strftime('%-I:%M %p') }}
+					</div>
+
+					<div class='summary_buttons'>
+						<a href="/grade_summary/{{ defense.id }}/schedule">
+							<button>Grade Summary</button>
+						</a>
+						<a href="/comment_summary/{{ defense.id }}/schedule">
+							<button>Comment Summary</button>
+						</a>
+					</div>
+				</div>
+
+				<div class='defense_info'>
+					<a href="/delete_sched/{{ defense.id }}">
+						<img src="{{ url_for('static', filename='delete.png') }}" alt="..." width="65" class="delete">
+					</a>	
+					
+					<a href="/edit_sched/{{ defense.id }}">
+						<img src="{{ url_for('static', filename='edit.png') }}" alt="..." width="65" class="edit">
+					</a>
+
+					<div class='project_div'>
+						<div class='project_title'>{{ defense.group.project_title }}</div>
+						<div class='group_name'>by: {{ defense.group.name }}</div>
+					</div>
+					
+
+					<div class='more_info'>
+						<div class='panel_div'>
+							<div class='panel_header'>
+								PANELS
+							</div>
 							{% for panel in defense.panels %}
-								{% if panel.id == defense.head_panel_id: %}
-									<th class = "no_border"> Head Panelist </th>
-									<td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}. </td><tr>
-								{% else: %}
-									<th class = "no_border"> Co-Panelist </th>
-									<td colspan = "3">{{ panel.last_name }}, {{ panel.first_name }} {{ panel.middle_in }}.</td><tr>
+								{% if panel.id == defense.head_panel_id %}
+									{% set _ = head_panel.append(panel) %}
+								{% else %}
+									{% set _ = co_panel.append(panel) %}
+									{% set x = x + 1 %}
 								{% endif %}
 							{% endfor %}
-						</tr>
-						<tr>
-							<th>Defense Date:</th>
-							<td colspan = "3"> {{ defense.start_date}} </td>
-						</tr>
-						<tr>
-							<th colspan = "4">Gradesheet:</th>
-						</tr>
-						<tr>
-							<th colspan = "2">Individual:</th>
-							<th colspan = "2">Group:</th>
-						</tr>
-						<tr>
-							<td colspan = "2">Gradesheet ID: {{ defense.i_sheet_id }}</td>
-							<td colspan = "2">Gradesheet ID: {{ defense.g_sheet_id }}</td>
-						</tr>
-						<tr>
-							<td>
+								<div class='headpanel_div'>
+									<div class='panel_name'>
+										{{ head_panel[0].first_name }} {{ head_panel[0].last_name }}
+									</div>
+									<div class='defense_role'>
+										Head Panel
+									</div>
+								</div>
+								{% for x in range(2) %}
+									<div class='copanel_div'>
+										<div class='panel_name'>
+											{{ co_panel[x].first_name }} {{ co_panel[x].last_name}}
+										</div>
+										<div class='defense_role'>
+											Co-Panelist
+										</div>
+									</div>
+								{% endfor %}
+						</div>
+						<div class='gradesheet_div'>
+							<div class='panel_header'>
+								GRADESHEETS
+							</div>
+
+							<div class='gradesheet_header'>
+								INDIVIDUAL
+							</div>
+							<div class='indivsheet_div'>
 								<a href="/assign_sheet/Individual/{{ defense.id }}">
 									<button>Assign Individual Gradesheet</button>
 								</a>
-							</td>
-							<td>
 								<a href="/view_sheet/{{ defense.i_sheet_id }}/sched">
 									<button {% if not defense.i_sheet_id %}disabled{% endif %}>View Individual Gradesheet</button>
 								</a>
-							</td>
-							<td>
+							</div>
+							
+							<div class='gradesheet_header'>
+								GROUP
+							</div>
+
+							<div class='groupsheet_div'>
 								<a href="/assign_sheet/Group/{{ defense.id }}">
 									<button>Assign Group Gradesheet</button>
 								</a>
-							</td>
-							<td>
 								<a href="/view_sheet/{{ defense.g_sheet_id }}/sched">
 									<button {% if not defense.g_sheet_id %}disabled{% endif %}>View Group Gradesheet</button>
 								</a>
-							</td>
-						</tr>
-						<tr>
-					</table>
-					<table class = "tableButton no_border">
-						<th class = "no_border sep_10">
-							<a href="/grade_summary/{{ defense.id }}">
-								<button class = "but2" >Grade Summary</button>
-							</a>
-						</th>
-						<th class = "no_border sep_10">
-							<a href="/comment_summary/{{ defense.id }}">
-								<button class = "but2" >Comment Summary</button>
-							</a>
-						</th>
-						<th class = "no_border sep_10">
-							<a href="/edit_sched/{{ defense.id }}">
-								<button class = "but2" >Edit</button>
-							</a>
-						</th>
-						<th class = "no_border sep_10">
-							<a href="/delete_sched/{{ defense.id }}">
-								<button class = "but2" >Delete</button>
-							</a>
-						</th>
-					</table>
-					<br>
-                </div>
-            {% endfor %}
-        {% endif %}
-    </div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		{% endfor %}
+	{% endif %}
+
+</div>
 {% endblock %}
