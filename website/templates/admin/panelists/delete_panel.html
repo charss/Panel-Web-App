@@ -2,12 +2,13 @@
 {% block overlay %}
 <div id="overlay">
 	<div class='delete_box'>
-		<div class=''>
-			ARE YOU SURE?
+		<img src="{{ url_for('static', filename ='alert.png') }}" alt="..." width="65" class="alert_pic">
+		<h1>CONFIRM</h1>
+		<div class='question_text'>
+			Are you sure you want to delete this panelist?
 		</div>
-
 		<form method='post'>
-			<div>
+			<div class='buttons_div'>
 				<button id='submit' name='submit' value='yes'>Yes</button>
 				<button id='submit' name='submit' values='no'>No</button>
 			</div>
