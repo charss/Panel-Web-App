@@ -676,16 +676,16 @@ def assign_sheet(sheet_type, content):
     return render_template('schedules/assign_sheet.html', to_sched=defense, templates=Template.query.all(), defenses=Defense.query.all(), sheet_type=sheet_type)
 
 
-@admin.route('/comment_summary/<content>', methods=['GET', 'POST'])
+@admin.route('/comment_summary/<content>/<tab>', methods=['GET', 'POST'])
 @login_required
-def comment_summary(content):
+def comment_summary(content, tab):
     defense = db.session.query(Defense).filter_by(id=content).first()
     
-    return render_template('gradesheet/comment_summary.html', defense=defense)
+    return render_template('gradesheet/comment_summary.html', defense=defense, where=tab)
 
-@admin.route('/grade_summary/<content>', methods=['GET', 'POST'])
+@admin.route('/grade_summary/<content>/<tab>', methods=['GET', 'POST'])
 @login_required
-def grade_summary(content):
+def grade_summary(content, tab):
     defense = db.session.query(Defense).filter_by(id=content).first()
     head_panel = '' 
     co_panel = []
@@ -698,7 +698,7 @@ def grade_summary(content):
         print(head_panel)
         print(co_panel)
     
-    return render_template('gradesheet/grade_summary.html', defense=defense, head_panel=head_panel, co_panel=co_panel)
+    return render_template('gradesheet/grade_summary.html', defense=defense, head_panel=head_panel, co_panel=co_panel, where=tab)
 
 
 @admin.route('/parse_data/', methods=['GET', 'POST'])

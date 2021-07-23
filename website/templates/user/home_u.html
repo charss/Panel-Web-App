@@ -6,6 +6,7 @@
 {% block content %}
     <div class='display_grid'>
         {% for defense in user.defenses %}
+            
             <div class='div1'>
                 <table class = "">
                     <th>
@@ -45,12 +46,12 @@
                 <table class="tableButton no_border">
                     <th class="no_border sep_10" colspan=2>
                         <a href="/grading/indiv/{{ defense.id }}">
-                            <button class = "but2">Individual Gradesheet</button>
+                            <button class = "but2" {% if defense.i_sheet_id == None %} disabled {% endif %}>Individual Gradesheet</button>
                         </a>
                     </th>
                     <th class="no_border sep_10" colspan=2>
                         <a href="/grading/group/{{ defense.id }}">
-                            <button class = "but2">Group Gradesheet</button>
+                            <button class = "but2" {% if defense.g_sheet_id == None %} disabled {% endif %}>Group Gradesheet</button>
                         </a>
                     </th>
                     <th class="no_border sep_10" colspan=2>

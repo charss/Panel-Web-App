@@ -1,29 +1,18 @@
 {% extends "students/student.html" %}
 {% block overlay %}
-<head>
-	<link rel='stylesheet' href="{{ url_for('static', filename ='admin/delete_style.css') }}">
-</head>
-    <div id="overlay">
-		<div class='container2'>
-            <div class='header_div'>
-				<div id="text">
-					<div>
-						<table class = "sml_tbl">
-						<th colspan = "2" class = "no_border">Are you sure?</th>
-						</th>
-						<tr>
-						<form method='POST'>
-							<th class = "no_border">
-								<button id='submit' name='submit' value='yes'>Yes</button>
-							</th>
-							<th class = "no_border">
-								<button id='submit' name='submit' values='no'>No</button>
-							</th>
-						</form>
-						</table>
-					</div>
-				</div>
-			</div>
+<div id="overlay">
+	<div class='delete_box'>
+		<img src="{{ url_for('static', filename ='alert.png') }}" alt="..." width="65" class="alert_pic">
+		<h1>CONFIRM</h1>
+		<div class='question_text'>
+			Are you sure you want to delete this student?
 		</div>
-    </div>
+		<form method='post'>
+			<div class='buttons_div'>
+				<button id='submit' name='submit' value='yes'>Yes</button>
+				<button id='submit' name='submit' values='no'>No</button>
+			</div>
+		</form>
+	</div>
+</div>
 {% endblock %}
