@@ -1,7 +1,5 @@
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-import os
-from os import path
 from flask_login import LoginManager
 from .commands import create_tables
 from .extensions import db 

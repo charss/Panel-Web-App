@@ -1,7 +1,7 @@
 from .models import Group, Student, Panelist, Defense, Rubric, Template, Scores
 from datetime import datetime, timedelta, date, time
 import random
-from . import db
+from .extensions import db
 
 
 def populate_group():
