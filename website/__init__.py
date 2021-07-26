@@ -1,6 +1,6 @@
 from flask import Flask, session
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import event
+import os
 from os import path
 from flask_login import LoginManager
 
@@ -9,8 +9,9 @@ DB_NAME = "database.db"
 
 def create_app():
     app = Flask(__name__)
-    app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
-    app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
+    app.config['SECRET_KEY'] = 'SECRET_KEY'
+    app.config['SQALCHEMY_TRACK_MODIFICATIONS'] = False
     db.init_app(app) 
 
     from .admin import admin
