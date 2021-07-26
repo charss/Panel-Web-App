@@ -1,7 +1,7 @@
 from sqlalchemy.sql.elements import True_
 from sqlalchemy.sql.expression import nullslast
-from . import db
 from flask_login import UserMixin
+from .extensions import db
 from sqlalchemy.sql import func
 
 

@@ -3,15 +3,17 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from os import path
 from flask_login import LoginManager
+from .commands import create_tables
+from .extensions import db 
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
 
-def create_app():
+def create_app(config_file='settings.py'):
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('DATABASE_URL')
-    app.config['SECRET_KEY'] = 'SECRET_KEY'
-    app.config['SQALCHEMY_TRACK_MODIFICATIONS'] = False
+
+    app.config.from_pyfile(config_file)
+
     db.init_app(app) 
 
     from .admin import admin
@@ -27,8 +29,6 @@ def create_app():
 
     from .models import Panelist, Master
 
-    create_database(app)
-
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
@@ -39,13 +39,5 @@ def create_app():
             return Master.query.filter_by(username=username).first()
         return Panelist.query.filter_by(username=username).first()
 
+    app.cli.add_command(create_tables)
     return app
-
-    
-
-
-def create_database(app):
-    if not path.exists('website/' + DB_NAME):
-        db.create_all(app=app)
-        print('Created Database!')
-
